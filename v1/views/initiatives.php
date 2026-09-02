@@ -22,7 +22,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 
           <div class="<?= $flip ? 'lg:order-2' : '' ?>">
             <div class="media media-zoom aspect-[5/4] rounded-[2.5rem] shadow-lift">
-              <img src="<?= $item['image'] ?>" alt="<?= htmlspecialchars($item['title']) ?>" loading="lazy">
+              <img src="<?= $item['image'] ?>" alt="<?= htmlspecialchars($item['programme']) ?>" loading="lazy">
             </div>
           </div>
 
@@ -34,8 +34,8 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
               <span class="font-display text-5xl font-bold leading-none text-ink-line">0<?= $i + 1 ?></span>
             </div>
 
-            <h2 class="mt-6 text-display-sm"><?= htmlspecialchars($item['title']) ?></h2>
-            <p class="mt-4 text-lg leading-relaxed text-ink"><?= htmlspecialchars($item['summary']) ?></p>
+            <h2 class="mt-6 text-display-sm"><?= htmlspecialchars($item['programme']) ?></h2>
+            <p class="mt-4 text-lg leading-relaxed text-ink"><?= htmlspecialchars($item['description']) ?></p>
             <p class="mt-4 leading-relaxed text-ink-soft"><?= htmlspecialchars($item['body']) ?></p>
 
             <div class="mt-8 flex flex-wrap gap-4">

@@ -37,7 +37,7 @@ $socialLinks = [
     ['name' => 'Facebook',  'url' => '#', 'icon' => 'facebook'],
     ['name' => 'Instagram', 'url' => '#', 'icon' => 'instagram'],
     ['name' => 'YouTube',   'url' => '#', 'icon' => 'youtube'],
-    ['name' => 'X',         'url' => '#', 'icon' => 'x'],
+    ['name' => 'Twitter (X)', 'url' => '#', 'icon' => 'x'],
 ];
 
 # --- Photography ------------------------------------------------------------
@@ -53,45 +53,56 @@ $hero_images = [
 ];
 
 # --- Initiatives ------------------------------------------------------------
-// NOTE: the brief names these differently on Home ("Community Outreach") and on
-// the Initiatives page ("Community Relief Programs"). One set is used here; the
-// client still needs to confirm which naming is canonical.
+// The brief names these twice: a short form under "What We Do" on the home
+// page, and a programme form on the Initiatives page, each with its own copy.
+// Both are kept so each page shows exactly what the brief specifies.
+//
+//   title / summary     -> home page "What We Do"
+//   programme / description -> initiatives page "Our Work"
 $initiatives = [
     [
-        'slug'    => 'community-outreach',
-        'title'   => 'Community Outreach',
-        'summary' => 'Supporting vulnerable individuals and families through targeted relief and engagement.',
-        'body'    => 'We meet people where they are. Our outreach teams work directly with families in situations of hardship, providing relief that responds to the need in front of us rather than the need we assumed.',
-        'icon'    => 'hands',
-        'image'   => $img('photo-1593113630400-ea4288922497'),
-        'accent'  => 'teal',
+        'slug'        => 'community-outreach',
+        'title'       => 'Community Outreach',
+        'summary'     => 'Supporting vulnerable individuals and families through targeted relief and engagement.',
+        'programme'   => 'Community Relief Programs',
+        'description' => 'Providing essential support to individuals and families during times of need.',
+        'body'        => 'We meet people where they are. Our outreach teams work directly with families in situations of hardship, providing relief that responds to the need in front of us rather than the need we assumed.',
+        'icon'        => 'hands',
+        'image'       => $img('photo-1593113630400-ea4288922497'),
+        'accent'      => 'teal',
     ],
     [
-        'slug'    => 'education-support',
-        'title'   => 'Education Support',
-        'summary' => 'Providing learning support, mentorship, and opportunities for young people to thrive.',
-        'body'    => 'Education changes the arc of a life. We invest in learning support, mentorship and access, so that circumstance does not decide how far a young person can go.',
-        'icon'    => 'book',
-        'image'   => $img('photo-1503676260728-1c00da094a0b'),
-        'accent'  => 'ember',
+        'slug'        => 'education-support',
+        'title'       => 'Education Support',
+        'summary'     => 'Providing learning support, mentorship, and opportunities for young people to thrive.',
+        'programme'   => 'Educational Support Initiatives',
+        'description' => 'Encouraging learning, personal growth, and access to educational opportunities.',
+        'body'        => 'Education changes the arc of a life. We invest in learning support, mentorship and access, so that circumstance does not decide how far a young person can go.',
+        'icon'        => 'book',
+        'image'       => $img('photo-1503676260728-1c00da094a0b'),
+        'accent'      => 'ember',
     ],
     [
-        'slug'    => 'health-social-care',
-        'title'   => 'Health & Social Care',
-        'summary' => 'Promoting wellbeing through awareness, access, and community-based interventions.',
-        'body'    => 'Good health should not depend on proximity to a clinic. We work on awareness, access and community-based care that reaches people early rather than late.',
-        'icon'    => 'heart',
-        'image'   => $img('photo-1576091160550-2173dba999ef'),
-        'accent'  => 'teal',
+        'slug'        => 'health-social-care',
+        'title'       => 'Health & Social Care',
+        'summary'     => 'Promoting wellbeing through awareness, access, and community-based interventions.',
+        'programme'   => 'Health & Awareness Programs',
+        'description' => 'Promoting healthier communities through education and support services.',
+        'body'        => 'Good health should not depend on proximity to a clinic. We work on awareness, access and community-based care that reaches people early rather than late.',
+        'icon'        => 'heart',
+        'image'       => $img('photo-1576091160550-2173dba999ef'),
+        'accent'      => 'teal',
     ],
     [
-        'slug'    => 'community-development',
-        'title'   => 'Community Development',
-        'summary' => 'Building capacity and empowering communities for sustainable growth.',
-        'body'    => 'Lasting change is built locally. We equip communities with the skills, confidence and resources to carry their own progress forward long after a programme ends.',
-        'icon'    => 'growth',
-        'image'   => $img('photo-1531482615713-2afd69097998'),
-        'accent'  => 'ember',
+        'slug'        => 'community-development',
+        'title'       => 'Community Development',
+        'summary'     => 'Building capacity and empowering communities for sustainable growth.',
+        'programme'   => 'Youth & Community Development',
+        'description' => 'Equipping individuals with skills, confidence, and resources to improve their future.',
+        'body'        => 'Lasting change is built locally. We equip communities with the skills, confidence and resources to carry their own progress forward long after a programme ends.',
+        'icon'        => 'growth',
+        'image'       => $img('photo-1531482615713-2afd69097998'),
+        'accent'      => 'ember',
     ],
 ];
 
@@ -126,7 +137,7 @@ $volunteer_benefits = [
     ['title' => 'Make a tangible difference',        'body' => 'Work that ends in a result you can point to.'],
     ['title' => 'Serve alongside like-minded people','body' => 'Join a team that shares your conviction.'],
     ['title' => 'Gain valuable experience',          'body' => 'Build real skills in the field, not in theory.'],
-    ['title' => 'Be part of meaningful change',      'body' => 'Contribute to outcomes that outlast the day.'],
+    ['title' => 'Be part of meaningful community change', 'body' => 'Contribute to outcomes that outlast the day.'],
 ];
 
 $volunteer_roles = [

@@ -11,11 +11,11 @@
     <div class="mx-auto max-w-3xl text-center">
       <span class="eyebrow eyebrow-light eyebrow-center reveal">Get Involved</span>
       <h2 class="mt-6 text-display-lg text-white reveal" style="--reveal-delay:80ms">
-        There is a place for you<br class="hidden sm:block"> in the work we do.
+        There&#39;s a place for you<br class="hidden sm:block"> in the work we do.
       </h2>
       <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/70 reveal" style="--reveal-delay:160ms">
-        Whether through volunteering, partnerships, or advocacy — your time and skill
-        extend how far this work can reach.
+        Whether through volunteering, partnerships, or advocacy, there&#39;s a place
+        for you in the work we do.
       </p>
       <div class="mt-10 flex flex-wrap justify-center gap-4 reveal" style="--reveal-delay:240ms">
         <a href="/volunteer" class="btn-ember btn-lg">
@@ -36,16 +36,20 @@
       <div class="lg:col-span-4">
         <?= logo_lockup('light') ?>
         <p class="mt-6 max-w-sm leading-relaxed">
-          <?= htmlspecialchars($site_tagline) ?>
-          A humanitarian organisation working with communities to deliver support
-          that is meaningful and sustainable.
+          Restoring hope, transforming lives. A humanitarian organisation working
+          with communities to deliver support that is meaningful and sustainable.
         </p>
 
-        <div class="mt-7 flex gap-2.5">
+        <p class="mt-8 text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
+          Follow us on
+        </p>
+
+        <div class="mt-3 flex gap-2.5">
           <?php foreach ($socialLinks as $s): ?>
-            <a href="<?= $s['url'] ?>" aria-label="<?= $s['name'] ?>"
+            <a href="<?= $s['url'] ?>" aria-label="<?= $s['name'] ?>" title="<?= $s['name'] ?>"
                class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all duration-300 hover:-translate-y-0.5 hover:border-ember-500 hover:bg-ember-500 hover:text-white">
               <?= social_icon($s['icon']) ?>
+              <span class="sr-only"><?= $s['name'] ?></span>
             </a>
           <?php endforeach; ?>
         </div>

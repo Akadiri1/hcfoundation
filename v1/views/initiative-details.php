@@ -14,14 +14,14 @@ if (!$current) {
 
 $others = array_values(array_filter($initiatives, function ($i) use ($current) { return $i['slug'] !== $current['slug']; }));
 
-$page_title = $current['title'];
-$page_meta  = $current['summary'];
+$page_title = $current['programme'];
+$page_meta  = $current['description'];
 include APP_PATH . "/views/includes/header.php";
 
-$hero_eyebrow = 'Initiative';
-$hero_crumb   = $current['title'];
-$hero_title   = htmlspecialchars($current['title']);
-$hero_text    = $current['summary'];
+$hero_eyebrow = $current['title'];
+$hero_crumb   = $current['programme'];
+$hero_title   = htmlspecialchars($current['programme']);
+$hero_text    = $current['description'];
 include APP_PATH . "/views/includes/partials/page-hero.php";
 ?>
 
