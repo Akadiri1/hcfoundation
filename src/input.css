@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  :root {
+    --header-h: 88px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-h);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 { @apply font-display text-ink; text-wrap: balance; }
+  p { text-wrap: pretty; }
+
+  ::selection { @apply bg-teal-600 text-white; }
+
+  /* Brand-tinted scrollbar */
+  ::-webkit-scrollbar { width: 11px; height: 11px; }
+  ::-webkit-scrollbar-track { @apply bg-ink-wash; }
+  ::-webkit-scrollbar-thumb { @apply bg-teal-600/35 rounded-full border-2 border-solid border-transparent bg-clip-content; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-teal-600/60; }
+
+  :focus-visible { @apply outline-none ring-2 ring-teal-600 ring-offset-2 ring-offset-white rounded-sm; }
+}
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+@layer components {
+
+  /* --- Layout shell ---
+     Fluid up to 80rem, then capped and centred. Side padding grows with the
+     viewport so content never hugs the screen edge on wide displays. */
+  .container {
+    @apply mx-auto w-full max-w-[80rem] px-5 sm:px-8 lg:px-12 xl:px-16;
+  }
+
+  /* --- Buttons --- */
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full
+           px-7 py-3.5 text-[0.9375rem] font-semibold leading-none
+           transition-all duration-300 ease-out-expo select-none;
+  }
+  .btn-primary {
+    @apply btn bg-teal-600 text-white shadow-glow
+           hover:bg-teal-700 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-ember {
+    @apply btn bg-ember-500 text-white shadow-ember
+           hover:bg-ember-600 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-outline {
+    @apply btn border border-ink-line bg-white text-ink
+           hover:border-teal-600 hover:text-teal-700 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-ghost-light {
+    @apply btn border border-white/30 text-white backdrop-blur-sm
+           hover:bg-white hover:text-teal-800 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-lg { @apply px-9 py-4 text-base; }
+
+  /* --- Eyebrow label --- */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-eyebrow uppercase text-teal-700;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply h-px w-8 bg-gradient-to-r from-ember-500 to-teal-500;
+  }
+  .eyebrow-light { @apply text-white/70; }
+  .eyebrow-center::before { @apply hidden; }
+
+  /* --- Cards --- */
+  .card {
+    @apply relative rounded-3xl border border-ink-line bg-white p-8
+           shadow-card transition-all duration-500 ease-out-expo;
+  }
+  .card-hover {
+    @apply card hover:-translate-y-1.5 hover:border-transparent hover:shadow-lift;
+  }
+
+  /* Thin brand rule that draws itself across the top of a card on hover */
+  .card-rule::after {
+    content: '';
+    @apply absolute inset-x-8 top-0 h-0.5 origin-left scale-x-0 rounded-full
+           bg-gradient-to-r from-teal-600 to-ember-500
+           transition-transform duration-500 ease-out-expo;
+  }
+  .card-hover:hover .card-rule::after,
+  .card-rule:hover::after { @apply scale-x-100; }
+
+  /* --- Icon tile --- */
+  .icon-tile {
+    @apply grid h-14 w-14 shrink-0 place-items-center rounded-2xl
+           transition-transform duration-500 ease-spring;
+  }
+  .card-hover:hover .icon-tile { @apply scale-110 -rotate-3; }
+
+  /* --- Media frame: brand wash shows through if a photo is missing --- */
+  .media {
+    @apply relative overflow-hidden bg-teal-grad;
+  }
+  .media img {
+    @apply h-full w-full object-cover transition-transform duration-[1.2s] ease-out-expo;
+  }
+  .media-zoom:hover img { @apply scale-[1.06]; }
+
+  /* --- Link with animated underline --- */
+  .link-arrow {
+    @apply inline-flex items-center gap-2 text-sm font-semibold text-teal-700
+           transition-colors duration-300 hover:text-ember-500;
+  }
+  .link-arrow svg { @apply transition-transform duration-300 ease-out-expo; }
+  .link-arrow:hover svg { @apply translate-x-1; }
+
+  /* --- Nav link --- */
+  .nav-link {
+    @apply relative py-2 text-[0.9375rem] font-medium text-ink-soft
+           transition-colors duration-300 hover:text-ink;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-0.5 left-0 h-0.5 w-full origin-right scale-x-0 rounded-full
+           bg-gradient-to-r from-teal-600 to-ember-500
+           transition-transform duration-400 ease-out-expo;
+  }
+  .nav-link:hover::after { @apply origin-left scale-x-100; }
+  .nav-link.is-active { @apply text-ink font-semibold; }
+  .nav-link.is-active::after { @apply scale-x-100; }
+
+  /* --- Section rhythm --- */
+  .section { @apply py-20 md:py-28 lg:py-32; }
+  .section-tight { @apply py-16 md:py-20; }
+
+  /* --- Prose for editorial pages --- */
+  .prose-brand {
+    @apply text-[1.0625rem] leading-[1.85] text-ink-soft;
+  }
+  .prose-brand > * + * { @apply mt-6; }
+  .prose-brand h2 { @apply text-display-sm text-ink mt-12 mb-4; }
+  .prose-brand h3 { @apply text-xl font-semibold text-ink mt-10 mb-3; }
+  .prose-brand strong { @apply font-semibold text-ink; }
+  .prose-brand a { @apply text-teal-700 underline underline-offset-4 decoration-teal-300 hover:decoration-ember-500; }
+  .prose-brand ul { @apply space-y-3 pl-0; }
+  .prose-brand ul li { @apply relative pl-7; }
+  .prose-brand ul li::before {
+    content: '';
+    @apply absolute left-0 top-[0.7em] h-1.5 w-1.5 rounded-full bg-ember-500;
+  }
+  .prose-brand blockquote {
+    @apply border-l-2 border-ember-500 pl-6 text-lg italic text-ink;
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+@layer utilities {
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-teal-600 via-teal-500 to-ember-500 bg-clip-text text-transparent;
+  }
+
+  /* Layered brand fan, echoing the rays in the logo */
+  .fan-glow {
+    background:
+      radial-gradient(58% 48% at 22% 8%,  rgba(28,124,156,.16), transparent 62%),
+      radial-gradient(48% 42% at 88% 22%, rgba(244,123,32,.14), transparent 62%);
+  }
+  .fan-glow-deep {
+    background:
+      radial-gradient(60% 55% at 12% 0%,  rgba(125,204,224,.20), transparent 60%),
+      radial-gradient(52% 48% at 92% 12%, rgba(244,123,32,.20), transparent 60%);
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(to right,  rgba(19,40,49,.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(19,40,49,.045) 1px, transparent 1px);
+    background-size: 68px 68px;
+  }
+
+  .mask-fade-r  { mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+  .mask-fade-b  { mask-image: linear-gradient(to bottom, #000 55%, transparent); }
+
+  /* --- Scroll reveal (driven by IntersectionObserver in app.js) ---
+     Scoped to html.js, which an inline script in the head sets. With JS
+     disabled or broken the class never lands and the content stays visible,
+     so the page can never render blank. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity   .85s cubic-bezier(0.16,1,0.3,1),
+      transform .85s cubic-bezier(0.16,1,0.3,1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .js .reveal-left  { transform: translateX(-30px); }
+  .js .reveal-right { transform: translateX(30px); }
+  .js .reveal-scale { transform: scale(.94); }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+
+  /* Word-by-word headline entrance */
+  .js .reveal-words > span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.9em) rotate(2deg);
+    transition:
+      opacity   .7s cubic-bezier(0.16,1,0.3,1),
+      transform .7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .js .reveal-words.is-in > span { opacity: 1; transform: none; }
+
+  .marquee-track { animation: marquee 38s linear infinite; }
+  .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+
+  .no-scroll { overflow: hidden; }
+
+  /* Respect reduced-motion: show everything, move nothing */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .js .reveal, .js .reveal-words > span { opacity: 1 !important; transform: none !important; }
+  }
+}
+
+/* Referenced by .marquee-track, which is a component rather than an animate-*
+   utility, so Tailwind does not emit these keyframes on its own. */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

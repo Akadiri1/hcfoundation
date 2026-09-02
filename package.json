@@ -1,0 +1,13 @@
+{
+  "name": "hcfoundation",
+  "version": "1.0.0",
+  "description": "Hathany Cosmos Foundation website",
+  "private": true,
+  "scripts": {
+    "dev": "tailwindcss -i ./src/input.css -o ./www/assets/css/app.css --watch",
+    "build": "tailwindcss -i ./src/input.css -o ./www/assets/css/app.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

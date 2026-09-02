@@ -1,0 +1,32 @@
+# Environment / secrets
+.env/config.php
+
+# Logs
+log/*.log
+*.log
+
+# Uploads (user content)
+www/uploads/*
+!www/uploads/.gitkeep
+
+# Dependencies
+vendor/
+node_modules/
+
+# Database dumps
+*.sql
+
+# OS / editor
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/
+
+# Font Awesome Pro - commercially licensed, must not be redistributed.
+# Unused by this project: the site uses inline SVG icons, and the admin
+# theme bundles its own Font Awesome 5 Free.
+www/font-awesome-pro/
+
+# Build tooling
+node_modules/
+package-lock.json
