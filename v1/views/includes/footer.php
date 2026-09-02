@@ -31,7 +31,7 @@
 <footer class="bg-ink text-white/70">
   <div class="container">
 
-    <div class="grid gap-14 py-16 lg:grid-cols-12 lg:gap-10 lg:py-20">
+    <div class="grid gap-10 py-16 lg:grid-cols-12 lg:gap-10 lg:py-20">
 
       <div class="lg:col-span-4">
         <?= logo_lockup('light') ?>

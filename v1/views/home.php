@@ -8,8 +8,8 @@ include APP_PATH . "/views/includes/header.php";
   <div class="absolute inset-0 fan-glow"></div>
   <div class="absolute inset-x-0 top-0 h-[520px] grid-lines opacity-60 mask-fade-b"></div>
 
-  <div class="container relative pb-20 pt-16 md:pb-28 md:pt-20 lg:pb-32">
-    <div class="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
+  <div class="container relative pb-14 pt-12 md:pb-20 md:pt-16 lg:pb-24">
+    <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-10">
 
       <!-- Copy -->
       <div class="lg:col-span-6 xl:col-span-5">
@@ -104,7 +104,7 @@ include APP_PATH . "/views/includes/header.php";
       </p>
     </div>
 
-    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <?php foreach ($initiatives as $i => $item):
         $isTeal = $item['accent'] === 'teal';
         $tile   = $isTeal ? 'bg-teal-50 text-teal-600' : 'bg-ember-50 text-ember-500';
@@ -132,7 +132,7 @@ include APP_PATH . "/views/includes/header.php";
 <!-- ===== Who we are ==================================================== -->
 <section class="section overflow-hidden bg-white">
   <div class="container">
-    <div class="grid items-center gap-16 lg:grid-cols-2">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
 
       <div class="relative">
         <div class="reveal reveal-left media aspect-[4/5] rounded-[2.5rem] shadow-lift media-zoom">
@@ -187,12 +187,12 @@ include APP_PATH . "/views/includes/header.php";
 </section>
 
 <!-- ===== Impact ======================================================= -->
-<section class="relative overflow-hidden bg-teal-950 py-20 md:py-28">
+<section class="relative overflow-hidden bg-teal-950 py-14 md:py-20">
   <div class="absolute inset-0 fan-glow-deep"></div>
   <div class="absolute inset-0 grid-lines opacity-30"></div>
 
   <div class="container relative">
-    <div class="grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
 
       <div class="lg:col-span-5">
         <span class="eyebrow eyebrow-light reveal">Our Impact So Far</span>
@@ -244,7 +244,7 @@ include APP_PATH . "/views/includes/header.php";
       </a>
     </div>
 
-    <div class="mt-14 grid gap-6 md:grid-cols-2">
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
       <?php foreach (array_slice($initiatives, 0, 2) as $i => $item): ?>
         <a href="/view-initiative/<?= $item['slug'] ?>"
            class="group reveal media media-zoom relative flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-[2rem] p-8 shadow-card transition-shadow duration-500 hover:shadow-lift"
@@ -302,7 +302,7 @@ include APP_PATH . "/views/includes/header.php";
       </a>
     </div>
 
-    <div class="mt-14 grid gap-6 md:grid-cols-3">
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
       <?php foreach (array_slice($blog_posts, 0, 3) as $i => $post): ?>
         <article class="reveal group overflow-hidden rounded-[1.75rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-lift"
                  style="--reveal-delay:<?= $i * 100 ?>ms">
@@ -338,7 +338,7 @@ include APP_PATH . "/views/includes/header.php";
     </p>
 
     <div class="marquee-wrap mask-fade-r mt-9 overflow-hidden">
-      <div class="marquee-track flex w-max items-center gap-16">
+      <div class="marquee-track flex w-max items-center gap-12">
         <?php for ($pass = 0; $pass < 2; $pass++): ?>
           <?php foreach ($partners as $p): ?>
             <span class="flex shrink-0 items-center gap-3 font-display text-xl font-semibold text-ink-muted/70 transition-colors duration-300 hover:text-teal-700">

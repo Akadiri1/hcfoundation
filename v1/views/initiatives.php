@@ -18,7 +18,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
         $flip   = $i % 2 === 1;
         $isTeal = $item['accent'] === 'teal';
       ?>
-        <article class="reveal grid items-center gap-10 lg:grid-cols-2 lg:gap-16" style="--reveal-delay:<?= $i * 60 ?>ms">
+        <article class="reveal grid items-center gap-10 lg:grid-cols-2 lg:gap-12" style="--reveal-delay:<?= $i * 60 ?>ms">
 
           <div class="<?= $flip ? 'lg:order-2' : '' ?>">
             <div class="media media-zoom aspect-[5/4] rounded-[2.5rem] shadow-lift">

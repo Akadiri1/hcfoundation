@@ -27,7 +27,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
     </div>
 
     <?php if ($hasMembers): ?>
-      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <?php foreach ($group['members'] as $i => $m): ?>
           <article class="reveal group overflow-hidden rounded-[1.75rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-lift"
                    style="--reveal-delay:<?= $i * 100 ?>ms">

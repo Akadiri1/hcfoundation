@@ -24,7 +24,7 @@ include APP_PATH . "/views/includes/header.php";
   <div class="absolute inset-0 fan-glow"></div>
   <div class="absolute inset-0 grid-lines opacity-50 mask-fade-b"></div>
 
-  <div class="container relative py-16 md:py-20">
+  <div class="container relative py-12 md:py-16">
     <nav class="flex items-center gap-2 text-sm text-ink-muted reveal" aria-label="Breadcrumb">
       <a href="/home" class="transition-colors hover:text-teal-700">Home</a>
       <span class="text-ink-line">/</span>
@@ -61,7 +61,7 @@ include APP_PATH . "/views/includes/header.php";
 <!-- ===== Body ========================================================= -->
 <section class="section bg-white">
   <div class="container">
-    <div class="grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
 
       <article class="lg:col-span-8">
         <div class="reveal media aspect-[16/9] rounded-[2rem] shadow-lift">

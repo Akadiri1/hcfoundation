@@ -30,7 +30,7 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
     </div>
 
     <!-- Grid -->
-    <div class="mt-14 grid auto-rows-[240px] gap-5 sm:grid-cols-2 lg:grid-cols-3" data-collection-grid>
+    <div class="mt-10 grid auto-rows-[240px] gap-5 sm:grid-cols-2 lg:grid-cols-3" data-collection-grid>
       <?php foreach ($gallery_items as $i => $item): ?>
         <button type="button"
                 data-filter-item="<?= htmlspecialchars($item['category']) ?>"
@@ -61,7 +61,7 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
     </p>
 
     <!-- Load more -->
-    <div class="mt-14 flex flex-col items-center gap-5">
+    <div class="mt-10 flex flex-col items-center gap-5">
       <p data-collection-status aria-live="polite" class="text-sm font-medium text-ink-muted"></p>
 
       <!-- Hidden by default: only useful once JS is running, and JS decides

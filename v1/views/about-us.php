@@ -12,7 +12,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <!-- ===== Story ======================================================== -->
 <section class="section bg-white">
   <div class="container">
-    <div class="grid items-start gap-16 lg:grid-cols-12">
+    <div class="grid items-start gap-12 lg:grid-cols-12">
 
       <div class="lg:col-span-5">
         <div class="lg:sticky lg:top-32">
@@ -82,7 +82,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       </h2>
     </div>
 
-    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
       <?php foreach ($core_values as $i => $v): ?>
         <div class="card-hover card-rule reveal text-center" style="--reveal-delay:<?= $i * 80 ?>ms">
           <span class="icon-tile mx-auto <?= $i % 2 ? 'bg-ember-50 text-ember-500' : 'bg-teal-50 text-teal-600' ?>">
@@ -98,7 +98,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 </section>
 
 <!-- ===== Impact band ================================================== -->
-<section class="relative overflow-hidden bg-teal-950 py-16 md:py-20">
+<section class="relative overflow-hidden bg-teal-950 py-12 md:py-16">
   <div class="absolute inset-0 fan-glow-deep"></div>
   <div class="container relative">
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -118,7 +118,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <!-- ===== Approach ===================================================== -->
 <section class="section bg-white">
   <div class="container">
-    <div class="grid gap-14 lg:grid-cols-12">
+    <div class="grid gap-10 lg:grid-cols-12">
 
       <div class="lg:col-span-5">
         <span class="eyebrow reveal">How We Work</span>

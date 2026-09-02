@@ -179,8 +179,10 @@
   .nav-link.is-active::after { @apply scale-x-100; }
 
   /* --- Section rhythm --- */
-  .section { @apply py-20 md:py-28 lg:py-32; }
-  .section-tight { @apply py-16 md:py-20; }
+  /* Vertical rhythm. Two stacked sections meet, so the gap a reader sees is
+     double these values - keep that in mind before increasing them. */
+  .section { @apply py-14 md:py-20 lg:py-24; }
+  .section-tight { @apply py-12 md:py-16; }
 
   /* --- Prose for editorial pages --- */
   .prose-brand {

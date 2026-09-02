@@ -29,12 +29,12 @@ require_once APP_PATH . "/views/includes/partials/logo.php";
   <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-ember-500/20 blur-3xl animate-float-slow"></div>
   <div class="pointer-events-none absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-teal-400/20 blur-3xl"></div>
 
-  <div class="container relative py-20 text-center">
+  <div class="container relative py-14 text-center">
     <div class="mx-auto flex max-w-lg flex-col items-center">
 
       <?= logo_lockup('light', 'h-16 w-16') ?>
 
-      <div class="relative mt-14">
+      <div class="relative mt-10">
         <span class="absolute inset-0 animate-pulse-ring rounded-full bg-white/20"></span>
         <span class="relative grid h-20 w-20 place-items-center rounded-full bg-white/10 text-white backdrop-blur-sm">
           <?= icon('growth', 'h-9 w-9') ?>

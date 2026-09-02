@@ -12,7 +12,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <!-- ===== Why volunteer ================================================ -->
 <section class="section bg-white">
   <div class="container">
-    <div class="grid items-center gap-16 lg:grid-cols-2">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
 
       <div class="relative">
         <div class="reveal reveal-left media aspect-[4/5] rounded-[2.5rem] shadow-lift media-zoom">
@@ -74,7 +74,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       </p>
     </div>
 
-    <div class="mt-16 grid gap-6 sm:grid-cols-2">
+    <div class="mt-12 grid gap-6 sm:grid-cols-2">
       <?php foreach ($volunteer_roles as $i => $role): ?>
         <article class="card-hover card-rule reveal group flex items-start gap-5" style="--reveal-delay:<?= $i * 90 ?>ms">
           <span class="icon-tile <?= $i % 2 ? 'bg-ember-50 text-ember-500' : 'bg-teal-50 text-teal-600' ?>">
@@ -95,7 +95,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <!-- ===== Application ================================================== -->
 <section id="apply" class="section bg-white">
   <div class="container">
-    <div class="grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
 
       <div class="lg:col-span-5">
         <span class="eyebrow reveal">Sign Up</span>

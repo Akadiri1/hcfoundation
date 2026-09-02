@@ -27,7 +27,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 
 <section class="section bg-white">
   <div class="container">
-    <div class="grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
 
       <!-- Body -->
       <div class="lg:col-span-7">

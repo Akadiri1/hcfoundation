@@ -13,7 +13,7 @@ $rest     = array_slice($blog_posts, 1);
 ?>
 
 <!-- ===== Featured ===================================================== -->
-<section class="pt-16 md:pt-20">
+<section class="pt-12 md:pt-16">
   <div class="container">
     <a href="/read-blog/<?= $featured['slug'] ?>"
        class="reveal group grid overflow-hidden rounded-[2rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-lift lg:grid-cols-2">
@@ -63,7 +63,7 @@ $rest     = array_slice($blog_posts, 1);
       <?php endforeach; ?>
     </div>
 
-    <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-collection-grid>
+    <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-collection-grid>
       <?php foreach ($rest as $i => $post): ?>
         <article data-filter-item="<?= htmlspecialchars($post['category']) ?>"
                  class="reveal group overflow-hidden rounded-[1.75rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-lift"
@@ -98,7 +98,7 @@ $rest     = array_slice($blog_posts, 1);
     </p>
 
     <!-- Load more -->
-    <div class="mt-14 flex flex-col items-center gap-5">
+    <div class="mt-10 flex flex-col items-center gap-5">
       <p data-collection-status aria-live="polite" class="text-sm font-medium text-ink-muted"></p>
 
       <!-- Hidden by default: only useful once JS is running, and JS decides
@@ -111,7 +111,7 @@ $rest     = array_slice($blog_posts, 1);
     </div>
 
     <!-- Newsletter -->
-    <div class="reveal mt-20 overflow-hidden rounded-[2rem] bg-teal-950">
+    <div class="reveal mt-10 overflow-hidden rounded-[2rem] bg-teal-950">
       <div class="relative grid items-center gap-10 p-10 md:grid-cols-2 md:p-14">
         <div class="absolute inset-0 fan-glow-deep"></div>
 

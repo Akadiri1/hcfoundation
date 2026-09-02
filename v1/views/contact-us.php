@@ -36,7 +36,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       <?php endforeach; ?>
     </div>
 
-    <div class="mt-16 grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <div class="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-12">
 
       <!-- Form -->
       <div class="lg:col-span-7">
