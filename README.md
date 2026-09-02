@@ -15,22 +15,40 @@ skeleton, admin panel and `core/` runtime come from `postagvestsolution`
 
 ## Setup
 
-1. Create the database:
+`.env/config.php` holds the environment and is git-ignored, so it is never in a
+clone or a deploy. **Creating it is the first step on any new machine.**
 
-   ```sql
-   CREATE DATABASE hcfoundation;
-   ```
+```
+cp .env/config.example.php .env/config.php
+```
 
-2. Check credentials in `.env/config.php` (git-ignored, already scaffolded).
+Then edit it. While the site is still design-only, the demo server needs exactly
+this and nothing more:
 
-3. Point a vhost at the project root. The root `.htaccess` rewrites every
-   request into `www/index.php`.
+```php
+putenv('APP_DOMAIN=demo.hcfoundations.com');
+putenv('PRODUCTION_MODE=true');
+putenv('DESIGN_MODE=true');
+```
 
-4. Run migrations:
+With `DESIGN_MODE=true` no database is opened at all, so the DB values can stay
+as placeholders until the CMS tables exist.
 
-   ```
-   php mck migrate
-   ```
+For a database-backed install:
+
+1. Create the database, then set `DB_*` in `.env/config.php`
+2. Set `DESIGN_MODE=false`
+3. Run `php mck migrate`
+
+Point the vhost DocumentRoot at either the project root or `www/` — there is an
+`.htaccess` for both.
+
+### PRODUCTION_MODE
+
+Detailed database errors are shown **only** when `PRODUCTION_MODE=false`. Any
+other value, including missing entirely, is treated as production and returns a
+generic 503. A server with no config can therefore never print connection
+details onto the page.
 
 ## Layout
 

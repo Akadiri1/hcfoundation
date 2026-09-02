@@ -1,0 +1,50 @@
+<?php
+/**
+ * ---------------------------------------------------------------------------
+ * CONFIG TEMPLATE
+ * ---------------------------------------------------------------------------
+ * Copy this file to .env/config.php and fill in the values for the machine you
+ * are deploying to. config.php is git-ignored and must never be committed.
+ *
+ *     cp .env/config.example.php .env/config.php
+ *
+ * core/autoload.php parses the putenv() lines below into PHP constants, and
+ * www/index.php includes this file so getenv() also works. Every value must be
+ * a plain single-quoted string on one line, or the parser will skip it.
+ * ---------------------------------------------------------------------------
+ */
+
+# --- Database ---------------------------------------------------------------
+putenv('DB_HOST=localhost');
+putenv('DB_USER=your_db_user');
+putenv('DB_PASSWORD=your_db_password');
+putenv('DB_NAME=your_db_name');
+
+# --- Application ------------------------------------------------------------
+putenv('APP_NAME=HC Foundation');
+
+// The domain the site is served from, with no scheme and no trailing slash.
+putenv('APP_DOMAIN=hcfoundations.com');
+
+/**
+ * PRODUCTION_MODE
+ *
+ * 'true' on any public server. It suppresses detailed error output.
+ * Anything other than 'true' is treated as production anyway, so a missing or
+ * broken config can never leak connection details to visitors.
+ */
+putenv('PRODUCTION_MODE=true');
+
+/**
+ * DESIGN_MODE
+ *
+ * 'true'  - render every page from v1/views/includes/static_content.php.
+ *           No database is opened at all. This is what the demo site needs
+ *           until the CMS tables exist.
+ * 'false' - read content from the database. Requires the tables to be present.
+ */
+putenv('DESIGN_MODE=true');
+
+# --- Admin ------------------------------------------------------------------
+// Identifier used by the ADMC admin bridge at /mck_ext.
+putenv('ADMC_USERNAME=hcfoundation');

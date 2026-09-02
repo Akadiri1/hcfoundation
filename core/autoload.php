@@ -76,7 +76,10 @@ function AppVersionAutoLoader($className) {
 
 
 if (!file_exists(App::basePath() . '/.env/config.php')) {
-    die("Please create a .env/config.php file");
+    // config.php is deliberately git-ignored, so a fresh deploy will not have
+    // one. Point the operator at the template rather than failing blankly.
+    http_response_code(503);
+    die("Configuration missing. Copy .env/config.example.php to .env/config.php and set the values for this server.");
 }
 
 loadEnvironmentVariables(App::basePath() . '/.env/config.php');
