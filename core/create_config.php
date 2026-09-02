@@ -10,7 +10,11 @@ $configContent = <<<'CONFIG'
 putenv('APP_DOMAIN=example.com');
 putenv('APP_NAME=MyApp');
 putenv('APP_ENV=local');
-putenv('PRODUCTION_MODE=false');
+putenv('PRODUCTION_MODE=true');
+
+// 'true' renders from v1/views/includes/static_content.php and opens no
+// database connection at all. Set to 'false' once the CMS tables exist.
+putenv('DESIGN_MODE=true');
 putenv('DEBUG_MODE=true');
 putenv('APP_VERSION=v1');
 putenv('APP_SECRET_KEY=1234');
@@ -20,6 +24,9 @@ putenv('DB_CONNECTION=mysql');
 putenv('DB_HOST=localhost');
 putenv('DB_PORT=3306');
 putenv('DB_NAME=my_database');
+// The app layer reads DB_USER, the core/ layer reads DB_USERNAME.
+// Both are written so either resolves. Keep them identical.
+putenv('DB_USER=root');
 putenv('DB_USERNAME=root');
 putenv('DB_PASSWORD=password');
 
