@@ -67,7 +67,12 @@ module.exports = {
         glow:  '0 18px 48px -16px rgba(28,124,156,.5)',
         ember: '0 18px 48px -16px rgba(244,123,32,.5)',
       },
-      borderRadius: { '4xl': '2rem', '5xl': '2.75rem' },
+      borderRadius: {
+        // Shared by buttons and form controls so they line up when adjacent.
+        btn: '20px',
+        '4xl': '2rem',
+        '5xl': '2.75rem',
+      },
       transitionDuration: { 400: '400ms', 600: '600ms', 800: '800ms' },
       transitionTimingFunction: {
         'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',

@@ -52,25 +52,25 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
             <label class="block">
               <span class="mb-2 block text-sm font-semibold text-ink">Name</span>
               <input type="text" name="name" required placeholder="Your full name"
-                     class="w-full rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
+                     class="w-full rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
             </label>
 
             <label class="block">
               <span class="mb-2 block text-sm font-semibold text-ink">Email</span>
               <input type="email" name="email" required placeholder="you@example.com"
-                     class="w-full rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
+                     class="w-full rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
             </label>
 
             <label class="block sm:col-span-2">
               <span class="mb-2 block text-sm font-semibold text-ink">Subject</span>
               <input type="text" name="subject" required placeholder="What is this about?"
-                     class="w-full rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
+                     class="w-full rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
             </label>
 
             <label class="block sm:col-span-2">
               <span class="mb-2 block text-sm font-semibold text-ink">Message</span>
               <textarea name="message" rows="6" required placeholder="How can we help?"
-                        class="w-full resize-none rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10"></textarea>
+                        class="w-full resize-none rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10"></textarea>
             </label>
 
           </div>

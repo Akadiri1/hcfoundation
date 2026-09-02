@@ -137,25 +137,25 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
             <label class="block">
               <span class="mb-2 block text-sm font-semibold text-ink">Full name</span>
               <input type="text" name="name" required placeholder="Your full name"
-                     class="w-full rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
+                     class="w-full rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
             </label>
 
             <label class="block">
               <span class="mb-2 block text-sm font-semibold text-ink">Email address</span>
               <input type="email" name="email" required placeholder="you@example.com"
-                     class="w-full rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
+                     class="w-full rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
             </label>
 
             <label class="block">
               <span class="mb-2 block text-sm font-semibold text-ink">Phone number</span>
               <input type="tel" name="phone" placeholder="+234 …"
-                     class="w-full rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
+                     class="w-full rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
             </label>
 
             <label class="block">
               <span class="mb-2 block text-sm font-semibold text-ink">Preferred role</span>
               <select name="role"
-                      class="w-full appearance-none rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
+                      class="w-full appearance-none rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10">
                 <option value="">Select an area</option>
                 <?php foreach ($volunteer_roles as $role): ?>
                   <option value="<?= htmlspecialchars($role['title']) ?>"><?= htmlspecialchars($role['title']) ?></option>
@@ -166,7 +166,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
             <label class="block sm:col-span-2">
               <span class="mb-2 block text-sm font-semibold text-ink">Why do you want to volunteer?</span>
               <textarea name="message" rows="5" required placeholder="Tell us a little about yourself and what you would like to contribute."
-                        class="w-full resize-none rounded-2xl border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10"></textarea>
+                        class="w-full resize-none rounded-btn border border-ink-line bg-ink-wash px-5 py-3.5 text-[0.9375rem] text-ink transition-all duration-300 placeholder:text-ink-muted/70 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-teal-600/10"></textarea>
             </label>
 
           </div>

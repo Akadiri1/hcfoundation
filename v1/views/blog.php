@@ -52,12 +52,12 @@ $rest     = array_slice($blog_posts, 1);
 
     <div class="flex flex-wrap justify-center gap-3 reveal" data-collection-filters>
       <button type="button" data-filter="all" aria-pressed="true"
-              class="rounded-full border border-teal-600 bg-teal-600 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300">
+              class="chip border-teal-600 bg-teal-600 text-white">
         All posts
       </button>
       <?php foreach ($blog_categories as $cat): ?>
         <button type="button" data-filter="<?= htmlspecialchars($cat) ?>" aria-pressed="false"
-                class="rounded-full border border-ink-line px-6 py-2.5 text-sm font-semibold text-ink-soft transition-all duration-300 hover:border-teal-600 hover:text-teal-700">
+                class="chip border-ink-line text-ink-soft hover:border-teal-600 hover:text-teal-700">
           <?= htmlspecialchars($cat) ?>
         </button>
       <?php endforeach; ?>
@@ -126,7 +126,7 @@ $rest     = array_slice($blog_posts, 1);
         <form class="relative" data-form novalidate>
           <div class="flex flex-col gap-3 sm:flex-row">
             <input type="email" name="email" required placeholder="you@example.com"
-                   class="w-full rounded-full border border-white/20 bg-white/10 px-6 py-4 text-[0.9375rem] text-white backdrop-blur-sm transition-all duration-300 placeholder:text-white/45 focus:border-ember-400 focus:bg-white/15 focus:outline-none focus:ring-4 focus:ring-ember-500/20">
+                   class="w-full rounded-btn border border-white/20 bg-white/10 px-6 py-4 text-[0.9375rem] text-white backdrop-blur-sm transition-all duration-300 placeholder:text-white/45 focus:border-ember-400 focus:bg-white/15 focus:outline-none focus:ring-4 focus:ring-ember-500/20">
             <button type="submit" class="btn-ember shrink-0">Subscribe</button>
           </div>
           <p data-form-note class="mt-4 text-sm text-white/50">We will never share your address.</p>

@@ -18,12 +18,12 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
     <!-- Filters -->
     <div class="flex flex-wrap justify-center gap-3 reveal" data-collection-filters>
       <button type="button" data-filter="all" aria-pressed="true"
-              class="rounded-full border border-teal-600 bg-teal-600 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300">
+              class="chip border-teal-600 bg-teal-600 text-white">
         All
       </button>
       <?php foreach ($gallery_categories as $cat): ?>
         <button type="button" data-filter="<?= htmlspecialchars($cat) ?>" aria-pressed="false"
-                class="rounded-full border border-ink-line px-6 py-2.5 text-sm font-semibold text-ink-soft transition-all duration-300 hover:border-teal-600 hover:text-teal-700">
+                class="chip border-ink-line text-ink-soft hover:border-teal-600 hover:text-teal-700">
           <?= htmlspecialchars($cat) ?>
         </button>
       <?php endforeach; ?>
