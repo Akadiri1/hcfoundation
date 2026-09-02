@@ -12,7 +12,7 @@ if (!$post) {
     die;
 }
 
-$related = array_slice(array_values(array_filter($blog_posts, fn($p) => $p['slug'] !== $post['slug'])), 0, 3);
+$related = array_slice(array_values(array_filter($blog_posts, function ($p) use ($post) { return $p['slug'] !== $post['slug']; })), 0, 3);
 
 $page_title = $post['title'];
 $page_meta  = $post['excerpt'];

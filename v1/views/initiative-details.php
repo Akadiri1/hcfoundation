@@ -12,7 +12,7 @@ if (!$current) {
     die;
 }
 
-$others = array_values(array_filter($initiatives, fn($i) => $i['slug'] !== $current['slug']));
+$others = array_values(array_filter($initiatives, function ($i) use ($current) { return $i['slug'] !== $current['slug']; }));
 
 $page_title = $current['title'];
 $page_meta  = $current['summary'];

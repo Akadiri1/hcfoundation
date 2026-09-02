@@ -9,7 +9,10 @@ skeleton, admin panel and `core/` runtime come from `postagvestsolution`
 
 ## Requirements
 
-- PHP 8.4 (WAMP)
+- PHP 7.4 or newer. Developed on 8.4; verified running on 7.4.
+  `core/compat.php` polyfills the PHP 8 string helpers, and no request path
+  uses match, the nullsafe operator or arrow functions, so the same source
+  runs on both. Keep it that way when adding code.
 - MySQL / MariaDB
 - Apache with `mod_rewrite`
 

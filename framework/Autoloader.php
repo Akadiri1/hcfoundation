@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../core/compat.php';  // PHP 7.x polyfills
+
 spl_autoload_register(function ($class) {
     $prefix = 'App\\';
     // This points to the project/src directory

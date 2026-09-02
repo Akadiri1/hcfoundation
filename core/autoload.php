@@ -9,6 +9,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start(); // Start the session if not already started
 }
     
+require_once D_PATH."/core/compat.php";  // PHP 7.x polyfills, before anything uses them
 require_once D_PATH."/App.php";
 
 
