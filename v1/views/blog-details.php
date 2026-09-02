@@ -24,7 +24,7 @@ include APP_PATH . "/views/includes/header.php";
   <div class="absolute inset-0 fan-glow"></div>
   <div class="absolute inset-0 grid-lines opacity-50 mask-fade-b"></div>
 
-  <div class="container relative py-12 md:py-16">
+  <div class="container relative py-10 md:py-12">
     <nav class="flex items-center gap-2 text-sm text-ink-muted reveal" aria-label="Breadcrumb">
       <a href="/home" class="transition-colors hover:text-teal-700">Home</a>
       <span class="text-ink-line">/</span>
@@ -103,7 +103,7 @@ include APP_PATH . "/views/includes/header.php";
         </div>
 
         <!-- Share -->
-        <div class="mt-12 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-ink-line bg-ink-wash p-7 reveal">
+        <div class="mt-10 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-ink-line bg-ink-wash p-7 reveal">
           <p class="font-display text-lg font-semibold text-ink">Share this story</p>
           <div class="flex gap-2.5">
             <?php foreach ($socialLinks as $s): ?>

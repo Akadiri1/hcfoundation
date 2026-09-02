@@ -56,7 +56,7 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
       <?php endforeach; ?>
     </div>
 
-    <p data-collection-empty class="hidden py-16 text-center text-ink-muted">
+    <p data-collection-empty class="hidden py-12 text-center text-ink-muted">
       Nothing in this category yet.
     </p>
 
@@ -73,7 +73,7 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
       </button>
     </div>
 
-    <p class="mt-12 text-center text-sm text-ink-muted">
+    <p class="mt-10 text-center text-sm text-ink-muted">
       Photography shown is placeholder imagery pending the Foundation's own archive.
     </p>
 

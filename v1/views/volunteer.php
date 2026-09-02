@@ -74,7 +74,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       </p>
     </div>
 
-    <div class="mt-12 grid gap-6 sm:grid-cols-2">
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
       <?php foreach ($volunteer_roles as $i => $role): ?>
         <article class="card-hover card-rule reveal group flex items-start gap-5" style="--reveal-delay:<?= $i * 90 ?>ms">
           <span class="icon-tile <?= $i % 2 ? 'bg-ember-50 text-ember-500' : 'bg-teal-50 text-teal-600' ?>">

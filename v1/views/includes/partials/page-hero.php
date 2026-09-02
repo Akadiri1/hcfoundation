@@ -16,7 +16,7 @@ $hero_crumb   = $hero_crumb   ?? ($page_title ?? '');
   <div class="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-ember-400/15 blur-3xl animate-float-slow"></div>
   <div class="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-teal-400/15 blur-3xl"></div>
 
-  <div class="container relative py-12 md:py-16">
+  <div class="container relative py-10 md:py-12">
     <nav class="flex items-center gap-2 text-sm text-ink-muted reveal" aria-label="Breadcrumb">
       <a href="/home" class="transition-colors hover:text-teal-700">Home</a>
       <span class="text-ink-line">/</span>

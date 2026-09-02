@@ -8,7 +8,7 @@ include APP_PATH . "/views/includes/header.php";
   <div class="absolute inset-0 fan-glow"></div>
   <div class="absolute inset-x-0 top-0 h-[520px] grid-lines opacity-60 mask-fade-b"></div>
 
-  <div class="container relative pb-14 pt-12 md:pb-20 md:pt-16 lg:pb-24">
+  <div class="container relative pb-12 pt-10 md:pb-16 md:pt-12 lg:pb-20">
     <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-10">
 
       <!-- Copy -->
@@ -32,7 +32,7 @@ include APP_PATH . "/views/includes/header.php";
         </div>
 
         <!-- Trust strip -->
-        <div class="mt-12 flex items-center gap-5 reveal" style="--reveal-delay:400ms">
+        <div class="mt-10 flex items-center gap-5 reveal" style="--reveal-delay:400ms">
           <div class="flex -space-x-3">
             <?php foreach (array_slice($hero_images, 0, 3) as $i => $src): ?>
               <span class="media h-11 w-11 rounded-full ring-2 ring-white">
@@ -104,7 +104,7 @@ include APP_PATH . "/views/includes/header.php";
       </p>
     </div>
 
-    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <?php foreach ($initiatives as $i => $item):
         $isTeal = $item['accent'] === 'teal';
         $tile   = $isTeal ? 'bg-teal-50 text-teal-600' : 'bg-ember-50 text-ember-500';
@@ -187,7 +187,7 @@ include APP_PATH . "/views/includes/header.php";
 </section>
 
 <!-- ===== Impact ======================================================= -->
-<section class="relative overflow-hidden bg-teal-950 py-14 md:py-20">
+<section class="relative overflow-hidden bg-teal-950 py-12 md:py-16">
   <div class="absolute inset-0 fan-glow-deep"></div>
   <div class="absolute inset-0 grid-lines opacity-30"></div>
 
@@ -331,7 +331,7 @@ include APP_PATH . "/views/includes/header.php";
 </section>
 
 <!-- ===== Partners ===================================================== -->
-<section class="border-y border-ink-line bg-white py-14">
+<section class="border-y border-ink-line bg-white py-12">
   <div class="container">
     <p class="text-center text-sm font-medium uppercase tracking-[0.16em] text-ink-muted reveal">
       Working alongside

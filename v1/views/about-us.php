@@ -46,7 +46,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
         </div>
 
         <!-- Vision / Mission -->
-        <div class="mt-12 grid gap-5 sm:grid-cols-2">
+        <div class="mt-10 grid gap-5 sm:grid-cols-2">
           <div class="reveal relative overflow-hidden rounded-3xl bg-teal-grad p-8 text-white shadow-glow" style="--reveal-delay:240ms">
             <span class="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10"></span>
             <span class="relative grid h-12 w-12 place-items-center rounded-2xl bg-white/15">
@@ -82,7 +82,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       </h2>
     </div>
 
-    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
       <?php foreach ($core_values as $i => $v): ?>
         <div class="card-hover card-rule reveal text-center" style="--reveal-delay:<?= $i * 80 ?>ms">
           <span class="icon-tile mx-auto <?= $i % 2 ? 'bg-ember-50 text-ember-500' : 'bg-teal-50 text-teal-600' ?>">
@@ -98,7 +98,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 </section>
 
 <!-- ===== Impact band ================================================== -->
-<section class="relative overflow-hidden bg-teal-950 py-12 md:py-16">
+<section class="relative overflow-hidden bg-teal-950 py-10 md:py-12">
   <div class="absolute inset-0 fan-glow-deep"></div>
   <div class="container relative">
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">

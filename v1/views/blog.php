@@ -13,7 +13,7 @@ $rest     = array_slice($blog_posts, 1);
 ?>
 
 <!-- ===== Featured ===================================================== -->
-<section class="pt-12 md:pt-16">
+<section class="pt-10 md:pt-12">
   <div class="container">
     <a href="/read-blog/<?= $featured['slug'] ?>"
        class="reveal group grid overflow-hidden rounded-[2rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-lift lg:grid-cols-2">
@@ -93,7 +93,7 @@ $rest     = array_slice($blog_posts, 1);
       <?php endforeach; ?>
     </div>
 
-    <p data-collection-empty class="hidden py-16 text-center text-ink-muted">
+    <p data-collection-empty class="hidden py-12 text-center text-ink-muted">
       No posts in this category yet.
     </p>
 

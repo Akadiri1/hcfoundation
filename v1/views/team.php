@@ -56,7 +56,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 
     <?php else: ?>
       <!-- Volunteers group: no individual profiles, so a recruitment panel instead -->
-      <div class="reveal mt-12 overflow-hidden rounded-[2rem] bg-teal-grad shadow-glow">
+      <div class="reveal mt-10 overflow-hidden rounded-[2rem] bg-teal-grad shadow-glow">
         <div class="grid items-center gap-10 p-10 md:grid-cols-2 md:p-14">
           <div>
             <h3 class="font-display text-display-sm text-white">Could your name be here?</h3>

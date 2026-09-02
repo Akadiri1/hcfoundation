@@ -11,7 +11,7 @@ include APP_PATH . "/views/includes/header.php";
   <div class="pointer-events-none absolute -right-20 top-24 h-80 w-80 rounded-full bg-ember-400/15 blur-3xl animate-float-slow"></div>
   <div class="pointer-events-none absolute -left-24 bottom-10 h-80 w-80 rounded-full bg-teal-400/15 blur-3xl"></div>
 
-  <div class="container relative py-14 text-center">
+  <div class="container relative py-12 text-center">
     <p class="font-display text-[clamp(6rem,20vw,14rem)] font-extrabold leading-none reveal">
       <span class="text-gradient">404</span>
     </p>
@@ -30,7 +30,7 @@ include APP_PATH . "/views/includes/header.php";
       <a href="/contact-us" class="btn-outline btn-lg">Contact us</a>
     </div>
 
-    <div class="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-3 reveal" style="--reveal-delay:340ms">
+    <div class="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3 reveal" style="--reveal-delay:340ms">
       <?php foreach ([
         ['Initiatives', '/initiatives', 'growth'],
         ['Volunteer',   '/volunteer',   'hands'],
