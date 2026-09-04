@@ -177,6 +177,29 @@ $team_groups = [
     ],
 ];
 
+# --- Donate -----------------------------------------------------------------
+// A link only - no payment integration, no keys, nothing to process on our side.
+// Switch 'channel' to whichever the foundation wants live.
+//
+// PENDING: both destinations are placeholders. Supply the real WhatsApp number
+// (international format, no +, no spaces) or the real Flutterwave payment link.
+$donate = [
+    'channel'          => 'whatsapp',            // 'whatsapp' | 'flutterwave'
+    'whatsapp_number'  => '2348000000000',       // PENDING
+    'whatsapp_message' => 'Hello HC Foundation, I would like to make a donation.',
+    'flutterwave_url'  => '',                    // PENDING
+];
+
+$donate['url'] = $donate['channel'] === 'flutterwave'
+    ? $donate['flutterwave_url']
+    : 'https://wa.me/' . $donate['whatsapp_number'] . '?text=' . rawurlencode($donate['whatsapp_message']);
+
+$donate['label'] = $donate['channel'] === 'flutterwave' ? 'Donate with Flutterwave' : 'Donate via WhatsApp';
+$donate['icon']  = $donate['channel'] === 'flutterwave' ? 'gift' : 'whatsapp';
+$donate['note']  = $donate['channel'] === 'flutterwave'
+    ? 'You will be taken to our secure Flutterwave page.'
+    : 'Opens a WhatsApp chat so we can share account details with you directly.';
+
 # --- Gallery ----------------------------------------------------------------
 $gallery_categories = ['Outreach Programs', 'Community Engagement', 'Events & Activities', 'Volunteers in Action'];
 

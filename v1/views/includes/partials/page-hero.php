@@ -12,7 +12,6 @@ $hero_crumb   = $hero_crumb   ?? ($page_title ?? '');
 ?>
 <section class="relative overflow-hidden bg-ink-wash pt-[var(--header-h)]">
   <div class="absolute inset-0 fan-glow"></div>
-  <div class="absolute inset-0 grid-lines opacity-60 mask-fade-b"></div>
   <div class="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-ember-400/15 blur-3xl animate-float-slow"></div>
   <div class="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-teal-400/15 blur-3xl"></div>
 

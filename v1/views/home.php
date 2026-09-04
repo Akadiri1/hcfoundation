@@ -6,8 +6,6 @@ include APP_PATH . "/views/includes/header.php";
 <!-- ===== Hero ========================================================= -->
 <section class="relative overflow-hidden bg-white pt-[var(--header-h)]">
   <div class="absolute inset-0 fan-glow"></div>
-  <div class="absolute inset-x-0 top-0 h-[520px] grid-lines opacity-60 mask-fade-b"></div>
-
   <div class="container relative pb-12 pt-10 md:pb-16 md:pt-12 lg:pb-20">
     <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-10">
 
@@ -192,8 +190,6 @@ include APP_PATH . "/views/includes/header.php";
 <!-- ===== Impact ======================================================= -->
 <section class="relative overflow-hidden bg-teal-950 py-12 md:py-16">
   <div class="absolute inset-0 fan-glow-deep"></div>
-  <div class="absolute inset-0 grid-lines opacity-30"></div>
-
   <div class="container relative">
     <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
 

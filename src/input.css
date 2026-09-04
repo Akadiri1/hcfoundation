@@ -104,6 +104,11 @@
     @apply btn border border-white/30 text-white backdrop-blur-sm
            hover:bg-white hover:text-teal-800;
   }
+  /* For use on a saturated background, where the filled variants have no contrast. */
+  .btn-white {
+    @apply btn bg-white text-ember-700 shadow-lift hover:bg-white hover:text-ember-800;
+  }
+
   .btn-lg { @apply px-9 py-4 text-base; }
 
   /* --- Filter chip ---

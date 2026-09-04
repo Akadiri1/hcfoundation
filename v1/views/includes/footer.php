@@ -3,7 +3,6 @@
 <!-- ===== Pre-footer CTA =============================================== -->
 <section class="relative overflow-hidden bg-teal-950">
   <div class="absolute inset-0 fan-glow-deep"></div>
-  <div class="absolute inset-0 grid-lines opacity-[0.35]"></div>
   <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-ember-500/20 blur-3xl animate-float-slow"></div>
   <div class="pointer-events-none absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-teal-400/20 blur-3xl"></div>
 

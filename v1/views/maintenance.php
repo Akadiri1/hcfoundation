@@ -25,7 +25,6 @@ require_once APP_PATH . "/views/includes/partials/logo.php";
 
 <main class="relative flex min-h-screen items-center overflow-hidden bg-teal-950">
   <div class="absolute inset-0 fan-glow-deep"></div>
-  <div class="absolute inset-0 grid-lines opacity-25"></div>
   <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-ember-500/20 blur-3xl animate-float-slow"></div>
   <div class="pointer-events-none absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-teal-400/20 blur-3xl"></div>
 

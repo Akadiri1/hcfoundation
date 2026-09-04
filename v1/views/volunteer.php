@@ -186,4 +186,41 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
   </div>
 </section>
 
+<!-- ===== Donate ======================================================= -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="relative overflow-hidden rounded-4xl bg-ember-grad px-7 py-12 md:px-14 md:py-14">
+
+      <div class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-white/15 blur-3xl animate-float-slow"></div>
+      <div class="pointer-events-none absolute -bottom-28 -left-16 h-72 w-72 rounded-full bg-ember-700/25 blur-3xl"></div>
+
+      <div class="relative grid gap-9 lg:grid-cols-12 lg:items-center lg:gap-10">
+
+        <div class="lg:col-span-7">
+          <span class="eyebrow eyebrow-light reveal">Support Our Work</span>
+          <h2 class="mt-5 text-display-sm text-white reveal" style="--reveal-delay:80ms">
+            Not able to give time? You can still give.
+          </h2>
+          <p class="mt-4 max-w-xl leading-relaxed text-white/85 reveal" style="--reveal-delay:160ms">
+            Every contribution goes directly into relief, education support and health
+            outreach in the communities we serve.
+          </p>
+        </div>
+
+        <div class="reveal lg:col-span-5 lg:justify-self-end" style="--reveal-delay:240ms">
+          <a href="<?= htmlspecialchars($donate['url']) ?>"
+             target="_blank" rel="noopener noreferrer"
+             class="btn-white btn-lg w-full sm:w-auto">
+            <?= icon($donate['icon'], 'h-5 w-5') ?> <?= htmlspecialchars($donate['label']) ?>
+          </a>
+          <p class="mt-3.5 max-w-xs text-sm leading-snug text-white/70">
+            <?= htmlspecialchars($donate['note']) ?>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <?php include APP_PATH . "/views/includes/footer.php"; ?>

@@ -22,8 +22,6 @@ include APP_PATH . "/views/includes/header.php";
 <!-- ===== Post header ================================================== -->
 <section class="relative overflow-hidden bg-ink-wash pt-[var(--header-h)]">
   <div class="absolute inset-0 fan-glow"></div>
-  <div class="absolute inset-0 grid-lines opacity-50 mask-fade-b"></div>
-
   <div class="container relative py-10 md:py-12">
     <nav class="flex items-center gap-2 text-sm text-ink-muted reveal" aria-label="Breadcrumb">
       <a href="/home" class="transition-colors hover:text-teal-700">Home</a>

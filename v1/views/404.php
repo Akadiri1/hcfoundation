@@ -7,7 +7,6 @@ include APP_PATH . "/views/includes/header.php";
 
 <section class="relative flex min-h-[80vh] items-center overflow-hidden bg-white pt-[var(--header-h)]">
   <div class="absolute inset-0 fan-glow"></div>
-  <div class="absolute inset-0 grid-lines opacity-60"></div>
   <div class="pointer-events-none absolute -right-20 top-24 h-80 w-80 rounded-full bg-ember-400/15 blur-3xl animate-float-slow"></div>
   <div class="pointer-events-none absolute -left-24 bottom-10 h-80 w-80 rounded-full bg-teal-400/15 blur-3xl"></div>
 
