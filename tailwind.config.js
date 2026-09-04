@@ -55,7 +55,7 @@ module.exports = {
         script: ['"Caveat"', 'cursive'],
       },
       fontSize: {
-        'display-xl': ['clamp(2.75rem, 6.5vw, 5.25rem)', { lineHeight: '0.98', letterSpacing: '-0.035em', fontWeight: '700' }],
+        'display-xl': ['clamp(2.75rem, 6.5vw, 5rem)', { lineHeight: '0.98', letterSpacing: '-0.035em', fontWeight: '700' }],
         'display-lg': ['clamp(2.25rem, 4.6vw, 3.75rem)', { lineHeight: '1.04', letterSpacing: '-0.03em', fontWeight: '700' }],
         'display-md': ['clamp(1.875rem, 3.2vw, 2.75rem)', { lineHeight: '1.1',  letterSpacing: '-0.025em', fontWeight: '700' }],
         'display-sm': ['clamp(1.5rem, 2.2vw, 2rem)',     { lineHeight: '1.18', letterSpacing: '-0.02em',  fontWeight: '600' }],

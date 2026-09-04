@@ -12,7 +12,10 @@ include APP_PATH . "/views/includes/header.php";
     <div class="grid items-center gap-10 lg:grid-cols-12 lg:gap-10">
 
       <!-- Copy -->
-      <div class="lg:col-span-6 xl:col-span-5">
+      <!-- Stays 6 columns at every size. Narrowing to 5 at xl cut 75px off the
+             column just as the display size hit its 84px ceiling, so "Transforming"
+             overflowed and the section's overflow-hidden sheared the g. -->
+        <div class="lg:col-span-6">
         <span class="eyebrow reveal">Humanitarian Foundation</span>
 
         <h1 class="mt-6 text-display-xl">
