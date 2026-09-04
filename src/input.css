@@ -7,7 +7,13 @@
    ========================================================================== */
 @layer base {
   :root {
-    --header-h: 88px;
+    /* The logo is a stacked lockup whose wordmark is only 28% of its
+       height, so the bar has to be tall enough for that to read. */
+    --header-h: 84px;
+  }
+
+  @media (min-width: 768px) {
+    :root { --header-h: 104px; }
   }
 
   html {

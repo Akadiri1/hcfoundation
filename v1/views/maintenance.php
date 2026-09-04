@@ -15,7 +15,7 @@ require_once APP_PATH . "/views/includes/partials/logo.php";
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>We will be back shortly — <?= htmlspecialchars($site_name ?? 'HC Foundation') ?></title>
-<link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/images/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@ require_once APP_PATH . "/views/includes/partials/logo.php";
   <div class="container relative py-12 text-center">
     <div class="mx-auto flex max-w-lg flex-col items-center">
 
-      <?= logo_lockup('light', 'h-16 w-16') ?>
+      <?= logo_lockup('light', 'h-20 w-auto') ?>
 
       <div class="relative mt-10">
         <span class="absolute inset-0 animate-pulse-ring rounded-full bg-white/20"></span>

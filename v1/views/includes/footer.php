@@ -34,7 +34,7 @@
     <div class="grid gap-10 py-10 lg:grid-cols-12 lg:gap-10 lg:py-14">
 
       <div class="lg:col-span-4">
-        <?= logo_lockup('light') ?>
+        <?= logo_lockup('light', 'h-[68px] w-auto md:h-[88px]') ?>
         <p class="mt-6 max-w-sm leading-relaxed">
           Restoring hope, transforming lives. A humanitarian organisation working
           with communities to deliver support that is meaningful and sustainable.

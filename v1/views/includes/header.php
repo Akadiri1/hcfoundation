@@ -79,7 +79,8 @@ $child_active = function (array $child) use ($path): bool {
 <meta property="og:description" content="<?= htmlspecialchars($metaDescription) ?>">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/images/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -182,7 +183,7 @@ $child_active = function (array $child) use ($path): bool {
        data-menu-sheet role="dialog" aria-modal="true" aria-label="Menu">
 
     <div class="flex h-[var(--header-h)] shrink-0 items-center justify-between border-b border-ink-line px-6">
-      <?= logo_lockup('dark', 'h-9 w-9') ?>
+      <?= logo_lockup('dark', 'h-11 w-auto') ?>
       <button type="button"
               class="grid h-10 w-10 place-items-center rounded-full border border-ink-line text-ink transition-colors hover:border-teal-600 hover:text-teal-700"
               data-menu-close aria-label="Close menu">
