@@ -236,13 +236,6 @@
       radial-gradient(52% 48% at 92% 12%, rgba(244,123,32,.20), transparent 60%);
   }
 
-  .grid-lines {
-    background-image:
-      linear-gradient(to right,  rgba(19,40,49,.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(19,40,49,.045) 1px, transparent 1px);
-    background-size: 68px 68px;
-  }
-
   .mask-fade-r  { mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
   .mask-fade-b  { mask-image: linear-gradient(to bottom, #000 55%, transparent); }
 
