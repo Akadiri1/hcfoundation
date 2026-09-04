@@ -186,8 +186,11 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
   </div>
 </section>
 
-<!-- ===== Donate ======================================================= -->
-<section class="section bg-white">
+<!-- ===== Donate =======================================================
+     Bottom padding only. The application form above is also bg-white and
+     already contributes its own 80px, so a full .section here stacked two
+     paddings into 160px of blank white before the card. -->
+<section class="bg-white pb-12 md:pb-16 lg:pb-20">
   <div class="container">
     <div class="relative overflow-hidden rounded-4xl bg-ember-grad px-7 py-12 md:px-14 md:py-14">
 
