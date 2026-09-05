@@ -31,6 +31,6 @@ if (!function_exists('logo_lockup')) {
         return '<img src="' . $src . '" alt="Hathany Cosmos Foundation"'
              . ' width="300" height="257"'
              . ' class="' . htmlspecialchars($class, ENT_QUOTES) . '"'
-             . ' decoding="async">';
+             . ' decoding="async"' . ($tone === 'light' ? ' loading="lazy"' : '') . '>';
     }
 }

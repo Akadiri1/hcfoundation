@@ -52,6 +52,14 @@ $hero_images = [
     $img('photo-1517486808906-6ca8b3f04846', 800, 600),
 ];
 
+// The trust strip shows these at 44px. Reusing $hero_images there pulled a
+// 130KB 900px file for a 44px circle; 120px covers it at 2x.
+$hero_avatars = [
+    $img('photo-1488521787991-ed7bbaae773c', 120, 120),
+    $img('photo-1509099836639-18ba1795216d', 120, 120),
+    $img('photo-1517486808906-6ca8b3f04846', 120, 120),
+];
+
 # --- Initiatives ------------------------------------------------------------
 // The brief names these twice: a short form under "What We Do" on the home
 // page, and a programme form on the Initiatives page, each with its own copy.

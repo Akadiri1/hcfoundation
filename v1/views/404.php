@@ -11,7 +11,7 @@ include APP_PATH . "/views/includes/header.php";
   <div class="pointer-events-none absolute -left-24 bottom-10 h-80 w-80 rounded-full bg-teal-400/15 blur-3xl"></div>
 
   <div class="container relative py-12 text-center">
-    <p class="font-display text-[clamp(6rem,20vw,14rem)] font-extrabold leading-none reveal">
+    <p class="font-display text-[clamp(6rem,20vw,14rem)] font-bold leading-none reveal">
       <span class="text-gradient">404</span>
     </p>
 

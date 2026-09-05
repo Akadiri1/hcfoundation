@@ -125,7 +125,8 @@ $rest     = array_slice($blog_posts, 1);
 
         <form class="relative" data-form novalidate>
           <div class="flex flex-col gap-3 sm:flex-row">
-            <input type="email" name="email" required placeholder="you@example.com"
+            <label for="newsletter-email" class="sr-only">Email address</label>
+            <input type="email" name="email" id="newsletter-email" required autocomplete="email" placeholder="you@example.com"
                    class="w-full rounded-btn border border-white/20 bg-white/10 px-6 py-4 text-[0.9375rem] text-white backdrop-blur-sm transition-all duration-300 placeholder:text-white/45 focus:border-ember-400 focus:bg-white/15 focus:outline-none focus:ring-4 focus:ring-ember-500/20">
             <button type="submit" class="btn-ember shrink-0">Subscribe</button>
           </div>

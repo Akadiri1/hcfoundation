@@ -161,10 +161,46 @@
   .media {
     @apply relative overflow-hidden bg-teal-grad;
   }
+
+  /* Blur-up. Photographs are the bulk of this site's weight, so they arrive
+     late; fading and sharpening them in reads as intentional rather than as
+     the page stuttering. Transform is left alone so the hover zoom below is
+     free to use it. */
   .media img {
     @apply h-full w-full object-cover transition-transform duration-[1.2s] ease-out-expo;
+    transition:
+      opacity .7s cubic-bezier(0.16,1,0.3,1),
+      filter  .9s cubic-bezier(0.16,1,0.3,1),
+      transform 1.2s cubic-bezier(0.16,1,0.3,1);
   }
-  .media-zoom:hover img { @apply scale-[1.06]; }
+  /* Scoped to html.js, set by an inline script in the head. Without JS the
+     photos simply render, rather than sitting invisible forever. */
+  .js .media img {
+    opacity: 0;
+    filter: blur(14px);
+    transition:
+      opacity .7s cubic-bezier(0.16,1,0.3,1),
+      filter  .9s cubic-bezier(0.16,1,0.3,1),
+      transform 1.2s cubic-bezier(0.16,1,0.3,1);
+  }
+  .js .media img.is-loaded {
+    opacity: 1;
+    filter: none;
+  }
+
+  /* Sheen over the placeholder while the photo is in flight. Removed on load,
+     and on error too, so a broken image never shimmers forever. */
+  .media::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0;
+    background: linear-gradient(100deg, transparent 25%, rgba(255,255,255,.18) 50%, transparent 75%);
+    transform: translateX(-100%);
+    animation: shimmer 1.7s ease-in-out infinite;
+  }
+  .media.is-loaded::after,
+  html:not(.js) .media::after { content: none; }
+
+  .media-zoom:hover img.is-loaded { @apply scale-[1.06]; }
 
   /* --- Link with animated underline --- */
   .link-arrow {

@@ -35,9 +35,9 @@ include APP_PATH . "/views/includes/header.php";
         <!-- Trust strip -->
         <div class="mt-10 flex items-center gap-5 reveal" style="--reveal-delay:400ms">
           <div class="flex -space-x-3">
-            <?php foreach (array_slice($hero_images, 0, 3) as $i => $src): ?>
+            <?php foreach (array_slice($hero_avatars, 0, 3) as $i => $src): ?>
               <span class="media h-11 w-11 rounded-full ring-2 ring-white">
-                <img src="<?= $src ?>" alt="" loading="lazy">
+                <img src="<?= $src ?>" alt="" width="44" height="44" loading="lazy" decoding="async">
               </span>
             <?php endforeach; ?>
             <span class="grid h-11 w-11 place-items-center rounded-full bg-ember-500 text-xs font-bold text-white ring-2 ring-white">
@@ -60,13 +60,14 @@ include APP_PATH . "/views/includes/header.php";
 
           <div class="relative grid grid-cols-5 grid-rows-6 gap-4" data-parallax="9">
             <div class="reveal reveal-scale col-span-3 row-span-6 media rounded-[2rem] shadow-lift media-zoom">
-              <img src="<?= $hero_images[0] ?>" alt="Community outreach in progress" class="h-full w-full">
+              <img src="<?= $hero_images[0] ?>" alt="Community outreach in progress" class="h-full w-full"
+                     fetchpriority="high" decoding="async">
             </div>
             <div class="reveal reveal-scale col-span-2 row-span-3 media rounded-[2rem] shadow-card media-zoom" style="--reveal-delay:140ms">
-              <img src="<?= $hero_images[1] ?>" alt="Volunteers at work">
+              <img src="<?= $hero_images[1] ?>" alt="Volunteers at work" decoding="async">
             </div>
             <div class="reveal reveal-scale col-span-2 row-span-3 media rounded-[2rem] shadow-card media-zoom" style="--reveal-delay:260ms">
-              <img src="<?= $hero_images[2] ?>" alt="Community gathering">
+              <img src="<?= $hero_images[2] ?>" alt="Community gathering" decoding="async">
             </div>
           </div>
 
@@ -137,7 +138,8 @@ include APP_PATH . "/views/includes/header.php";
 
       <div class="relative">
         <div class="reveal reveal-left media aspect-[4/5] rounded-[2.5rem] shadow-lift media-zoom">
-          <img src="<?= $img('photo-1509099836639-18ba1795216d', 900, 1120) ?>" alt="Working alongside the community">
+          <img src="<?= $img('photo-1509099836639-18ba1795216d', 900, 1120) ?>" alt="Working alongside the community"
+                   loading="lazy" decoding="async">
         </div>
 
         <div class="reveal absolute -bottom-8 -right-4 w-56 rounded-3xl bg-ember-grad p-6 text-white shadow-ember sm:-right-8"
@@ -248,7 +250,8 @@ include APP_PATH . "/views/includes/header.php";
         <a href="/view-initiative/<?= $item['slug'] ?>"
            class="group reveal media media-zoom relative flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-[2rem] p-8 shadow-card transition-shadow duration-500 hover:shadow-lift"
            style="--reveal-delay:<?= $i * 120 ?>ms">
-          <img src="<?= $item['image'] ?>" alt="<?= htmlspecialchars($item['title']) ?>" class="absolute inset-0">
+          <img src="<?= $item['image'] ?>" alt="<?= htmlspecialchars($item['title']) ?>" class="absolute inset-0"
+                     loading="lazy" decoding="async">
           <span class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent"></span>
 
           <span class="relative">

@@ -17,7 +17,8 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       <div class="lg:col-span-5">
         <div class="lg:sticky lg:top-32">
           <div class="reveal reveal-left media aspect-[4/5] rounded-[2.5rem] shadow-lift media-zoom">
-            <img src="<?= $img('photo-1517486808906-6ca8b3f04846', 900, 1120) ?>" alt="Working with the community">
+            <img src="<?= $img('photo-1517486808906-6ca8b3f04846', 900, 1120) ?>" alt="Working with the community"
+                 loading="lazy" decoding="async">
           </div>
           <div class="reveal mt-6 rounded-3xl border border-ink-line bg-ink-wash p-7" style="--reveal-delay:180ms">
             <span class="text-ember-500"><?= icon('quote', 'h-7 w-7') ?></span>

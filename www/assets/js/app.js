@@ -525,17 +525,53 @@
     $$('.reveal, .reveal-words').forEach(el => el.classList.add('is-in'));
   }
 
+  /* ------------------------------------------------------------------
+     Media load-in
+     Marks each photo once it has actually decoded so CSS can fade and
+     sharpen it. Errors are marked too, otherwise the placeholder sheen
+     would run forever behind a broken image.
+     ------------------------------------------------------------------ */
+  function initMedia() {
+    const imgs = $$('.media img');
+    if (!imgs.length) return;
+
+    const mark = (img) => {
+      img.classList.add('is-loaded');
+      const frame = img.closest('.media');
+      if (frame) frame.classList.add('is-loaded');
+    };
+
+    imgs.forEach((img) => {
+      if (img.complete && img.naturalWidth > 0) { mark(img); return; }
+      img.addEventListener('load',  () => mark(img), { once: true });
+      img.addEventListener('error', () => mark(img), { once: true });
+    });
+  }
+
   function init() {
     // Each module is independent: one throwing must not stop the rest.
     [
       initHeader, initMenu, initDropdowns, initSubmenus, initReveal, initCounters,
       initAccordion, initCollections, initLightbox, initToTop, initParallax, initForms,
+      initMedia,
     ].forEach(fn => {
       try { fn(); } catch (err) {
         console.error(`[hcf] ${fn.name} failed:`, err);
         if (fn === initReveal) revealAll();
       }
     });
+
+    // If a load event is somehow missed, do not leave a photo invisible.
+    setTimeout(() => {
+      $$('.media img:not(.is-loaded)').forEach(img => {
+        // Only rescue images that actually decoded. A lazy image further down
+        // has legitimately not loaded yet and should keep its fade for when
+        // it does.
+        if (!img.complete || !img.naturalWidth) return;
+        img.classList.add('is-loaded');
+        const f = img.closest('.media'); if (f) f.classList.add('is-loaded');
+      });
+    }, 4000);
 
     // Belt and braces: anything still hidden after 3s gets shown.
     setTimeout(() => {

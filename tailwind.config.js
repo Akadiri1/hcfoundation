@@ -50,9 +50,11 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ['Outfit', 'system-ui', 'sans-serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        script: ['"Caveat"', 'cursive'],
+        // Plus Jakarta Sans throughout: humanist rather than geometric, which
+        // suits an organisation about people. One family keeps the payload down
+        // and headings and body in the same voice.
+        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'display-xl': ['clamp(2.75rem, 6.5vw, 5rem)', { lineHeight: '0.98', letterSpacing: '-0.035em', fontWeight: '700' }],
