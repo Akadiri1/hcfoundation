@@ -18,7 +18,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 
     <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
       <div class="max-w-xl">
-        <span class="eyebrow reveal"><?= sprintf('%02d', $g + 1) ?> — <?= htmlspecialchars($group['title']) ?></span>
+        <span class="eyebrow reveal"><?= sprintf('%02d', $g + 1) ?> / <?= htmlspecialchars($group['title']) ?></span>
         <h2 class="mt-5 text-display-md reveal" style="--reveal-delay:80ms"><?= htmlspecialchars($group['title']) ?></h2>
         <p class="mt-4 text-lg leading-relaxed text-ink-soft reveal" style="--reveal-delay:140ms">
           <?= htmlspecialchars($group['body']) ?>

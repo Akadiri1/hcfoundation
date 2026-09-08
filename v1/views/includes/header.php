@@ -14,7 +14,7 @@ require_once APP_PATH . "/views/includes/partials/icon.php";
 require_once APP_PATH . "/views/includes/partials/logo.php";
 
 $page_title    = $page_title ?? '';
-$webpage_title = $page_title ? "{$page_title} — {$site_name}" : "{$site_name} — {$site_tagline}";
+$webpage_title = $page_title ? "{$page_title} | {$site_name}" : "{$site_name} | {$site_tagline}";
 $metaTitle     = $webpage_title;
 $metaDescription = $page_meta ?? $metaDescription;
 
@@ -107,7 +107,7 @@ $child_active = function (array $child) use ($path): bool {
       <div class="flex h-[var(--header-h)] items-center justify-between gap-4 xl:gap-6">
 
         <a href="/home" class="shrink-0 transition-transform duration-500 ease-out-expo hover:scale-[1.02]"
-           aria-label="<?= htmlspecialchars($site_name) ?> — home">
+           aria-label="<?= htmlspecialchars($site_name) ?>, home">
           <?= logo_lockup('dark') ?>
         </a>
 

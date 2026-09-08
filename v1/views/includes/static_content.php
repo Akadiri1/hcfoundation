@@ -17,7 +17,7 @@ $site_name       = "Hathany Cosmos Foundation";
 $site_short      = "HC Foundation";
 $site_tagline    = "Restoring Hope. Transforming Lives.";
 // PENDING: the brief reads "HC Foundation exists to xxxxxxxxxxxxxx".
-$site_promise    = "HC Foundation exists to stand with communities where support is scarce — turning compassion into practical, lasting change.";
+$site_promise    = "HC Foundation exists to stand with communities where support is scarce, turning compassion into practical, lasting change.";
 $description     = "A humanitarian-focused organization committed to improving lives through service, compassion, and action.";
 
 $site_email      = "hello@hathanycosmos.org";      // PENDING
@@ -151,7 +151,7 @@ $volunteer_benefits = [
 $volunteer_roles = [
     ['title' => 'Community Outreach',     'body' => 'Join field teams delivering relief and engaging directly with families.',        'icon' => 'hands'],
     ['title' => 'Event & Program Support', 'body' => 'Help plan and run the programmes that carry our work into communities.',        'icon' => 'calendar'],
-    ['title' => 'Media & Communications',  'body' => 'Tell the story — photography, writing, social media and design.',               'icon' => 'camera'],
+    ['title' => 'Media & Communications',  'body' => 'Tell the story: photography, writing, social media and design.',               'icon' => 'camera'],
     ['title' => 'Administrative Assistance','body' => 'Keep the engine running through coordination, records and logistics.',         'icon' => 'clipboard'],
 ];
 
