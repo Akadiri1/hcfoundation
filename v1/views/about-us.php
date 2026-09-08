@@ -77,7 +77,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
   <div class="container">
 
     <div class="mx-auto max-w-2xl text-center">
-      <span class="eyebrow eyebrow-center reveal">Our Core Values</span>
+      <span class="eyebrow reveal">Our Core Values</span>
       <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms">
         What we hold ourselves to
       </h2>

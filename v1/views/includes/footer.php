@@ -8,7 +8,7 @@
 
   <div class="container relative section-tight">
     <div class="mx-auto max-w-3xl text-center">
-      <span class="eyebrow eyebrow-light eyebrow-center reveal">Get Involved</span>
+      <span class="eyebrow eyebrow-light reveal">Get Involved</span>
       <h2 class="mt-6 text-display-lg text-white reveal" style="--reveal-delay:80ms">
         There&#39;s a place for you<br class="hidden sm:block"> in the work we do.
       </h2>

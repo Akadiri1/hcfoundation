@@ -122,14 +122,9 @@
 
   /* --- Eyebrow label --- */
   .eyebrow {
-    @apply inline-flex items-center gap-2.5 text-eyebrow uppercase text-teal-700;
-  }
-  .eyebrow::before {
-    content: '';
-    @apply h-px w-8 bg-gradient-to-r from-ember-500 to-teal-500;
+    @apply inline-block text-eyebrow uppercase text-teal-700;
   }
   .eyebrow-light { @apply text-white/70; }
-  .eyebrow-center::before { @apply hidden; }
 
   /* --- Cards --- */
   .card {

@@ -67,7 +67,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
   <div class="container">
 
     <div class="mx-auto max-w-2xl text-center">
-      <span class="eyebrow eyebrow-center reveal">Volunteer Opportunities</span>
+      <span class="eyebrow reveal">Volunteer Opportunities</span>
       <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms">Where you could fit</h2>
       <p class="mt-6 text-lg leading-relaxed text-ink-soft reveal" style="--reveal-delay:160ms">
         Four ways to contribute. Tell us which sounds like you and we will take it from there.
