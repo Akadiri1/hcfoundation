@@ -43,7 +43,7 @@ For a database-backed install:
 2. Set `DESIGN_MODE=false`
 3. Run `php mck migrate`
 
-Point the vhost DocumentRoot at either the project root or `www/`. There is an
+Point the vhost DocumentRoot at either the project root or `www/` — there is an
 `.htaccess` for both.
 
 ### PRODUCTION_MODE
@@ -87,7 +87,7 @@ www/                Document root.
 | Path                | Purpose |
 |---------------------|---------|
 | `index.php`         | Entry point: boots framework, loads settings, dispatches routers |
-| `assets/`           | Front-end theme. **Empty. The theme goes here.** |
+| `assets/`           | Front-end theme. **Empty — the theme goes here.** |
 | `da/assets/`        | Admin dashboard theme (referenced as `/da/assets/...`) |
 | `font-awesome-pro/` | Icon set |
 | `ajax/ajax.js`      | Client helper for the generic CRUD endpoints |
@@ -97,24 +97,24 @@ www/                Document root.
 
 `www/index.php` includes the routers in order; the first match wins and `die`s:
 
-1. `v1/ajax/ajax_router/router.php`: generic CRUD (`/add`, `/read`, `/put`, `/delete`, `/upload2server`, …)
-2. `v1/admc_ext/ext_route/router.php`: `/mck_ext` admin session bridge
-3. `v1/routes/ajax_router.php`: page-specific AJAX
-4. `v1/routes/admin_router.php`: `/add/<table>`, `/create/<table>`, `/manage/<table>` and named admin screens
-5. `v1/routes/router.php`: public pages, falling through to `views/404.php`
+1. `v1/ajax/ajax_router/router.php` — generic CRUD (`/add`, `/read`, `/put`, `/delete`, `/upload2server`, …)
+2. `v1/admc_ext/ext_route/router.php` — `/mck_ext` admin session bridge
+3. `v1/routes/ajax_router.php` — page-specific AJAX
+4. `v1/routes/admin_router.php` — `/add/<table>`, `/create/<table>`, `/manage/<table>` and named admin screens
+5. `v1/routes/router.php` — public pages, falling through to `views/404.php`
 
 ## Admin panel
 
 The admin is table-driven. Any table named `panel_<name>` automatically appears
 in the admin nav with Add and Manage screens at `/add/<name>` and `/manage/<name>`
-No code needed for a new content type, only a table.
+— no code needed for a new content type, only a table.
 
 Admin sessions are opened by the ADMC service via `/mck_ext`, which sets
 `$_SESSION['admin_id']`.
 
 ## Front end
 
-Custom Tailwind. The palette is sampled from the Foundation's logo. `teal`
+Custom Tailwind. The palette is sampled from the Foundation's logo — `teal`
 (the blue figure / "COSMOS") and `ember` (the orange figure / "HATHANY").
 
 ```
@@ -137,7 +137,7 @@ if scripting is unavailable or errors the page still renders fully.
 `DESIGN_MODE=true` in `.env/config.php` renders the site from
 `v1/views/includes/static_content.php` instead of the database. It uses the same
 variable names the CMS will populate, so switching over means setting the flag
-to `false`; the views do not change.
+to `false` — the views do not change.
 
 Everything marked `PENDING` in that file is placeholder content awaiting the
 Foundation: the homepage promise line, impact figures, team members, contact

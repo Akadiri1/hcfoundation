@@ -1,5 +1,5 @@
 /* =============================================================================
-   Hathany Cosmos Foundation interaction layer
+   Hathany Cosmos Foundation — interaction layer
    No dependencies. Everything degrades to a fully readable page without JS.
    ========================================================================== */
 (function () {
@@ -484,7 +484,7 @@
   }
 
   /* ---------------------------------------------------------------------
-     Contact / volunteer form: client-side validation only.
+     Contact / volunteer form — client-side validation only.
      Wired to a backend when the CMS goes in.
      ------------------------------------------------------------------ */
   function initForms() {
@@ -511,7 +511,7 @@
           return;
         }
 
-        note.textContent = 'Thanks. This form is not connected yet. It will send once the site goes live.';
+        note.textContent = 'Thanks — this form is not connected yet. It will send once the site goes live.';
         note.className = 'mt-4 text-sm font-medium text-teal-700';
         form.reset();
       });

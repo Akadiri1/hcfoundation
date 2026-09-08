@@ -1,6 +1,6 @@
 <?php
 /**
- * Shown when maintenance mode is on. Deliberately standalone: it must render
+ * Shown when maintenance mode is on. Deliberately standalone — it must render
  * without the header, since the header is what routes here.
  */
 http_response_code(503);
@@ -14,7 +14,7 @@ require_once APP_PATH . "/views/includes/partials/logo.php";
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>We will be back shortly | <?= htmlspecialchars($site_name ?? 'HC Foundation') ?></title>
+<title>We will be back shortly — <?= htmlspecialchars($site_name ?? 'HC Foundation') ?></title>
 <link rel="icon" href="/assets/images/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,8 +43,8 @@ require_once APP_PATH . "/views/includes/partials/logo.php";
       <h1 class="mt-10 text-display-md text-white">We will be back shortly</h1>
 
       <p class="mt-5 text-lg leading-relaxed text-white/70">
-        The site is briefly down for maintenance. The work continues in the meantime.
-        Thank you for your patience.
+        The site is briefly down for maintenance. The work continues in the meantime —
+        thank you for your patience.
       </p>
 
       <?php if (!empty($site_email)): ?>

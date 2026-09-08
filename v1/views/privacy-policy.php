@@ -14,8 +14,8 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
     <div class="mx-auto max-w-3xl">
       <div class="reveal rounded-2xl border border-ember-200 bg-ember-50 p-6">
         <p class="text-sm font-medium text-ember-800">
-          Placeholder text. This policy must be reviewed and approved before launch.
-          The site collects names, email addresses and phone numbers through two forms,
+          Placeholder text. This policy must be reviewed and approved before launch —
+          the site collects names, email addresses and phone numbers through two forms,
           which brings it under NDPR.
         </p>
       </div>
