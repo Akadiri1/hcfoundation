@@ -407,18 +407,19 @@
     if (!triggers.length) return;
 
     const box = document.createElement('div');
-    box.className = 'fixed inset-0 z-[80] hidden items-center justify-center bg-ink/95 p-4 backdrop-blur-sm sm:p-6';
+    box.className = 'fixed inset-0 z-[80] hidden items-center justify-center bg-black/95 p-4 backdrop-blur-sm sm:p-6';
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-modal', 'true');
     box.setAttribute('aria-label', 'Image viewer');
 
     const arrow = (dir) =>
-      '<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" ' +
+      '<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
       'stroke-linecap="round" stroke-linejoin="round"><path d="' +
       (dir === 'prev' ? 'M15 18l-6-6 6-6' : 'M9 6l6 6-6 6') + '"/></svg>';
 
-    const navBtn = 'absolute top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full ' +
-                   'border border-white/25 bg-ink/40 text-white backdrop-blur-sm transition hover:bg-white hover:text-ink ' +
+    const navBtn = 'absolute top-1/2 z-10 grid h-14 w-14 -translate-y-1/2 place-items-center rounded-full ' +
+                   'border border-white/40 bg-white/10 text-white backdrop-blur-sm transition ' +
+                   'hover:scale-105 hover:border-white hover:bg-white hover:text-ink ' +
                    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
 
     box.innerHTML =

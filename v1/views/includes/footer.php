@@ -123,6 +123,6 @@
   <?= icon('arrow', 'h-5 w-5 -rotate-90') ?>
 </button>
 
-<script src="/assets/js/app.js" defer></script>
+<script src="/assets/js/app.js?v=<?= asset_version('/assets/js/app.js') ?>" defer></script>
 </body>
 </html>

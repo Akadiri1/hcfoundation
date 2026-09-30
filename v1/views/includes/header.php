@@ -10,6 +10,7 @@ if (!empty($maintenance_status) && empty($_SESSION['active'])) {
     exit;
 }
 
+require_once APP_PATH . "/views/includes/partials/asset.php";
 require_once APP_PATH . "/views/includes/partials/icon.php";
 require_once APP_PATH . "/views/includes/partials/logo.php";
 
@@ -89,7 +90,7 @@ $child_active = function (array $child) use ($path): bool {
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script>document.documentElement.classList.add('js');</script>
-<link rel="stylesheet" href="/assets/css/app.css">
+<link rel="stylesheet" href="/assets/css/app.css?v=<?= asset_version('/assets/css/app.css') ?>">
 </head>
 
 <body class="min-h-screen bg-white">

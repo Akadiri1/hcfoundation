@@ -6,6 +6,7 @@
 http_response_code(503);
 header('Retry-After: 3600');
 
+require_once APP_PATH . "/views/includes/partials/asset.php";
 require_once APP_PATH . "/views/includes/partials/icon.php";
 require_once APP_PATH . "/views/includes/partials/logo.php";
 ?>
@@ -19,7 +20,7 @@ require_once APP_PATH . "/views/includes/partials/logo.php";
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/app.css">
+<link rel="stylesheet" href="/assets/css/app.css?v=<?= asset_version('/assets/css/app.css') ?>">
 </head>
 <body class="min-h-screen">
 
