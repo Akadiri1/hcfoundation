@@ -86,7 +86,7 @@ $child_active = function (array $child) use ($path): bool {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- One family, four weights. Was Outfit(5) + Inter(3) + Caveat(1); Caveat was
      used nowhere and Outfit 800 only by the 404 numeral. -->
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script>document.documentElement.classList.add('js');</script>
 <link rel="stylesheet" href="/assets/css/app.css">

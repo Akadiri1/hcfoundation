@@ -50,11 +50,10 @@ module.exports = {
         },
       },
       fontFamily: {
-        // Plus Jakarta Sans throughout: humanist rather than geometric, which
-        // suits an organisation about people. One family keeps the payload down
-        // and headings and body in the same voice.
-        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        // Figtree throughout, at the client's request. One family for headings
+        // and body keeps the voice consistent and the payload small.
+        display: ['Figtree', 'system-ui', 'sans-serif'],
+        sans: ['Figtree', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'display-xl': ['clamp(2.75rem, 6.5vw, 5rem)', { lineHeight: '0.98', letterSpacing: '-0.035em', fontWeight: '700' }],
