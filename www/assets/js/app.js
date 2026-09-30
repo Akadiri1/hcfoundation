@@ -394,50 +394,149 @@
 
   /* ---------------------------------------------------------------------
      Lightbox (gallery)
-     ------------------------------------------------------------------ */
+  /* ---------------------------------------------------------------------
+     Lightbox
+     Opening one image puts you in a set you can walk: arrows, keyboard,
+     swipe, wrap-around. The set is whatever matches the filter that is
+     active when you open it, so filtering to one category and stepping
+     through stays inside that category. Load-more does not gate it: once
+     you are in the viewer you are browsing the category, not the grid.
+     --------------------------------------------------------------------- */
   function initLightbox() {
     const triggers = $$('[data-lightbox]');
     if (!triggers.length) return;
 
     const box = document.createElement('div');
-    box.className = 'fixed inset-0 z-[80] hidden items-center justify-center bg-ink/92 p-6 backdrop-blur-sm';
+    box.className = 'fixed inset-0 z-[80] hidden items-center justify-center bg-ink/95 p-4 backdrop-blur-sm sm:p-6';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-label', 'Image viewer');
+
+    const arrow = (dir) =>
+      '<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" ' +
+      'stroke-linecap="round" stroke-linejoin="round"><path d="' +
+      (dir === 'prev' ? 'M15 18l-6-6 6-6' : 'M9 6l6 6-6 6') + '"/></svg>';
+
+    const navBtn = 'absolute top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full ' +
+                   'border border-white/25 bg-ink/40 text-white backdrop-blur-sm transition hover:bg-white hover:text-ink ' +
+                   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
+
     box.innerHTML =
-      '<button class="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full border border-white/25 text-white transition hover:bg-white hover:text-ink" data-lb-close aria-label="Close">' +
+      '<button class="absolute right-4 top-4 z-10 grid h-12 w-12 place-items-center rounded-full border border-white/25 text-white transition hover:bg-white hover:text-ink sm:right-6 sm:top-6" data-lb-close aria-label="Close viewer">' +
         '<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 6 18 18M18 6 6 18"/></svg>' +
       '</button>' +
+      '<button class="' + navBtn + ' left-3 sm:left-6" data-lb-prev aria-label="Previous image">' + arrow('prev') + '</button>' +
+      '<button class="' + navBtn + ' right-3 sm:right-6" data-lb-next aria-label="Next image">' + arrow('next') + '</button>' +
       '<figure class="max-h-full max-w-5xl scale-95 opacity-0 transition-all duration-500" data-lb-figure>' +
-        '<img class="max-h-[78vh] w-auto rounded-2xl object-contain shadow-lift" data-lb-img alt="">' +
+        '<img class="max-h-[74vh] w-auto rounded-2xl object-contain shadow-lift transition-opacity duration-300" data-lb-img alt="">' +
         '<figcaption class="mt-4 text-center text-sm text-white/75" data-lb-cap></figcaption>' +
+        '<p class="mt-2 text-center text-xs tracking-wider text-white/45" data-lb-count></p>' +
       '</figure>';
     document.body.appendChild(box);
 
-    const fig = $('[data-lb-figure]', box);
-    const img = $('[data-lb-img]', box);
-    const cap = $('[data-lb-cap]', box);
+    const fig   = $('[data-lb-figure]', box);
+    const img   = $('[data-lb-img]', box);
+    const cap   = $('[data-lb-cap]', box);
+    const count = $('[data-lb-count]', box);
+    const prevB = $('[data-lb-prev]', box);
+    const nextB = $('[data-lb-next]', box);
 
-    const open = (src, caption, alt) => {
-      img.src = src; img.alt = alt || caption || '';
-      cap.textContent = caption || '';
+    let group = [];
+    let index = 0;
+    let lastFocused = null;
+
+    /* The navigable set: siblings under the same collection that match the
+       filter currently pressed. A standalone image is a set of one. */
+    const groupFor = (trigger) => {
+      const root = trigger.closest('[data-collection]');
+      if (!root) return [trigger];
+      const pressed = $('[data-filter][aria-pressed="true"]', root);
+      const filter = pressed ? pressed.dataset.filter : 'all';
+      const all = $$('[data-lightbox]', root);
+      const set = all.filter(el => filter === 'all' || el.dataset.filterItem === filter);
+      return set.length ? set : [trigger];
+    };
+
+    const preload = (i) => {
+      const t = group[(i + group.length) % group.length];
+      if (t) { const p = new Image(); p.src = t.dataset.lightbox; }
+    };
+
+    const show = (i) => {
+      index = (i + group.length) % group.length;
+      const t = group[index];
+
+      img.style.opacity = '0';
+      const swap = () => {
+        img.src = t.dataset.lightbox;
+        img.alt = t.dataset.alt || t.dataset.caption || '';
+        cap.textContent = t.dataset.caption || '';
+        count.textContent = group.length > 1 ? (index + 1) + ' / ' + group.length : '';
+        img.style.opacity = '1';
+      };
+      if (reduceMotion) swap(); else setTimeout(swap, 140);
+
+      const many = group.length > 1;
+      prevB.hidden = !many;
+      nextB.hidden = !many;
+      if (many) { preload(index + 1); preload(index - 1); }
+    };
+
+    const open = (trigger) => {
+      lastFocused = document.activeElement;
+      group = groupFor(trigger);
+      show(Math.max(0, group.indexOf(trigger)));
       box.classList.remove('hidden');
       box.classList.add('flex');
       document.body.classList.add('no-scroll');
       requestAnimationFrame(() => fig.classList.remove('scale-95', 'opacity-0'));
+      (group.length > 1 ? nextB : $('[data-lb-close]', box)).focus();
     };
 
     const close = () => {
       fig.classList.add('scale-95', 'opacity-0');
       document.body.classList.remove('no-scroll');
-      setTimeout(() => { box.classList.add('hidden'); box.classList.remove('flex'); img.src = ''; },
-                 reduceMotion ? 0 : 300);
+      setTimeout(() => {
+        box.classList.add('hidden');
+        box.classList.remove('flex');
+        img.src = '';
+      }, reduceMotion ? 0 : 300);
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
     };
 
-    triggers.forEach(t => t.addEventListener('click', (e) => {
-      e.preventDefault();
-      open(t.dataset.lightbox, t.dataset.caption || '', t.dataset.alt || '');
-    }));
+    const isOpen = () => box.classList.contains('flex');
 
-    box.addEventListener('click', e => { if (e.target === box || e.target.closest('[data-lb-close]')) close(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && box.classList.contains('flex')) close(); });
+    triggers.forEach(t => t.addEventListener('click', (e) => { e.preventDefault(); open(t); }));
+
+    prevB.addEventListener('click', e => { e.stopPropagation(); show(index - 1); });
+    nextB.addEventListener('click', e => { e.stopPropagation(); show(index + 1); });
+
+    box.addEventListener('click', e => {
+      if (e.target === box || e.target.closest('[data-lb-close]')) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!isOpen()) return;
+      if (e.key === 'Escape')     { close(); return; }
+      if (group.length < 2) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); show(index - 1); }
+      if (e.key === 'Home')       { e.preventDefault(); show(0); }
+      if (e.key === 'End')        { e.preventDefault(); show(group.length - 1); }
+    });
+
+    /* Swipe. Only a decisive mostly-horizontal drag counts, so scrolling a
+       tall image does not skip to the next one. */
+    let sx = 0, sy = 0;
+    box.addEventListener('touchstart', (e) => {
+      sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY;
+    }, { passive: true });
+    box.addEventListener('touchend', (e) => {
+      if (group.length < 2) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      const dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1));
+    }, { passive: true });
   }
 
   /* ---------------------------------------------------------------------

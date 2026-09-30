@@ -213,7 +213,7 @@ include APP_PATH . "/views/includes/header.php";
       <div class="lg:col-span-6 lg:col-start-7">
         <div class="grid gap-5 sm:grid-cols-2">
           <?php foreach ($impact_stats as $i => $stat): ?>
-            <div class="reveal rounded-3xl border border-white/12 bg-white/[0.06] p-7 backdrop-blur-sm transition-colors duration-500 hover:border-ember-500/50 hover:bg-white/[0.09]"
+            <div class="reveal rounded-3xl border border-white/10 bg-white/[0.06] p-7 backdrop-blur-sm transition-colors duration-500 hover:border-ember-500/50 hover:bg-white/[0.09]"
                  style="--reveal-delay:<?= $i * 90 ?>ms">
               <p class="font-display text-[2.75rem] font-bold leading-none text-white">
                 <span data-count="<?= $stat['value'] ?>">0</span><span class="text-ember-400"><?= $stat['suffix'] ?></span>
