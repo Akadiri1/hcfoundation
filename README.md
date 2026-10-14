@@ -53,6 +53,17 @@ other value, including missing entirely, is treated as production and returns a
 generic 503. A server with no config can therefore never print connection
 details onto the page.
 
+### COMING_SOON
+
+The site is currently in **Coming Soon** mode by default, displaying the branded
+splash screen with the Foundation's verified contact channels (+1 770-727-6969,
+contact@hcfoundations.com, and Facebook). To reveal the full live website when ready,
+set in `.env/config.php`:
+
+```php
+putenv('COMING_SOON=false');
+```
+
 ## Layout
 
 ```
