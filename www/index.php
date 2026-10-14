@@ -76,7 +76,9 @@ if ($designMode) {
     $site_address       = $websiteInfo[0]['input_address'] ?? '';
     $description        = $websiteInfo[0]['text_description'] ?? '';
     $logo_directory     = $websiteInfo[0]['image_1'] ?? '/assets/images/logo.png';
-    $maintenance_status = $websiteInfo[0]['maintenance_status'] ?? 0;
+    $maintenance_status = (getenv('COMING_SOON') === 'true' || getenv('MAINTENANCE_MODE') === 'true')
+        ? 1
+        : ($websiteInfo[0]['maintenance_status'] ?? 0);
 
     $mailUsername       = $mailConfig[0]['input_mail_username'] ?? '';
     $mailSender         = $mailConfig[0]['input_sender'] ?? '';
@@ -94,6 +96,12 @@ if ($designMode) {
 # ---------------------------------------------------------------------------
 # Routing - order matters, first match wins and dies
 # ---------------------------------------------------------------------------
+// Gated for Coming Soon / Maintenance mode: the site does not show at all
+if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
+    include APP_PATH . "/views/maintenance.php";
+    die;
+}
+
 if (!$designMode) {
     include APP_PATH . "/ajax/ajax_router/router.php";
     include APP_PATH . "/admc_ext/ext_route/router.php";

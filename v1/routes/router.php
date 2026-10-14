@@ -15,7 +15,7 @@ $query_string = (!empty($_GET) && strpos($_SERVER['REQUEST_URI'], "?") !== false
     ? explode("?", $_SERVER['REQUEST_URI'])[1]
     : "";
 
-// Take the site offline from the admin panel without touching code.
+// Gated for Coming Soon / Maintenance mode: the site does not show at all
 if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
     include APP_PATH . "/views/maintenance.php";
     die;

@@ -20,24 +20,22 @@ $site_tagline    = "Restoring Hope. Transforming Lives.";
 $site_promise    = "HC Foundation exists to stand with communities where support is scarce — turning compassion into practical, lasting change.";
 $description     = "A humanitarian-focused organization committed to improving lives through service, compassion, and action.";
 
-$site_email      = "hello@hathanycosmos.org";      // PENDING
-$site_phone      = "+234 800 000 0000";            // PENDING
-$site_address    = "Lagos, Nigeria";               // PENDING
+$site_email      = "contact@hcfoundations.com";
+$site_phone      = "+1 770-727-6969";
+$site_address    = "Lagos, Nigeria";               // PENDING physical office confirmation
 
 $logo_directory  = "/assets/images/logo.png";
 $metaTitle       = $site_name;
 $metaDescription = $description;
 $metaImage       = $logo_directory;
 $icon            = $logo_directory;
-$siteKeywords    = ["HC Foundation", "Hathany Cosmos Foundation", "humanitarian", "community outreach", "Nigeria", "nonprofit"];
-$maintenance_status = 0;
+$siteKeywords    = ["HC Foundation", "Hathany Cosmos Foundation", "humanitarian", "community outreach", "nonprofit"];
+// Coming Soon / Maintenance mode: enabled via COMING_SOON=true or MAINTENANCE_MODE=true in .env/config.php
+$maintenance_status = (getenv('COMING_SOON') === 'true' || getenv('MAINTENANCE_MODE') === 'true') ? 1 : 0;
 
 # --- Social -----------------------------------------------------------------
 $socialLinks = [
-    ['name' => 'Facebook',  'url' => '#', 'icon' => 'facebook'],
-    ['name' => 'Instagram', 'url' => '#', 'icon' => 'instagram'],
-    ['name' => 'YouTube',   'url' => '#', 'icon' => 'youtube'],
-    ['name' => 'Twitter (X)', 'url' => '#', 'icon' => 'x'],
+    ['name' => 'Facebook', 'url' => 'https://web.facebook.com/hathanyCosmosFoundation', 'icon' => 'facebook'],
 ];
 
 # --- Photography ------------------------------------------------------------

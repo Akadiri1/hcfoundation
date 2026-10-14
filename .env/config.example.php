@@ -45,6 +45,14 @@ putenv('PRODUCTION_MODE=true');
  */
 putenv('DESIGN_MODE=true');
 
+/**
+ * COMING_SOON
+ *
+ * 'true'  - show the Coming Soon splash page across the public site.
+ * 'false' - show the full live site.
+ */
+putenv('COMING_SOON=true');
+
 # --- Admin ------------------------------------------------------------------
 // Identifier used by the ADMC admin bridge at /mck_ext.
 putenv('ADMC_USERNAME=hcfoundation');

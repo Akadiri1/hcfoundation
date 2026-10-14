@@ -5,7 +5,7 @@
  * Pages set $page_title and optionally $page_meta before including this.
  */
 
-if (!empty($maintenance_status) && empty($_SESSION['active'])) {
+if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
     include APP_PATH . "/views/maintenance.php";
     exit;
 }
