@@ -51,7 +51,7 @@ putenv('DESIGN_MODE=true');
  * 'true'  - show the Coming Soon splash page across the public site.
  * 'false' - show the full live site.
  */
-putenv('COMING_SOON=true');
+putenv('COMING_SOON=false');
 
 # --- Admin ------------------------------------------------------------------
 // Identifier used by the ADMC admin bridge at /mck_ext.

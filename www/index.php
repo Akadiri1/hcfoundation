@@ -75,10 +75,9 @@ if ($designMode) {
     $site_phone         = $websiteInfo[0]['input_phone_number'] ?? '';
     $site_address       = $websiteInfo[0]['input_address'] ?? '';
     $description        = $websiteInfo[0]['text_description'] ?? '';
-    $isComingSoonDisabled = (getenv('COMING_SOON') === 'false');
-    $maintenance_status = (!$isComingSoonDisabled)
+    $maintenance_status = (getenv('COMING_SOON') === 'true' || getenv('MAINTENANCE_MODE') === 'true')
         ? 1
-        : ((getenv('MAINTENANCE_MODE') === 'true') ? 1 : ($websiteInfo[0]['maintenance_status'] ?? 0));
+        : ($websiteInfo[0]['maintenance_status'] ?? 0);
 
     $mailUsername       = $mailConfig[0]['input_mail_username'] ?? '';
     $mailSender         = $mailConfig[0]['input_sender'] ?? '';

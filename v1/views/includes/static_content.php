@@ -30,8 +30,8 @@ $metaDescription = $description;
 $metaImage       = $logo_directory;
 $icon            = $logo_directory;
 $siteKeywords    = ["HC Foundation", "Hathany Cosmos Foundation", "humanitarian", "community outreach", "nonprofit"];
-// Coming Soon is active by default for now (set COMING_SOON=false in .env/config.php to reveal full site)
-$maintenance_status = (getenv('COMING_SOON') === 'false') ? 0 : 1;
+// Coming Soon / Maintenance mode: disabled by default (can be re-enabled via COMING_SOON=true or MAINTENANCE_MODE=true in .env/config.php)
+$maintenance_status = (getenv('COMING_SOON') === 'true' || getenv('MAINTENANCE_MODE') === 'true') ? 1 : 0;
 
 # --- Social -----------------------------------------------------------------
 $socialLinks = [

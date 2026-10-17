@@ -55,13 +55,11 @@ details onto the page.
 
 ### COMING_SOON
 
-The site is currently in **Coming Soon** mode by default, displaying the branded
-splash screen with the Foundation's verified contact channels (+1 770-727-6969,
-contact@hcfoundations.com, and Facebook). To reveal the full live website when ready,
-set in `.env/config.php`:
+The full website is live by default. If you ever need to put the site back into
+**Coming Soon** mode, set in `.env/config.php`:
 
 ```php
-putenv('COMING_SOON=false');
+putenv('COMING_SOON=true');
 ```
 
 ## Layout
