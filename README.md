@@ -41,7 +41,7 @@ For a database-backed install:
 
 1. Create the database, then set `DB_*` in `.env/config.php`
 2. Set `DESIGN_MODE=false`
-3. Run `php mck migrate`
+3. Run `php mck migrate` and `php mck seed` (or import `database/hcfoundation.sql`)
 
 Point the vhost DocumentRoot at either the project root or `www/` — there is an
 `.htaccess` for both.
@@ -141,7 +141,22 @@ sticky header, mobile drawer, scroll reveals, counters, accordion, gallery
 filters, lightbox, parallax. Reveal animations are gated behind `html.js`, so
 if scripting is unavailable or errors the page still renders fully.
 
-## Design mode
+## Database mode & Design mode
+
+- **Database Mode (`DESIGN_MODE=false`)**: The live website reads its data directly from MySQL tables (`settings_website_info`, `panel_initiatives`, `panel_impact_stats`, `panel_core_values`, `panel_volunteer_roles`, `panel_team`, `panel_gallery`, `panel_blog`, `panel_faqs`, `panel_partners`, etc.) via `v1/models/db_content.php`.
+- **Design Mode (`DESIGN_MODE=true`)**: Fallback mode that renders the site from `v1/views/includes/static_content.php` without opening a MySQL connection.
+
+### Setting up the Database
+
+To create all tables and populate all content:
+```bash
+php mck migrate
+php mck seed
+```
+Or import `database/hcfoundation.sql` directly:
+```bash
+mysql -u root -p hcfoundation < database/hcfoundation.sql
+```
 
 `DESIGN_MODE=true` in `.env/config.php` renders the site from
 `v1/views/includes/static_content.php` instead of the database. It uses the same

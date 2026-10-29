@@ -58,38 +58,15 @@ if ($designMode) {
             $_SESSION['user_id'] = $_COOKIE['id'];
         } else {
             $_SESSION['user_id'] = md5(session_id());
-            setcookie("id", $_SESSION['user_id'], time() + 31536000, '/', null, null, true);
+            setcookie("id", $_SESSION['user_id'], time() + 31536000, '/', '', false, true);
         }
     }
 
     if (getenv("ADMC_USERNAME")) {
-        setcookie("admc", getenv("ADMC_USERNAME"), time() + 31536000, "/", null, false, false);
+        setcookie("admc", getenv("ADMC_USERNAME"), time() + 31536000, "/", '', false, false);
     }
 
-    $websiteInfo = selectContent($conn, "settings_website_info", ['visibility' => 'show']);
-    $mailConfig  = selectContent($conn, "read_mail_config", []);
-    $socialLinks = selectContent($conn, "panel_social_media_platform", ['visibility' => "show"]);
-
-    $site_name          = $websiteInfo[0]['input_name'] ?? getenv('APP_NAME');
-    $site_email         = $websiteInfo[0]['input_email'] ?? '';
-    $site_phone         = $websiteInfo[0]['input_phone_number'] ?? '';
-    $site_address       = $websiteInfo[0]['input_address'] ?? '';
-    $description        = $websiteInfo[0]['text_description'] ?? '';
-    $maintenance_status = (getenv('COMING_SOON') === 'true' || getenv('MAINTENANCE_MODE') === 'true')
-        ? 1
-        : ($websiteInfo[0]['maintenance_status'] ?? 0);
-
-    $mailUsername       = $mailConfig[0]['input_mail_username'] ?? '';
-    $mailSender         = $mailConfig[0]['input_sender'] ?? '';
-    $mailPassword       = $mailConfig[0]['input_password'] ?? '';
-    $mailSmtpHost       = $mailConfig[0]['input_smtp_host'] ?? '';
-    $mailSmtpPort       = $mailConfig[0]['input_smtp_port'] ?? '';
-    $mailSmtpSecureType = $mailConfig[0]['input_smtp_secure_type'] ?? '';
-
-    $metaTitle       = $site_name;
-    $metaDescription = $description;
-    $metaImage       = $logo_directory;
-    $icon            = $logo_directory;
+    include APP_PATH . "/models/db_content.php";
 }
 
 # ---------------------------------------------------------------------------

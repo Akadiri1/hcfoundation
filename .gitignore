@@ -15,6 +15,7 @@ node_modules/
 
 # Database dumps
 *.sql
+!database/hcfoundation.sql
 
 # OS / editor
 Thumbs.db

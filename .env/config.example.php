@@ -38,12 +38,12 @@ putenv('PRODUCTION_MODE=true');
 /**
  * DESIGN_MODE
  *
- * 'true'  - render every page from v1/views/includes/static_content.php.
- *           No database is opened at all. This is what the demo site needs
- *           until the CMS tables exist.
- * 'false' - read content from the database. Requires the tables to be present.
+ * 'false' - read content dynamically from database tables (settings_website_info,
+ *           panel_initiatives, panel_blog, panel_team, etc.).
+ * 'true'  - fallback mode: render pages from v1/views/includes/static_content.php
+ *           without connecting to MySQL.
  */
-putenv('DESIGN_MODE=true');
+putenv('DESIGN_MODE=false');
 
 /**
  * COMING_SOON
