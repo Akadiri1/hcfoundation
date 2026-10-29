@@ -204,29 +204,31 @@ return $result;
 
 function doAdminRegister($dbconn, $input){
   try{
-  $rnd = rand(0000000000,9999999999);
-    $split = $input['firstname'];
-    $id = $rnd.cleans($split);
-  $hash_id = time().str_shuffle($id);
+    $rnd = rand(1000000000, 9999999999);
+    $split = $input['firstname'] ?? 'Admin';
+    $id = $rnd . cleans($split);
+    $hash_id = time() . str_shuffle($id);
 
-  $hash = password_hash($input['pword'], PASSWORD_BCRYPT);
-  #insert data
-  $stmt = $dbconn->prepare("INSERT INTO admin(firstname,lastname,email,hash,hash_id,time_created,date_created) VALUES(:fn, :ln,:e, :h,:hid,NOW(),NOW())");
-  #bind params...
-  $data = [
-    ':fn' => $input['firstname'],
-  ':ln' => $input['lastname'],
-  ':e' => $input['email'],
-  ':h' => $hash,
-  ':hid' => $hash_id
-];
-$stmt->execute($data);
+    $hash = password_hash($input['pword'], PASSWORD_BCRYPT);
+    $username = $input['username'] ?? strstr($input['email'], '@', true);
 
-
-
-}catch(PDOException $e){
-  die($e->getMessage());
-
-}
-
+    #insert data
+    $stmt = $dbconn->prepare("INSERT INTO admin(firstname,lastname,username,input_username,email,hash,input_password,hash_id,verification,user_status,level,time_created,date_created) VALUES(:fn, :ln, :un, :iun, :e, :h, :ih, :hid, '1', 1, :lvl, NOW(), NOW())");
+    #bind params...
+    $data = [
+      ':fn'  => $input['firstname'] ?? 'Admin',
+      ':ln'  => $input['lastname'] ?? 'User',
+      ':un'  => $username,
+      ':iun' => $username,
+      ':e'   => $input['email'],
+      ':h'   => $hash,
+      ':ih'  => $hash,
+      ':hid' => $hash_id,
+      ':lvl' => $input['level'] ?? '1'
+    ];
+    $stmt->execute($data);
+    return $hash_id;
+  }catch(PDOException $e){
+    die($e->getMessage());
+  }
 }

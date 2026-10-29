@@ -58,8 +58,10 @@ $content = selectContent($conn,'panel_'.$uri[2],$where);
 
                               $remains = implode("_",$remains);
 
-                              if(explode("_",$value['column_name'])[0] == "input"){ ?>
-                                <th><?php echo ucwords(str_replace("_"," ",$remains)) ?></th>
+                              $isInput = (explode("_",$value['column_name'])[0] == "input") || in_array(strtolower($value['column_name']), ['email', 'firstname', 'lastname', 'username']);
+                              $fieldLabel = (explode("_",$value['column_name'])[0] == "input") ? ucwords(str_replace("_"," ",$remains)) : ucwords(str_replace("_"," ",$value['column_name']));
+                              if($isInput){ ?>
+                                <th><?php echo $fieldLabel ?></th>
 
                               <?php  } ?>
 
@@ -152,12 +154,13 @@ $content = selectContent($conn,'panel_'.$uri[2],$where);
 
 
                               ?>
-                              <?php if(explode("_",$column['column_name'])[0] == "input"){
-
+                              <?php 
+                              $isInput = (explode("_",$column['column_name'])[0] == "input") || in_array(strtolower($column['column_name']), ['email', 'firstname', 'lastname', 'username']);
+                              if($isInput){
                                 $to_fetch  = $column['column_name'];
                                 ?>
 
-                                <td><?php echo $record[$to_fetch];  ?></td>
+                                <td><?php echo htmlspecialchars($record[$to_fetch] ?? '');  ?></td>
                               <?php } ?>
 
 
@@ -257,8 +260,10 @@ $content = selectContent($conn,'panel_'.$uri[2],$where);
 
                               $remains = implode("_",$remains);
 
-                              if(explode("_",$value['column_name'])[0] == "input"){ ?>
-                                <th><?php echo ucwords(str_replace("_"," ",$remains)) ?></th>
+                              $isInput = (explode("_",$value['column_name'])[0] == "input") || in_array(strtolower($value['column_name']), ['email', 'firstname', 'lastname', 'username']);
+                              $fieldLabel = (explode("_",$value['column_name'])[0] == "input") ? ucwords(str_replace("_"," ",$remains)) : ucwords(str_replace("_"," ",$value['column_name']));
+                              if($isInput){ ?>
+                                <th><?php echo $fieldLabel ?></th>
 
                               <?php  } ?>
 

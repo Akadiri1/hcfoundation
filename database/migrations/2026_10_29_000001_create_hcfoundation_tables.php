@@ -55,7 +55,7 @@ return new class {
             $table->string('input_username', 100)->default('admin');
             $table->string('email', 255)->default('admin@hcfoundations.com');
             $table->string('hash', 255)->nullable();
-            $table->string('input_password', 255);
+            $table->string('input_password', 255)->nullable();
             $table->string('verification', 50)->default('1');
             $table->integer('user_status')->default(1);
             $table->string('level', 50)->default('MASTER');

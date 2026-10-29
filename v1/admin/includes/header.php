@@ -200,15 +200,13 @@ if(!in_array($adminDetails[0]['level'] ?? '', $level_check)){
           <?php endforeach; ?>
 
 					<li class="nav-item menu-caption">
-						<label>Users Management</label>
+						<label>Admin &amp; Users</label>
 					</li>
-          <li data-username="widget statistic data chart" class="nav-item hasmenu">
-            <a href="#!" class="nav-link"><span class="micon"><i class="feather icon-users"></i></span><span class="mtext">Users</span></a>
-            <ul class="submenu">
-              <li class=""><a href="widget-statistic.html" class="">Statistic</a></li>
-              <li class=""><a href="widget-data.html" class="">Data</a></li>
-              <li class=""><a href="widget-chart.html" class="">Chart</a></li>
-            </ul>
+          <li data-username="Admins" class="nav-item">
+            <a href="/admin-view-admin" class="nav-link"><span class="micon"><i class="feather icon-shield"></i></span><span class="mtext">Manage Admins</span></a>
+          </li>
+          <li data-username="Users" class="nav-item">
+            <a href="/admin-view-users" class="nav-link"><span class="micon"><i class="feather icon-users"></i></span><span class="mtext">Registered Users</span></a>
           </li>
 
 
@@ -358,17 +356,15 @@ if(!in_array($adminDetails[0]['level'] ?? '', $level_check)){
 							</a>
 							<div class="dropdown-menu dropdown-menu-right profile-notification">
 								<div class="pro-head">
-									<img src="../assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-									<span>John Doe</span>
-									<a href="auth-signin.html" class="dud-logout" title="Logout">
+									<img src="/da/assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+									<span><?= htmlspecialchars(($adminDetails[0]['firstname'] ?? 'Admin') . ' (' . ($adminDetails[0]['email'] ?? $adminDetails[0]['input_email'] ?? '') . ')') ?></span>
+									<a href="/admin-logout" class="dud-logout" title="Logout">
 										<i class="feather icon-log-out"></i>
 									</a>
 								</div>
 								<ul class="pro-body">
-									<li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
-									<li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-									<li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-									<li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+									<li><a href="/admin-view-admin" class="dropdown-item"><i class="feather icon-user"></i> Manage Admins</a></li>
+									<li><a href="/admin-logout" class="dropdown-item"><i class="feather icon-log-out"></i> Logout</a></li>
 								</ul>
 							</div>
 						</div>

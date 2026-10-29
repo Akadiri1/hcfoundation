@@ -102,9 +102,12 @@ if(array_key_exists('submit', $_POST)){
 
                           $remains = implode("_",$remains);
 
-                          if(explode("_",$value['column_name'])[0] == "input"){ ?>
-                            <label for="<?php echo ucwords(str_replace("_"," ",$remains)) ?>"><?php echo ucwords(str_replace("_"," ",$remains)) ?></label>
-                            <input name="<?php echo $value['column_name']; ?>" type="text" class="form-control"  placeholder="<?php echo ucwords(str_replace("_"," ",$remains)) ?>" value="" required><br>
+                          $isInput = (explode("_",$value['column_name'])[0] == "input") || in_array(strtolower($value['column_name']), ['email', 'firstname', 'lastname', 'username']);
+                          $fieldLabel = (explode("_",$value['column_name'])[0] == "input") ? ucwords(str_replace("_"," ",$remains)) : ucwords(str_replace("_"," ",$value['column_name']));
+                          $inputType = (strtolower($value['column_name']) == 'email') ? 'email' : 'text';
+                          if($isInput){ ?>
+                            <label for="<?php echo $fieldLabel ?>"><?php echo $fieldLabel ?></label>
+                            <input name="<?php echo $value['column_name']; ?>" type="<?php echo $inputType; ?>" class="form-control"  placeholder="<?php echo $fieldLabel ?>" value="" required><br>
                         <?php  } ?>
 
                         <?php  if(explode("_",$value['column_name'])[0] == "text"){ ?>
@@ -177,8 +180,10 @@ if(array_key_exists('submit', $_POST)){
 
                               $remains = implode("_",$remains);
 
-                              if(explode("_",$value['column_name'])[0] == "input"){ ?>
-                                <li>Enter <?php echo ucwords(str_replace("_"," ",$remains)); ?></li>
+                              $isInput = (explode("_",$value['column_name'])[0] == "input") || in_array(strtolower($value['column_name']), ['email', 'firstname', 'lastname', 'username']);
+                              $fieldLabel = (explode("_",$value['column_name'])[0] == "input") ? ucwords(str_replace("_"," ",$remains)) : ucwords(str_replace("_"," ",$value['column_name']));
+                              if($isInput){ ?>
+                                <li>Enter <?php echo $fieldLabel; ?></li>
                               <?php } ?>
 
 
