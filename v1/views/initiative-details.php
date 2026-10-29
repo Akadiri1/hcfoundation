@@ -2,9 +2,10 @@
 /**
  * Single initiative. $slug is set by the router.
  */
+$slug = $slug ?? $_GET['slug'] ?? $_GET['id'] ?? null;
 $current = null;
 foreach ($initiatives as $item) {
-    if ($item['slug'] === ($slug ?? '')) { $current = $item; break; }
+    if ($item['slug'] === $slug || (isset($item['id']) && (string)$item['id'] === (string)$slug)) { $current = $item; break; }
 }
 
 if (!$current) {

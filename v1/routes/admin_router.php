@@ -20,14 +20,19 @@ $err      = $_GET['err']      ?? NULL;
 $wn       = $_GET['wn']       ?? NULL;
 $rd       = $_GET['rd']       ?? NULL;
 
-$action = strtok($uri[1], '?');
+$uri[1] = strtok($uri[1] ?? '', '?');
+if (isset($uri[2])) {
+    $uri[2] = strtok($uri[2], '?');
+} elseif (!empty($_GET['data'])) {
+    $uri[2] = str_replace('panel_', '', $_GET['data']);
+}
+
+$action = $uri[1];
 
 # ---------------------------------------------------------------------------
 # Generic table CRUD - /add/<table>, /create/<table>, /manage/<table>
 # ---------------------------------------------------------------------------
-if (count($uri) > 2 && $uri[2] !== "") {
-
-    $placeholder = strtok($uri[2], '?');
+if (!empty($uri[2])) {
 
     switch ($action) {
 

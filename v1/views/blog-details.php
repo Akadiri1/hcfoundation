@@ -2,9 +2,10 @@
 /**
  * Single blog post. $slug is set by the router.
  */
+$slug = $slug ?? $_GET['slug'] ?? $_GET['id'] ?? null;
 $post = null;
 foreach ($blog_posts as $p) {
-    if ($p['slug'] === ($slug ?? '')) { $post = $p; break; }
+    if ($p['slug'] === $slug || (isset($p['id']) && (string)$p['id'] === (string)$slug)) { $post = $p; break; }
 }
 
 if (!$post) {

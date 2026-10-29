@@ -4,6 +4,7 @@
  *
  * Two-segment URLs (/read-blog/<slug>) are matched first, then single-segment
  * pages. Anything unmatched falls through to the 404 view.
+ * Fully supports query strings on all endpoints.
  */
 
 $userHTTP    = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://";
@@ -27,8 +28,9 @@ if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
 if (count($uri) > 2 && $uri[2] !== "") {
 
     $slug = strtok($uri[2], "?");
+    $section = strtok($uri[1], "?");
 
-    switch ($uri[1]) {
+    switch ($section) {
 
         case 'read-blog':
             include APP_PATH . "/views/blog-details.php";
@@ -51,7 +53,7 @@ if (count($uri) > 2 && $uri[2] !== "") {
 # ---------------------------------------------------------------------------
 # Top-level pages
 # ---------------------------------------------------------------------------
-$page = strtok($uri[1], "?");
+$page = strtok($uri[1] ?? '', "?");
 
 switch ($page) {
 
@@ -94,6 +96,16 @@ switch ($page) {
 
     case 'terms-of-use':
         include APP_PATH . "/views/terms-of-use.php";
+        die;
+
+    case 'read-blog':
+        $slug = $slug ?? $_GET['slug'] ?? $_GET['id'] ?? null;
+        include APP_PATH . "/views/blog-details.php";
+        die;
+
+    case 'view-initiative':
+        $slug = $slug ?? $_GET['slug'] ?? $_GET['id'] ?? null;
+        include APP_PATH . "/views/initiative-details.php";
         die;
 
     default:
