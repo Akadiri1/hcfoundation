@@ -17,10 +17,14 @@ if($adminDetails[0]['user_status'] == 2){
   header("Location:/admin-login?err=".base64url_encode("Your Account Has Been Suspended"));
 }
 
-// die($adminDetails[0]['level']);
-if(!in_array($adminDetails[0]['level'],$level_check)){
+if (!isset($level_check) || !is_array($level_check)) {
+  $level_check = ['MASTER', 3, 2, 1];
+}
+
+if(!in_array($adminDetails[0]['level'] ?? '', $level_check)){
   unset($_SESSION['admin_id']);
   header("Location:/admin-login?err=".base64url_encode("<p>You were logged out because your account cannot visit the page you visited</p>"));
+  exit();
 }
 
  ?>

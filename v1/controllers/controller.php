@@ -746,7 +746,7 @@ function selectTableContent2($dbconn,$table,$column,$columnWhere){
 
 
 
-  return $row;
+  return array_map('strtolower', $row);
 } catch (PDOException $e) {
   // die("Error Occured");
   die($e);
@@ -847,7 +847,7 @@ function selectContentDesc($dbconn,$table,$columnWhere,$order,$limit){
 
   $result = [];
   while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $result[] = $row;
+    $result[] = array_change_key_case($row, CASE_LOWER);
   }
 
   return $result;
@@ -885,7 +885,7 @@ function selectContentAsc($dbconn,$table,$columnWhere,$order,$limit){
 
   $result = [];
   while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $result[] = $row;
+    $result[] = array_change_key_case($row, CASE_LOWER);
   }
 
   return $result;
@@ -922,7 +922,7 @@ function selectTableContent($dbconn,$table,$column,$columnWhere){
 
   $result = [];
   while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-    $result[] = $row;
+    $result[] = array_change_key_case($row, CASE_LOWER);
   }
 
   return $result;

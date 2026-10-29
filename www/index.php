@@ -81,6 +81,7 @@ if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
 if (!$designMode) {
     include APP_PATH . "/ajax/ajax_router/router.php";
     include APP_PATH . "/admc_ext/ext_route/router.php";
+    include APP_PATH . "/auth/auth_router/router.php";
     include APP_PATH . "/routes/admin_router.php";
 }
 

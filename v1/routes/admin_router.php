@@ -7,7 +7,7 @@
  * content type needs a table and nothing else.
  *
  * Admin sessions are opened by the ADMC extension (/mck_ext), which sets
- * $_SESSION['admin_id'] before redirecting back here.
+ * $_SESSION['admin_id'] before redirecting back here, or via /admin-login.
  */
 
 $uri = explode("/", $_SERVER['REQUEST_URI']);
@@ -20,14 +20,16 @@ $err      = $_GET['err']      ?? NULL;
 $wn       = $_GET['wn']       ?? NULL;
 $rd       = $_GET['rd']       ?? NULL;
 
+$action = strtok($uri[1], '?');
+
 # ---------------------------------------------------------------------------
 # Generic table CRUD - /add/<table>, /create/<table>, /manage/<table>
 # ---------------------------------------------------------------------------
-if (count($uri) > 2) {
+if (count($uri) > 2 && $uri[2] !== "") {
 
-    $placeholder = $uri[2];
+    $placeholder = strtok($uri[2], '?');
 
-    switch ($uri[1]) {
+    switch ($action) {
 
         case "add":
             include APP_PATH . "/admin/admin_add_all.php";
@@ -44,9 +46,42 @@ if (count($uri) > 2) {
 }
 
 # ---------------------------------------------------------------------------
-# Named admin screens
+# ADMC Actions & Named Screens
 # ---------------------------------------------------------------------------
-switch ($uri[1]) {
+switch ($action) {
+
+    case 'admin':
+    case 'dashboard':
+    case 'admin-dashboard':
+        include APP_PATH . "/admin/dashboard.php";
+        die;
+
+    case 'admin-login':
+        include APP_PATH . "/admin/admin_login.php";
+        die;
+
+    case 'admin-logout':
+        unset($_SESSION['admin_id'], $_SESSION['admin_username'], $_SESSION['admin_level']);
+        header("Location: /admin-login");
+        die;
+
+    case 'updateContent.php':
+    case 'updateContent':
+        include APP_PATH . "/admin/updateContent.php";
+        die;
+
+    case 'deleteContent.php':
+    case 'deleteContent':
+        include APP_PATH . "/admin/deleteContent.php";
+        die;
+
+    case 'admin-edit-content':
+        include APP_PATH . "/admin/edit_content.php";
+        die;
+
+    case 'change-image':
+        include APP_PATH . "/admin/change_image.php";
+        die;
 
     case 'admin-add-blog':
         include APP_PATH . "/admin/create_blog.php";
@@ -80,13 +115,5 @@ switch ($uri[1]) {
 
     case 'admin-view-users':
         include APP_PATH . "/admin/manage_users.php";
-        die;
-
-    case "admin-edit-content?id=$id&data=$data&location=$location":
-        include APP_PATH . "/admin/edit_content.php";
-        die;
-
-    case "change-image?id=$id&data=$data&location=$location":
-        include APP_PATH . "/admin/change_image.php";
         die;
 }
