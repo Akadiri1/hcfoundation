@@ -4,9 +4,10 @@
  * Matches single-segment CRUD endpoints (/add, /read, /put, /delete, etc.)
  * Works with or without query strings (e.g. /read?table=... or /put?id=...).
  */
-$uri = explode("/", $_SERVER['REQUEST_URI']);
-$action = strtok($uri[1] ?? '', '?');
-$subsegment = isset($uri[2]) ? strtok($uri[2], '?') : '';
+$rawPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+$uri = explode('/', $rawPath);
+$action = $uri[1] ?? '';
+$subsegment = $uri[2] ?? '';
 
 // Only match single-segment AJAX calls (/add, /read, etc.)
 // Multi-segment calls (/add/initiatives, /manage/blog) belong to the ADMC admin router.

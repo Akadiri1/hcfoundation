@@ -4,15 +4,17 @@
  *
  * Two-segment URLs (/read-blog/<slug>) are matched first, then single-segment
  * pages. Anything unmatched falls through to the 404 view.
- * Fully supports query strings on all endpoints.
+ * Fully supports query strings on all endpoints (including /?admc_mode=edit).
  */
 
 $userHTTP    = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://";
-$current_uri = $userHTTP . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$current_uri = $userHTTP . ($_SERVER['HTTP_HOST'] ?? 'localhost') . ($_SERVER['REQUEST_URI'] ?? '/');
 
-$uri = explode("/", $_SERVER['REQUEST_URI']);
+// Clean path without query strings
+$rawPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+$uri = explode('/', $rawPath);
 
-$query_string = (!empty($_GET) && strpos($_SERVER['REQUEST_URI'], "?") !== false)
+$query_string = (!empty($_GET) && strpos($_SERVER['REQUEST_URI'] ?? '', "?") !== false)
     ? explode("?", $_SERVER['REQUEST_URI'])[1]
     : "";
 
@@ -27,8 +29,8 @@ if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
 # ---------------------------------------------------------------------------
 if (count($uri) > 2 && $uri[2] !== "") {
 
-    $slug = strtok($uri[2], "?");
-    $section = strtok($uri[1], "?");
+    $slug    = $uri[2];
+    $section = $uri[1];
 
     switch ($section) {
 
@@ -53,7 +55,7 @@ if (count($uri) > 2 && $uri[2] !== "") {
 # ---------------------------------------------------------------------------
 # Top-level pages
 # ---------------------------------------------------------------------------
-$page = strtok($uri[1] ?? '', "?");
+$page = $uri[1] ?? '';
 
 switch ($page) {
 

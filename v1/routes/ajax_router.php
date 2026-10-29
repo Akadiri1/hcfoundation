@@ -8,8 +8,9 @@
  * Supports query strings on all endpoints.
  */
 
-$uri = explode("/", $_SERVER['REQUEST_URI']);
-$action = strtok($uri[1] ?? '', '?');
+$rawPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+$uri = explode('/', $rawPath);
+$action = $uri[1] ?? '';
 
 switch ($action) {
 

@@ -10,7 +10,8 @@
  * $_SESSION['admin_id'] before redirecting back here, or via /admin-login.
  */
 
-$uri = explode("/", $_SERVER['REQUEST_URI']);
+$rawPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+$uri = explode('/', $rawPath);
 
 $id       = $_GET['id']       ?? NULL;
 $data     = $_GET['data']     ?? NULL;
@@ -20,10 +21,8 @@ $err      = $_GET['err']      ?? NULL;
 $wn       = $_GET['wn']       ?? NULL;
 $rd       = $_GET['rd']       ?? NULL;
 
-$uri[1] = strtok($uri[1] ?? '', '?');
-if (isset($uri[2])) {
-    $uri[2] = strtok($uri[2], '?');
-} elseif (!empty($_GET['data'])) {
+$uri[1] = $uri[1] ?? '';
+if (empty($uri[2]) && !empty($_GET['data'])) {
     $uri[2] = str_replace('panel_', '', $_GET['data']);
 }
 

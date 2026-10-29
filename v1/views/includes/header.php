@@ -19,7 +19,8 @@ $webpage_title = $page_title ? "{$page_title} — {$site_name}" : "{$site_name} 
 $metaTitle     = $webpage_title;
 $metaDescription = $page_meta ?? $metaDescription;
 
-$path = strtok(strtok($_SERVER['REQUEST_URI'], "?"), "#");
+$rawPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+$path = $rawPath;
 $path = rtrim($path, '/');
 
 /**

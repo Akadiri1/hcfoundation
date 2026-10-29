@@ -4,8 +4,9 @@
  * Routes all auth endpoints (/login, /signup, /verify, /forgotPassword, etc.)
  * Works with or without query strings (e.g. /login?rd=/admin or /verify?token=xyz).
  */
-$uri = explode("/", $_SERVER['REQUEST_URI']);
-$action = strtok($uri[1] ?? '', '?');
+$rawPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
+$uri = explode('/', $rawPath);
+$action = $uri[1] ?? '';
 
 $token = $_GET['token'] ?? null;
 
