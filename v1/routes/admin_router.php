@@ -60,6 +60,10 @@ switch ($action) {
         include APP_PATH . "/admin/admin_login.php";
         die;
 
+    case 'mck_ext':
+        include APP_PATH . "/admc_ext/mck_ext.php";
+        die;
+
     case 'admin-logout':
         unset($_SESSION['admin_id'], $_SESSION['admin_username'], $_SESSION['admin_level']);
         header("Location: /admin-login");

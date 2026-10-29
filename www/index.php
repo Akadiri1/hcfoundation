@@ -72,17 +72,17 @@ if ($designMode) {
 # ---------------------------------------------------------------------------
 # Routing - order matters, first match wins and dies
 # ---------------------------------------------------------------------------
-// Gated for Coming Soon / Maintenance mode: the site does not show at all
-if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
-    include APP_PATH . "/views/maintenance.php";
-    die;
-}
-
 if (!$designMode) {
     include APP_PATH . "/ajax/ajax_router/router.php";
     include APP_PATH . "/admc_ext/ext_route/router.php";
-    include APP_PATH . "/auth/auth_router/router.php";
     include APP_PATH . "/routes/admin_router.php";
+    include APP_PATH . "/auth/auth_router/router.php";
+}
+
+// Gated for Coming Soon / Maintenance mode: the public site does not show at all
+if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
+    include APP_PATH . "/views/maintenance.php";
+    die;
 }
 
 include APP_PATH . "/routes/ajax_router.php";
