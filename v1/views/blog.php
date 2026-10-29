@@ -18,7 +18,7 @@ $rest     = array_slice($blog_posts, 1);
     <a href="/read-blog/<?= $featured['slug'] ?>"
        class="reveal group grid overflow-hidden rounded-[2rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1 hover:shadow-lift lg:grid-cols-2">
 
-      <span class="media media-zoom block aspect-[16/11] lg:aspect-auto">
+      <span class="media media-zoom block aspect-[16/11] lg:aspect-auto" <?= admc_image('panel_blog', $featured['id'] ?? null) ?>>
         <img src="<?= $featured['image'] ?>" alt="<?= htmlspecialchars($featured['title']) ?>">
       </span>
 
@@ -28,11 +28,11 @@ $rest     = array_slice($blog_posts, 1);
           <span class="text-teal-700"><?= htmlspecialchars($featured['category']) ?></span>
         </span>
 
-        <h2 class="mt-6 font-display text-display-sm leading-tight text-ink transition-colors duration-300 group-hover:text-teal-700">
+        <h2 class="mt-6 font-display text-display-sm leading-tight text-ink transition-colors duration-300 group-hover:text-teal-700" <?= admc_edit('panel_blog', $featured['id'] ?? null) ?>>
           <?= htmlspecialchars($featured['title']) ?>
         </h2>
 
-        <p class="mt-4 leading-relaxed text-ink-soft"><?= htmlspecialchars($featured['excerpt']) ?></p>
+        <p class="mt-4 leading-relaxed text-ink-soft" <?= admc_edit('panel_blog', $featured['id'] ?? null) ?>><?= htmlspecialchars($featured['excerpt']) ?></p>
 
         <span class="mt-8 flex items-center gap-4 text-sm text-ink-muted">
           <span><?= htmlspecialchars($featured['date']) ?></span>
@@ -63,13 +63,13 @@ $rest     = array_slice($blog_posts, 1);
       <?php endforeach; ?>
     </div>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-collection-grid>
+    <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-collection-grid <?= admc_list('panel_blog') ?>>
       <?php foreach ($rest as $i => $post): ?>
         <article data-filter-item="<?= htmlspecialchars($post['category']) ?>"
                  class="reveal group overflow-hidden rounded-[1.75rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-lift"
                  style="--reveal-delay:<?= min($i, 5) * 90 ?>ms">
           <a href="/read-blog/<?= $post['slug'] ?>" class="block">
-            <span class="media media-zoom block aspect-[16/10]">
+            <span class="media media-zoom block aspect-[16/10]" <?= admc_image('panel_blog', $post['id'] ?? null) ?>>
               <img src="<?= $post['image'] ?>" alt="<?= htmlspecialchars($post['title']) ?>" loading="lazy">
               <span class="absolute left-5 top-5 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-teal-700 backdrop-blur-sm">
                 <?= htmlspecialchars($post['category']) ?>
@@ -77,10 +77,10 @@ $rest     = array_slice($blog_posts, 1);
             </span>
 
             <span class="block p-7">
-              <h3 class="font-display text-lg font-semibold leading-snug text-ink transition-colors duration-300 group-hover:text-teal-700">
+              <h3 class="font-display text-lg font-semibold leading-snug text-ink transition-colors duration-300 group-hover:text-teal-700" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>>
                 <?= htmlspecialchars($post['title']) ?>
               </h3>
-              <p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft"><?= htmlspecialchars($post['excerpt']) ?></p>
+              <p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>><?= htmlspecialchars($post['excerpt']) ?></p>
 
               <span class="mt-6 flex items-center gap-3 text-xs text-ink-muted">
                 <span><?= htmlspecialchars($post['date']) ?></span>

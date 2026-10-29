@@ -4,11 +4,14 @@
  *
  * Set before including:
  *   $hero_eyebrow, $hero_title, $hero_text (optional), $hero_crumb (optional)
+ *   $hero_text_admc (optional) - admc_edit(...) attributes when $hero_text
+ *   comes from a database row, so it can be live-edited.
  */
 $hero_eyebrow = $hero_eyebrow ?? '';
 $hero_title   = $hero_title   ?? ($page_title ?? '');
 $hero_text    = $hero_text    ?? '';
 $hero_crumb   = $hero_crumb   ?? ($page_title ?? '');
+$hero_text_admc = $hero_text_admc ?? '';
 ?>
 <section class="relative overflow-hidden bg-ink-wash pt-[var(--header-h)]">
   <div class="absolute inset-0 fan-glow"></div>
@@ -32,7 +35,7 @@ $hero_crumb   = $hero_crumb   ?? ($page_title ?? '');
       </h1>
 
       <?php if ($hero_text): ?>
-        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft reveal" style="--reveal-delay:200ms">
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft reveal" style="--reveal-delay:200ms" <?= $hero_text_admc ?>>
           <?= htmlspecialchars($hero_text) ?>
         </p>
       <?php endif; ?>

@@ -6,6 +6,7 @@ include APP_PATH . "/views/includes/header.php";
 $hero_eyebrow = 'Volunteer';
 $hero_title   = 'Volunteer with <span class="text-gradient">HC Foundation</span>';
 $hero_text    = $volunteer_intro;
+$hero_text_admc = admc_edit('settings_website_info', $site_id);
 include APP_PATH . "/views/includes/partials/page-hero.php";
 ?>
 
@@ -38,14 +39,14 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
         <h2 class="mt-6 text-display-md reveal" style="--reveal-delay:80ms">
           Your time is the resource we cannot buy
         </h2>
-        <p class="mt-6 leading-relaxed text-ink-soft reveal" style="--reveal-delay:160ms">
+        <p class="mt-6 leading-relaxed text-ink-soft reveal" style="--reveal-delay:160ms" <?= admc_edit('settings_website_info', $site_id) ?>>
           <?= htmlspecialchars($volunteer_intro) ?>
         </p>
 
-        <div class="mt-10 space-y-4">
+        <div class="mt-10 space-y-4" <?= admc_list('panel_volunteer_benefits') ?>>
           <?php foreach ($volunteer_benefits as $i => $b): ?>
             <div class="reveal flex items-start gap-4 rounded-2xl border border-ink-line bg-white p-5 transition-all duration-500 ease-out-expo hover:-translate-y-0.5 hover:border-teal-200 hover:shadow-card"
-                 style="--reveal-delay:<?= 200 + $i * 80 ?>ms">
+                 style="--reveal-delay:<?= 200 + $i * 80 ?>ms" <?= admc_edit('panel_volunteer_benefits', $b['id'] ?? null) ?>>
               <span class="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-teal-50 text-teal-600">
                 <?= icon('check', 'h-4 w-4') ?>
               </span>
@@ -74,9 +75,9 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       </p>
     </div>
 
-    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+    <div class="mt-10 grid gap-6 sm:grid-cols-2" <?= admc_list('panel_volunteer_roles') ?>>
       <?php foreach ($volunteer_roles as $i => $role): ?>
-        <article class="card-hover card-rule reveal group flex items-start gap-5" style="--reveal-delay:<?= $i * 90 ?>ms">
+        <article class="card-hover card-rule reveal group flex items-start gap-5" style="--reveal-delay:<?= $i * 90 ?>ms" <?= admc_edit('panel_volunteer_roles', $role['id'] ?? null) ?>>
           <span class="icon-tile <?= $i % 2 ? 'bg-ember-50 text-ember-500' : 'bg-teal-50 text-teal-600' ?>">
             <?= icon($role['icon'], 'h-7 w-7') ?>
           </span>

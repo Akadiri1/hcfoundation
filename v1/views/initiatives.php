@@ -12,7 +12,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <!-- ===== Initiative list ============================================== -->
 <section class="section bg-white">
   <div class="container">
-    <div class="space-y-8 lg:space-y-12">
+    <div class="space-y-8 lg:space-y-12" <?= admc_list('panel_initiatives') ?>>
 
       <?php foreach ($initiatives as $i => $item):
         $flip   = $i % 2 === 1;
@@ -21,7 +21,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
         <article class="reveal grid items-center gap-10 lg:grid-cols-2 lg:gap-12" style="--reveal-delay:<?= $i * 60 ?>ms">
 
           <div class="<?= $flip ? 'lg:order-2' : '' ?>">
-            <div class="media media-zoom aspect-[5/4] rounded-[2.5rem] shadow-lift">
+            <div class="media media-zoom aspect-[5/4] rounded-[2.5rem] shadow-lift" <?= admc_image('panel_initiatives', $item['id'] ?? null) ?>>
               <img src="<?= $item['image'] ?>" alt="<?= htmlspecialchars($item['programme']) ?>" loading="lazy">
             </div>
           </div>
@@ -34,9 +34,9 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
               <span class="font-display text-5xl font-bold leading-none text-ink-line">0<?= $i + 1 ?></span>
             </div>
 
-            <h2 class="mt-6 text-display-sm"><?= htmlspecialchars($item['programme']) ?></h2>
-            <p class="mt-4 text-lg leading-relaxed text-ink"><?= htmlspecialchars($item['description']) ?></p>
-            <p class="mt-4 leading-relaxed text-ink-soft"><?= htmlspecialchars($item['body']) ?></p>
+            <h2 class="mt-6 text-display-sm" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['programme']) ?></h2>
+            <p class="mt-4 text-lg leading-relaxed text-ink" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['description']) ?></p>
+            <p class="mt-4 leading-relaxed text-ink-soft" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['body']) ?></p>
 
             <div class="mt-8 flex flex-wrap gap-4">
               <a href="/view-initiative/<?= $item['slug'] ?>" class="btn-primary">

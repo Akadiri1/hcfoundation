@@ -37,8 +37,8 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
         </h2>
 
         <div class="prose-brand mt-7 reveal" style="--reveal-delay:160ms">
-          <p><?= htmlspecialchars($about_who) ?></p>
-          <p><?= htmlspecialchars($about_approach) ?></p>
+          <p <?= admc_edit('settings_website_info', $site_id) ?>><?= htmlspecialchars($about_who) ?></p>
+          <p <?= admc_edit('settings_website_info', $site_id) ?>><?= htmlspecialchars($about_approach) ?></p>
           <p>
             That responsibility shapes how we plan, how we spend, and how we report.
             Every programme begins with listening, and every outcome is traceable back
@@ -54,7 +54,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
               <?= icon('star', 'h-6 w-6') ?>
             </span>
             <h3 class="relative mt-5 font-display text-xl font-bold">Our Vision</h3>
-            <p class="relative mt-3 leading-relaxed text-white/80"><?= htmlspecialchars($vision) ?></p>
+            <p class="relative mt-3 leading-relaxed text-white/80" <?= admc_edit('settings_website_info', $site_id) ?>><?= htmlspecialchars($vision) ?></p>
           </div>
 
           <div class="reveal relative overflow-hidden rounded-3xl bg-ember-grad p-8 text-white shadow-ember" style="--reveal-delay:320ms">
@@ -63,7 +63,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
               <?= icon('growth', 'h-6 w-6') ?>
             </span>
             <h3 class="relative mt-5 font-display text-xl font-bold">Our Mission</h3>
-            <p class="relative mt-3 leading-relaxed text-white/85"><?= htmlspecialchars($mission) ?></p>
+            <p class="relative mt-3 leading-relaxed text-white/85" <?= admc_edit('settings_website_info', $site_id) ?>><?= htmlspecialchars($mission) ?></p>
           </div>
         </div>
       </div>
@@ -83,9 +83,9 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       </h2>
     </div>
 
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5" <?= admc_list('panel_core_values') ?>>
       <?php foreach ($core_values as $i => $v): ?>
-        <div class="card-hover card-rule reveal text-center" style="--reveal-delay:<?= $i * 80 ?>ms">
+        <div class="card-hover card-rule reveal text-center" style="--reveal-delay:<?= $i * 80 ?>ms" <?= admc_edit('panel_core_values', $v['id'] ?? null) ?>>
           <span class="icon-tile mx-auto <?= $i % 2 ? 'bg-ember-50 text-ember-500' : 'bg-teal-50 text-teal-600' ?>">
             <?= icon($v['icon'], 'h-7 w-7') ?>
           </span>
@@ -102,9 +102,9 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <section class="relative overflow-hidden bg-teal-950 py-10 md:py-12">
   <div class="absolute inset-0 fan-glow-deep"></div>
   <div class="container relative">
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4" <?= admc_list('panel_impact_stats') ?>>
       <?php foreach ($impact_stats as $i => $stat): ?>
-        <div class="reveal text-center" style="--reveal-delay:<?= $i * 90 ?>ms">
+        <div class="reveal text-center" style="--reveal-delay:<?= $i * 90 ?>ms" <?= admc_edit('panel_impact_stats', $stat['id'] ?? null) ?>>
           <p class="font-display text-[3rem] font-bold leading-none text-white">
             <span data-count="<?= $stat['value'] ?>">0</span><span class="text-ember-400"><?= $stat['suffix'] ?></span>
           </p>

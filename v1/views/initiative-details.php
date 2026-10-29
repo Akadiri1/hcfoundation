@@ -23,6 +23,7 @@ $hero_eyebrow = $current['title'];
 $hero_crumb   = $current['programme'];
 $hero_title   = htmlspecialchars($current['programme']);
 $hero_text    = $current['description'];
+$hero_text_admc = admc_edit('panel_initiatives', $current['id'] ?? null);
 include APP_PATH . "/views/includes/partials/page-hero.php";
 ?>
 
@@ -32,12 +33,12 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 
       <!-- Body -->
       <div class="lg:col-span-7">
-        <div class="reveal media media-zoom aspect-[16/10] rounded-[2rem] shadow-lift">
+        <div class="reveal media media-zoom aspect-[16/10] rounded-[2rem] shadow-lift" <?= admc_image('panel_initiatives', $current['id'] ?? null) ?>>
           <img src="<?= $current['image'] ?>" alt="<?= htmlspecialchars($current['title']) ?>">
         </div>
 
         <div class="prose-brand mt-10 reveal" style="--reveal-delay:120ms">
-          <p class="text-xl leading-relaxed text-ink"><?= htmlspecialchars($current['body']) ?></p>
+          <p class="text-xl leading-relaxed text-ink" <?= admc_edit('panel_initiatives', $current['id'] ?? null) ?>><?= htmlspecialchars($current['body']) ?></p>
 
           <h2>What this looks like in practice</h2>
           <p>

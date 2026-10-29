@@ -13,6 +13,8 @@
  */
 
 # --- Identity ---------------------------------------------------------------
+// No database rows in design mode, so there are no ADMC row ids either.
+$site_id         = null;
 $site_name       = "Hathany Cosmos Foundation";
 $site_short      = "HC Foundation";
 $site_tagline    = "Restoring Hope. Transforming Lives.";
@@ -307,4 +309,7 @@ $faqs = [
 
 # --- Partners ---------------------------------------------------------------
 // PENDING: no partner list supplied. Names shown are placeholders.
-$partners = ['Community Trust', 'Health Alliance', 'Learning Futures', 'Civic Council', 'Care Network', 'Youth Coalition'];
+$partners = [];
+foreach (['Community Trust', 'Health Alliance', 'Learning Futures', 'Civic Council', 'Care Network', 'Youth Coalition'] as $partnerName) {
+    $partners[] = ['id' => null, 'name' => $partnerName];
+}

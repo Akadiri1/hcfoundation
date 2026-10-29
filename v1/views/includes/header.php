@@ -13,6 +13,7 @@ if (!empty($maintenance_status) && !isset($_SESSION['admin_id'])) {
 require_once APP_PATH . "/views/includes/partials/asset.php";
 require_once APP_PATH . "/views/includes/partials/icon.php";
 require_once APP_PATH . "/views/includes/partials/logo.php";
+require_once APP_PATH . "/views/includes/partials/admc.php";
 
 $page_title    = $page_title ?? '';
 $webpage_title = $page_title ? "{$page_title} — {$site_name}" : "{$site_name} — {$site_tagline}";

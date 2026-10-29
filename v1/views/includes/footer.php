@@ -43,9 +43,10 @@
           Follow us on
         </p>
 
-        <div class="mt-3 flex gap-2.5">
+        <div class="mt-3 flex gap-2.5" <?= admc_list('panel_social_media_platform') ?>>
           <?php foreach ($socialLinks as $s): ?>
             <a href="<?= $s['url'] ?>" aria-label="<?= $s['name'] ?>" title="<?= $s['name'] ?>"
+               <?= admc_edit('panel_social_media_platform', $s['id'] ?? null) ?>
                class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all duration-300 hover:-translate-y-0.5 hover:border-ember-500 hover:bg-ember-500 hover:text-white">
               <?= social_icon($s['icon']) ?>
               <span class="sr-only"><?= $s['name'] ?></span>
@@ -81,7 +82,7 @@
 
         <div>
           <h3 class="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white">Get in touch</h3>
-          <ul class="mt-6 space-y-4 text-[0.9375rem]">
+          <ul class="mt-6 space-y-4 text-[0.9375rem]" <?= admc_edit('settings_website_info', $site_id ?? null) ?>>
             <li>
               <a href="mailto:<?= htmlspecialchars($site_email) ?>" class="flex items-start gap-3 transition-colors duration-300 hover:text-white">
                 <span class="mt-0.5 text-ember-400"><?= icon('mail', 'h-[18px] w-[18px]') ?></span>
@@ -124,5 +125,10 @@
 </button>
 
 <script src="/assets/js/app.js?v=<?= asset_version('/assets/js/app.js') ?>" defer></script>
+
+<?php // ADMC live edit: admins only, and never in DESIGN_MODE (no database to save to). ?>
+<?php if (isset($_SESSION['admin_id']) && empty($designMode)): ?>
+<script src="https://admc.dev/admc.min.js" charset="utf-8"></script>
+<?php endif; ?>
 </body>
 </html>

@@ -37,7 +37,7 @@ include APP_PATH . "/views/includes/header.php";
         <?= htmlspecialchars($post['category']) ?>
       </span>
 
-      <h1 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms">
+      <h1 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>>
         <?= htmlspecialchars($post['title']) ?>
       </h1>
 
@@ -63,12 +63,12 @@ include APP_PATH . "/views/includes/header.php";
     <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
 
       <article class="lg:col-span-8">
-        <div class="reveal media aspect-[16/9] rounded-[2rem] shadow-lift">
+        <div class="reveal media aspect-[16/9] rounded-[2rem] shadow-lift" <?= admc_image('panel_blog', $post['id'] ?? null) ?>>
           <img src="<?= $post['image'] ?>" alt="<?= htmlspecialchars($post['title']) ?>">
         </div>
 
         <div class="prose-brand mt-10 reveal" style="--reveal-delay:100ms">
-          <p class="text-xl leading-relaxed text-ink"><?= htmlspecialchars($post['excerpt']) ?></p>
+          <p class="text-xl leading-relaxed text-ink" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>><?= htmlspecialchars($post['excerpt']) ?></p>
 
           <p>
             This is placeholder body copy. Once the CMS is connected, the full article

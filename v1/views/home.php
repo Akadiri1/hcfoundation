@@ -21,7 +21,7 @@ include APP_PATH . "/views/includes/header.php";
           <span class="reveal-words block text-gradient">Transforming Lives.</span>
         </h1>
 
-        <p class="mt-7 max-w-lg text-lg leading-relaxed text-ink-soft reveal" style="--reveal-delay:240ms">
+        <p class="mt-7 max-w-lg text-lg leading-relaxed text-ink-soft reveal" style="--reveal-delay:240ms" <?= admc_edit('settings_website_info', $site_id) ?>>
           <?= htmlspecialchars($site_promise) ?>
         </p>
 
@@ -106,7 +106,7 @@ include APP_PATH . "/views/includes/header.php";
       </p>
     </div>
 
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" <?= admc_list('panel_initiatives') ?>>
       <?php foreach ($initiatives as $i => $item):
         $isTeal = $item['accent'] === 'teal';
         $tile   = $isTeal ? 'bg-teal-50 text-teal-600' : 'bg-ember-50 text-ember-500';
@@ -114,10 +114,10 @@ include APP_PATH . "/views/includes/header.php";
         <article class="card-hover card-rule group reveal flex flex-col" style="--reveal-delay:<?= $i * 90 ?>ms">
           <span class="icon-tile <?= $tile ?>"><?= icon($item['icon'], 'h-7 w-7') ?></span>
 
-          <h3 class="mt-6 font-display text-xl font-semibold leading-snug text-ink">
+          <h3 class="mt-6 font-display text-xl font-semibold leading-snug text-ink" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>>
             <?= htmlspecialchars($item['title']) ?>
           </h3>
-          <p class="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-ink-soft">
+          <p class="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-ink-soft" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>>
             <?= htmlspecialchars($item['summary']) ?>
           </p>
 
@@ -161,14 +161,14 @@ include APP_PATH . "/views/includes/header.php";
           People-centered.<br>Transparent. Accountable.
         </h2>
 
-        <div class="prose-brand mt-7 reveal" style="--reveal-delay:160ms">
+        <div class="prose-brand mt-7 reveal" style="--reveal-delay:160ms" <?= admc_edit('settings_website_info', $site_id) ?>>
           <p><?= htmlspecialchars($about_who) ?></p>
           <p><?= htmlspecialchars($about_approach) ?></p>
         </div>
 
-        <div class="mt-9 grid gap-4 sm:grid-cols-2 reveal" style="--reveal-delay:240ms">
+        <div class="mt-9 grid gap-4 sm:grid-cols-2 reveal" style="--reveal-delay:240ms" <?= admc_list('panel_core_values') ?>>
           <?php foreach (array_slice($core_values, 0, 4) as $v): ?>
-            <div class="flex items-start gap-3">
+            <div class="flex items-start gap-3" <?= admc_edit('panel_core_values', $v['id'] ?? null) ?>>
               <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-teal-50 text-teal-600">
                 <?= icon($v['icon'], 'h-4 w-4') ?>
               </span>
@@ -211,10 +211,10 @@ include APP_PATH . "/views/includes/header.php";
       </div>
 
       <div class="lg:col-span-6 lg:col-start-7">
-        <div class="grid gap-5 sm:grid-cols-2">
+        <div class="grid gap-5 sm:grid-cols-2" <?= admc_list('panel_impact_stats') ?>>
           <?php foreach ($impact_stats as $i => $stat): ?>
             <div class="reveal rounded-3xl border border-white/10 bg-white/[0.06] p-7 backdrop-blur-sm transition-colors duration-500 hover:border-ember-500/50 hover:bg-white/[0.09]"
-                 style="--reveal-delay:<?= $i * 90 ?>ms">
+                 style="--reveal-delay:<?= $i * 90 ?>ms" <?= admc_edit('panel_impact_stats', $stat['id'] ?? null) ?>>
               <p class="font-display text-[2.75rem] font-bold leading-none text-white">
                 <span data-count="<?= $stat['value'] ?>">0</span><span class="text-ember-400"><?= $stat['suffix'] ?></span>
               </p>
@@ -249,7 +249,7 @@ include APP_PATH . "/views/includes/header.php";
       <?php foreach (array_slice($initiatives, 0, 2) as $i => $item): ?>
         <a href="/view-initiative/<?= $item['slug'] ?>"
            class="group reveal media media-zoom relative flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-[2rem] p-8 shadow-card transition-shadow duration-500 hover:shadow-lift"
-           style="--reveal-delay:<?= $i * 120 ?>ms">
+           style="--reveal-delay:<?= $i * 120 ?>ms" <?= admc_image('panel_initiatives', $item['id'] ?? null) ?>>
           <img src="<?= $item['image'] ?>" alt="<?= htmlspecialchars($item['title']) ?>" class="absolute inset-0"
                      loading="lazy" decoding="async">
           <span class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent"></span>
@@ -258,7 +258,7 @@ include APP_PATH . "/views/includes/header.php";
             <span class="inline-flex rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
               Initiative
             </span>
-            <h3 class="mt-4 font-display text-2xl font-bold text-white"><?= htmlspecialchars($item['title']) ?></h3>
+            <h3 class="mt-4 font-display text-2xl font-bold text-white" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['title']) ?></h3>
             <p class="mt-2.5 max-w-md text-[0.9375rem] leading-relaxed text-white/75"><?= htmlspecialchars($item['summary']) ?></p>
             <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ember-300 transition-transform duration-300 group-hover:translate-x-1">
               Learn more <?= icon('arrow', 'h-4 w-4') ?>
@@ -279,7 +279,7 @@ include APP_PATH . "/views/includes/header.php";
             <?= icon($item['icon'], 'h-7 w-7') ?>
           </span>
           <span>
-            <h3 class="font-display text-xl font-semibold text-ink"><?= htmlspecialchars($item['title']) ?></h3>
+            <h3 class="font-display text-xl font-semibold text-ink" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['title']) ?></h3>
             <p class="mt-2 text-[0.9375rem] leading-relaxed text-ink-soft"><?= htmlspecialchars($item['summary']) ?></p>
             <span class="link-arrow mt-4">Learn more <?= icon('arrow', 'h-4 w-4') ?></span>
           </span>
@@ -304,12 +304,12 @@ include APP_PATH . "/views/includes/header.php";
       </a>
     </div>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-3">
+    <div class="mt-10 grid gap-6 md:grid-cols-3" <?= admc_list('panel_blog') ?>>
       <?php foreach (array_slice($blog_posts, 0, 3) as $i => $post): ?>
         <article class="reveal group overflow-hidden rounded-[1.75rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-lift"
                  style="--reveal-delay:<?= $i * 100 ?>ms">
           <a href="/read-blog/<?= $post['slug'] ?>" class="block">
-            <span class="media media-zoom block aspect-[16/10]">
+            <span class="media media-zoom block aspect-[16/10]" <?= admc_image('panel_blog', $post['id'] ?? null) ?>>
               <img src="<?= $post['image'] ?>" alt="<?= htmlspecialchars($post['title']) ?>" loading="lazy">
             </span>
             <span class="block p-7">
@@ -318,7 +318,7 @@ include APP_PATH . "/views/includes/header.php";
                 <span class="h-1 w-1 rounded-full bg-ink-line"></span>
                 <span class="text-ink-muted"><?= htmlspecialchars($post['read']) ?></span>
               </span>
-              <h3 class="mt-4 font-display text-lg font-semibold leading-snug text-ink transition-colors duration-300 group-hover:text-teal-700">
+              <h3 class="mt-4 font-display text-lg font-semibold leading-snug text-ink transition-colors duration-300 group-hover:text-teal-700" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>>
                 <?= htmlspecialchars($post['title']) ?>
               </h3>
               <p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft"><?= htmlspecialchars($post['excerpt']) ?></p>
@@ -339,15 +339,17 @@ include APP_PATH . "/views/includes/header.php";
       Working alongside
     </p>
 
-    <div class="marquee-wrap mask-fade-r mt-9 overflow-hidden">
+    <div class="marquee-wrap mask-fade-r mt-9 overflow-hidden" <?= admc_list('panel_partners') ?>>
       <div class="marquee-track flex w-max items-center gap-12">
         <?php for ($pass = 0; $pass < 2; $pass++): ?>
           <?php foreach ($partners as $p): ?>
-            <span class="flex shrink-0 items-center gap-3 font-display text-xl font-semibold text-ink-muted/70 transition-colors duration-300 hover:text-teal-700">
+            <?php // The marquee renders the list twice; only the first copy gets edit controls. ?>
+            <span class="flex shrink-0 items-center gap-3 font-display text-xl font-semibold text-ink-muted/70 transition-colors duration-300 hover:text-teal-700"
+                  <?= $pass === 0 ? admc_edit('panel_partners', $p['id'] ?? null) : 'aria-hidden="true"' ?>>
               <span class="grid h-9 w-9 place-items-center rounded-lg bg-ink-wash text-teal-600">
                 <?= icon('star', 'h-4 w-4') ?>
               </span>
-              <?= htmlspecialchars($p) ?>
+              <?= htmlspecialchars($p['name']) ?>
             </span>
           <?php endforeach; ?>
         <?php endfor; ?>

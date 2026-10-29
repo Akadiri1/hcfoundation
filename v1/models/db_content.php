@@ -6,12 +6,32 @@
  * When DESIGN_MODE=false, this file is loaded by www/index.php.
  * It queries all CMS and settings tables and maps them into the exact
  * variable structures expected by the views.
+ *
+ * Every mapped item keeps its row 'id' so the views can emit the ADMC
+ * live-edit attributes (data-admc-id). $site_id is the settings row id.
  * ---------------------------------------------------------------------------
  */
+
+/**
+ * Image source for a row. image_1 is what ADMC writes when an admin swaps an
+ * image; it may be a full URL or a site path. input_image is the seeded
+ * placeholder URL, used until an image has been uploaded.
+ */
+$rowImage = function (array $row): string {
+    $image = trim((string)($row['image_1'] ?? ''));
+    if ($image === '') {
+        return (string)($row['input_image'] ?? '');
+    }
+    if (preg_match('#^(https?:)?//#i', $image)) {
+        return $image;
+    }
+    return '/' . ltrim($image, '/');
+};
 
 # --- 1. Settings & Identity -------------------------------------------------
 $websiteInfo = selectContent($conn, "settings_website_info", ['visibility' => 'show']);
 $siteRow     = $websiteInfo[0] ?? [];
+$site_id     = $siteRow['id'] ?? null;
 
 $site_name       = $siteRow['input_name'] ?? getenv('APP_NAME');
 $site_short      = $siteRow['input_short_name'] ?? 'HC Foundation';
@@ -57,6 +77,7 @@ $rawSocial = selectContent($conn, "panel_social_media_platform", ['visibility' =
 $socialLinks = [];
 foreach ($rawSocial as $row) {
     $socialLinks[] = [
+        'id'   => $row['id'],
         'name' => $row['input_name'],
         'url'  => $row['input_url'],
         'icon' => $row['input_icon'] ?? 'facebook',
@@ -84,8 +105,8 @@ $hero_avatars = [
 $rawInitiatives = selectContent($conn, "panel_initiatives", ['visibility' => 'show']);
 $initiatives = [];
 foreach ($rawInitiatives as $row) {
-    $imgSrc = !empty($row['image_1']) ? '/' . ltrim($row['image_1'], '/') : ($row['input_image'] ?? '');
     $initiatives[] = [
+        'id'          => $row['id'],
         'slug'        => $row['input_slug'],
         'title'       => $row['input_title'],
         'summary'     => $row['text_summary'] ?? '',
@@ -93,7 +114,7 @@ foreach ($rawInitiatives as $row) {
         'description' => $row['text_description'] ?? '',
         'body'        => $row['text_body'] ?? '',
         'icon'        => $row['input_icon'] ?? 'hands',
-        'image'       => $imgSrc,
+        'image'       => $rowImage($row),
         'accent'      => $row['input_accent'] ?? 'teal',
     ];
 }
@@ -103,6 +124,7 @@ $rawImpact = selectContent($conn, "panel_impact_stats", ['visibility' => 'show']
 $impact_stats = [];
 foreach ($rawImpact as $row) {
     $impact_stats[] = [
+        'id'     => $row['id'],
         'value'  => (int)$row['input_value'],
         'suffix' => $row['input_suffix'] ?? '',
         'label'  => $row['input_label'],
@@ -115,6 +137,7 @@ $rawValues = selectContent($conn, "panel_core_values", ['visibility' => 'show'])
 $core_values = [];
 foreach ($rawValues as $row) {
     $core_values[] = [
+        'id'    => $row['id'],
         'title' => $row['input_title'],
         'body'  => $row['text_body'] ?? '',
         'icon'  => $row['input_icon'] ?? 'heart',
@@ -126,6 +149,7 @@ $rawBenefits = selectContent($conn, "panel_volunteer_benefits", ['visibility' =>
 $volunteer_benefits = [];
 foreach ($rawBenefits as $row) {
     $volunteer_benefits[] = [
+        'id'    => $row['id'],
         'title' => $row['input_title'],
         'body'  => $row['text_body'] ?? '',
     ];
@@ -135,6 +159,7 @@ $rawRoles = selectContent($conn, "panel_volunteer_roles", ['visibility' => 'show
 $volunteer_roles = [];
 foreach ($rawRoles as $row) {
     $volunteer_roles[] = [
+        'id'    => $row['id'],
         'title' => $row['input_title'],
         'body'  => $row['text_body'] ?? '',
         'icon'  => $row['input_icon'] ?? 'hands',
@@ -170,11 +195,11 @@ foreach ($rawTeam as $row) {
             'members' => [],
         ];
     }
-    $imgSrc = !empty($row['image_1']) ? '/' . ltrim($row['image_1'], '/') : ($row['input_image'] ?? '');
     $team_grouped[$grp]['members'][] = [
+        'id'    => $row['id'],
         'name'  => $row['input_name'],
         'role'  => $row['input_role'],
-        'image' => $imgSrc,
+        'image' => $rowImage($row),
     ];
 }
 $team_groups = array_values($team_grouped);
@@ -206,11 +231,11 @@ foreach ($rawGallery as $row) {
     if (!in_array($cat, $gallery_categories, true)) {
         $gallery_categories[] = $cat;
     }
-    $imgSrc = !empty($row['image_1']) ? '/' . ltrim($row['image_1'], '/') : ($row['input_image'] ?? '');
     $gallery_items[] = [
+        'id'       => $row['id'],
         'category' => $cat,
         'caption'  => $row['input_caption'],
-        'image'    => $imgSrc,
+        'image'    => $rowImage($row),
     ];
 }
 
@@ -223,15 +248,15 @@ foreach ($rawBlog as $row) {
     if (!in_array($cat, $blog_categories, true)) {
         $blog_categories[] = $cat;
     }
-    $imgSrc = !empty($row['image_1']) ? '/' . ltrim($row['image_1'], '/') : ($row['input_image'] ?? '');
     $blog_posts[] = [
+        'id'       => $row['id'],
         'slug'     => $row['input_slug'],
         'title'    => $row['input_title'],
         'excerpt'  => $row['text_excerpt'] ?? '',
         'category' => $cat,
         'date'     => $row['input_date'] ?? '',
         'read'     => $row['input_read_time'] ?: '5 min read',
-        'image'    => $imgSrc,
+        'image'    => $rowImage($row),
         'author'   => $row['input_author'] ?: 'HC Foundation',
     ];
 }
@@ -241,8 +266,9 @@ $rawFaqs = selectContent($conn, "panel_faqs", ['visibility' => 'show']);
 $faqs = [];
 foreach ($rawFaqs as $row) {
     $faqs[] = [
-        'q' => $row['input_question'],
-        'a' => $row['text_answer'] ?? '',
+        'id' => $row['id'],
+        'q'  => $row['input_question'],
+        'a'  => $row['text_answer'] ?? '',
     ];
 }
 
@@ -250,5 +276,8 @@ foreach ($rawFaqs as $row) {
 $rawPartners = selectContent($conn, "panel_partners", ['visibility' => 'show']);
 $partners = [];
 foreach ($rawPartners as $row) {
-    $partners[] = $row['input_name'];
+    $partners[] = [
+        'id'   => $row['id'],
+        'name' => $row['input_name'],
+    ];
 }

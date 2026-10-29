@@ -30,13 +30,14 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
     </div>
 
     <!-- Grid -->
-    <div class="mt-10 grid auto-rows-[240px] gap-5 sm:grid-cols-2 lg:grid-cols-3" data-collection-grid>
+    <div class="mt-10 grid auto-rows-[240px] gap-5 sm:grid-cols-2 lg:grid-cols-3" data-collection-grid <?= admc_list('panel_gallery') ?>>
       <?php foreach ($gallery_items as $i => $item): ?>
         <button type="button"
                 data-filter-item="<?= htmlspecialchars($item['category']) ?>"
                 data-lightbox="<?= $item['image'] ?>"
                 data-caption="<?= htmlspecialchars($item['caption']) ?>"
                 data-alt="<?= htmlspecialchars($item['caption']) ?>"
+                <?= admc_image('panel_gallery', $item['id'] ?? null) ?>
                 class="reveal reveal-scale group media media-zoom relative overflow-hidden rounded-[1.5rem] shadow-card transition-all duration-500 ease-out-expo hover:shadow-lift <?= $span_cycle[$i % count($span_cycle)] ?>"
                 style="--reveal-delay:<?= min($i, 6) * 70 ?>ms">
 
@@ -46,7 +47,7 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
 
           <span class="absolute inset-x-5 bottom-5 translate-y-3 text-left opacity-0 transition-all duration-500 ease-out-expo group-hover:translate-y-0 group-hover:opacity-100">
             <span class="block text-xs font-semibold uppercase tracking-wider text-ember-300"><?= htmlspecialchars($item['category']) ?></span>
-            <span class="mt-1.5 block font-display text-lg font-semibold text-white"><?= htmlspecialchars($item['caption']) ?></span>
+            <span class="mt-1.5 block font-display text-lg font-semibold text-white" <?= admc_edit('panel_gallery', $item['id'] ?? null) ?>><?= htmlspecialchars($item['caption']) ?></span>
           </span>
 
           <span class="absolute right-5 top-5 grid h-10 w-10 scale-75 place-items-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-sm transition-all duration-500 ease-spring group-hover:scale-100 group-hover:opacity-100">

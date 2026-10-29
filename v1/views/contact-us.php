@@ -13,7 +13,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <section class="section bg-white">
   <div class="container">
 
-    <div class="grid gap-6 md:grid-cols-3">
+    <div class="grid gap-6 md:grid-cols-3" <?= admc_edit('settings_website_info', $site_id) ?>>
       <?php foreach ([
         ['mail',  'Email',          $site_email,   'mailto:' . $site_email,                              'Replies within two working days'],
         ['phone', 'Phone',          $site_phone,   'tel:' . preg_replace('/\s+/', '', $site_phone),      'Mon – Fri, 9am – 5pm'],
@@ -91,9 +91,10 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
         <span class="eyebrow reveal">Questions</span>
         <h2 class="mt-6 text-display-md reveal" style="--reveal-delay:80ms">Before you write</h2>
 
-        <div class="mt-10 space-y-3" data-accordion>
+        <div class="mt-10 space-y-3" data-accordion <?= admc_list('panel_faqs') ?>>
           <?php foreach ($faqs as $i => $f): ?>
             <div data-acc-item
+                 <?= admc_edit('panel_faqs', $f['id'] ?? null) ?>
                  class="reveal overflow-hidden rounded-2xl border border-ink-line bg-white transition-all duration-400 [&.is-open]:border-teal-200 [&.is-open]:shadow-card"
                  style="--reveal-delay:<?= 140 + $i * 80 ?>ms">
 
