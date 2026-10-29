@@ -12,16 +12,17 @@ if (array_key_exists('submit', $_POST)) {
         $error = 'Please enter both email/username and password.';
     } else {
         // Check admin table by email or username
-        $stmt = $conn->prepare("SELECT * FROM admin WHERE input_email = :e OR input_username = :u LIMIT 1");
+        $stmt = $conn->prepare("SELECT * FROM admin WHERE email = :e OR username = :u OR input_username = :u LIMIT 1");
         $stmt->execute([':e' => $email, ':u' => $email]);
         $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($admin && password_verify($pword, $admin['input_password'])) {
+        $storedHash = $admin['hash'] ?? $admin['input_password'] ?? '';
+        if ($admin && password_verify($pword, $storedHash)) {
             if ((int)$admin['user_status'] === 2) {
                 $error = 'Your admin account has been suspended.';
             } else {
                 $_SESSION['admin_id'] = $admin['hash_id'];
-                $_SESSION['admin_username'] = $admin['input_username'];
+                $_SESSION['admin_username'] = $admin['username'] ?? $admin['input_username'] ?? 'admin';
                 $_SESSION['admin_level'] = $admin['level'];
                 header("Location: " . $rd);
                 exit();

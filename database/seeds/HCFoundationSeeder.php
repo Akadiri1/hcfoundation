@@ -51,11 +51,17 @@ class HCFoundationSeeder extends Seeder {
         $this->upsert('read_mail_config', $mailConfig, 'id');
 
         // 3. Admin Account
+        $adminPassword = password_hash('Admin@HCFoundation2026', PASSWORD_BCRYPT);
         $admin = [
             'hash_id'        => 'admin_hcfoundation_root',
+            'firstname'      => 'Admin',
+            'lastname'       => 'User',
+            'username'       => 'admin',
             'input_username' => 'admin',
-            'input_email'    => 'admin@hcfoundations.com',
-            'input_password' => password_hash('Admin@HCFoundation2026', PASSWORD_BCRYPT),
+            'email'          => 'admin@hcfoundations.com',
+            'hash'           => $adminPassword,
+            'input_password' => $adminPassword,
+            'verification'   => '1',
             'user_status'    => 1,
             'level'          => 'MASTER',
         ];

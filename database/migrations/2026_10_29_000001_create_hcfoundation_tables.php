@@ -49,9 +49,14 @@ return new class {
         $migration->table('admin', function ($table) {
             $table->id();
             $table->string('hash_id', 255)->unique();
+            $table->string('firstname', 100)->default('Admin');
+            $table->string('lastname', 100)->default('User');
+            $table->string('username', 100)->default('admin');
             $table->string('input_username', 100)->default('admin');
-            $table->string('input_email', 255)->default('admin@hcfoundations.com');
+            $table->string('email', 255)->default('admin@hcfoundations.com');
+            $table->string('hash', 255)->nullable();
             $table->string('input_password', 255);
+            $table->string('verification', 50)->default('1');
             $table->integer('user_status')->default(1);
             $table->string('level', 50)->default('MASTER');
             $table->timestamps();
