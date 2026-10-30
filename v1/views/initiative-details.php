@@ -16,15 +16,22 @@ if (!$current) {
 $others = array_values(array_filter($initiatives, function ($i) use ($current) { return $i['slug'] !== $current['slug']; }));
 
 $page_title = $current['programme'];
-$page_meta  = $current['description'];
+$page_meta  = strip_tags($current['description']);
 include APP_PATH . "/views/includes/header.php";
 
-$hero_eyebrow = $current['title'];
-$hero_crumb   = $current['programme'];
-$hero_title   = htmlspecialchars($current['programme']);
-$hero_text    = $current['description'];
-$hero_text_admc = admc_edit('panel_initiatives', $current['id'] ?? null);
+$edit = admc_edit('panel_initiatives', $current['id'] ?? null);
+
+$hero_eyebrow   = $current['title'];
+$hero_crumb     = $current['programme'];
+$hero_crumb_admc = $edit;
+$hero_title     = htmlspecialchars($current['programme']);
+$hero_text      = $current['description'];
+$hero_admc      = $edit;
+$hero_text_admc = $edit;
 include APP_PATH . "/views/includes/partials/page-hero.php";
+
+$labels     = admc_section('settings_initiative_details');
+$labelsEdit = admc_edit('settings_initiative_details', $labels['id']);
 ?>
 
 <section class="section bg-white">
@@ -37,38 +44,14 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
           <img src="<?= $current['image'] ?>" alt="<?= htmlspecialchars($current['title']) ?>">
         </div>
 
-        <div class="prose-brand mt-10 reveal" style="--reveal-delay:120ms">
-          <p class="text-xl leading-relaxed text-ink" <?= admc_edit('panel_initiatives', $current['id'] ?? null) ?>><?= htmlspecialchars($current['body']) ?></p>
-
-          <h2>What this looks like in practice</h2>
-          <p>
-            Work under this initiative is planned with the community, delivered by
-            teams drawn from the community wherever possible, and reported back to
-            the community once complete.
-          </p>
-
-          <ul>
-            <li>Needs identified through direct engagement rather than assumption</li>
-            <li>Delivery sized to what can be sustained beyond a single cycle</li>
-            <li>Outcomes recorded and published, including what did not work</li>
-            <li>Local capacity built so the work continues without us</li>
-          </ul>
-
-          <blockquote>
-            Impact is measured by lives touched and stories changed.
-          </blockquote>
-
-          <h2>How you can support it</h2>
-          <p>
-            Volunteers, partner organisations and advocates all extend how far this
-            initiative reaches. If any of those describe you, we would like to hear
-            from you.
-          </p>
+        <div class="prose-brand mt-10 reveal" style="--reveal-delay:120ms" <?= $edit ?>>
+          <p class="text-xl leading-relaxed text-ink"><?= admc_plain($current['body']) ?></p>
+          <?= admc_rich($current['content']) ?>
         </div>
 
-        <div class="mt-10 flex flex-wrap gap-4 reveal">
-          <a href="/volunteer" class="btn-primary">Volunteer for this <?= icon('arrow', 'h-4 w-4') ?></a>
-          <a href="/contact-us" class="btn-outline">Partner with us</a>
+        <div class="mt-10 flex flex-wrap gap-4 reveal" <?= $labelsEdit ?>>
+          <a href="/volunteer" class="btn-primary"><?= htmlspecialchars($labels['input_volunteer_button']) ?> <?= icon('arrow', 'h-4 w-4') ?></a>
+          <a href="/contact-us" class="btn-outline"><?= htmlspecialchars($labels['input_partner_button']) ?></a>
         </div>
       </div>
 
@@ -76,17 +59,17 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       <aside class="lg:col-span-4 lg:col-start-9">
         <div class="lg:sticky lg:top-32 space-y-6">
 
-          <div class="reveal reveal-right rounded-3xl bg-teal-grad p-8 text-white shadow-glow">
-            <h2 class="font-display text-xl font-bold">At a glance</h2>
+          <div class="reveal reveal-right rounded-3xl bg-teal-grad p-8 text-white shadow-glow" <?= $edit ?>>
+            <h2 class="font-display text-xl font-bold" <?= $labelsEdit ?>><?= htmlspecialchars($labels['input_glance_title']) ?></h2>
             <dl class="mt-6 space-y-4 text-sm">
               <?php foreach ([
-                'Focus'    => $current['title'],
-                'Approach' => 'Community-led delivery',
-                'Status'   => 'Active',
-                'Reach'    => 'Urban and rural communities',
+                $labels['input_focus_label']    => $current['title'],
+                $labels['input_approach_label'] => $current['approach'],
+                $labels['input_status_label']   => $current['status'],
+                $labels['input_reach_label']    => $current['reach'],
               ] as $k => $v): ?>
                 <div class="flex items-start justify-between gap-4 border-b border-white/15 pb-4 last:border-0 last:pb-0">
-                  <dt class="text-white/60"><?= $k ?></dt>
+                  <dt class="text-white/60"><?= htmlspecialchars($k) ?></dt>
                   <dd class="text-right font-medium"><?= htmlspecialchars($v) ?></dd>
                 </div>
               <?php endforeach; ?>
@@ -94,10 +77,10 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
           </div>
 
           <div class="reveal reveal-right card" style="--reveal-delay:120ms">
-            <h2 class="font-display text-lg font-semibold text-ink">Other initiatives</h2>
+            <h2 class="font-display text-lg font-semibold text-ink" <?= $labelsEdit ?>><?= htmlspecialchars($labels['input_others_title']) ?></h2>
             <ul class="mt-5 space-y-1">
               <?php foreach ($others as $o): ?>
-                <li>
+                <li <?= admc_edit('panel_initiatives', $o['id'] ?? null) ?>>
                   <a href="/view-initiative/<?= $o['slug'] ?>"
                      class="group flex items-center justify-between gap-4 rounded-2xl px-4 py-3 transition-colors duration-300 hover:bg-ink-wash">
                     <span class="text-[0.9375rem] font-medium text-ink"><?= htmlspecialchars($o['title']) ?></span>

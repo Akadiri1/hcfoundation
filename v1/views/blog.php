@@ -3,15 +3,19 @@ $page_title = 'Blog';
 $page_meta  = "Read about our work, the people we serve, and the lessons we learn along the way.";
 include APP_PATH . "/views/includes/header.php";
 
-$hero_eyebrow = 'Blog';
-$hero_title   = 'Stories &amp; <span class="text-gradient">Updates</span>';
-$hero_text    = 'Read about our work, the people we serve, and the lessons we learn along the way.';
+$hero_section = 'settings_blog_hero';
+$hero_crumb   = $navLabels['input_blog'];
 include APP_PATH . "/views/includes/partials/page-hero.php";
 
-$featured = $blog_posts[0];
+$blogCopy   = admc_section('settings_blog_page');
+$blogEdit   = admc_edit('settings_blog_page', $blogCopy['id']);
+$newsletter = admc_section('settings_blog_newsletter');
+
+$featured = $blog_posts[0] ?? null;
 $rest     = array_slice($blog_posts, 1);
 ?>
 
+<?php if ($featured): ?>
 <!-- ===== Featured ===================================================== -->
 <section class="pt-10 md:pt-12">
   <div class="container">
@@ -24,7 +28,7 @@ $rest     = array_slice($blog_posts, 1);
 
       <span class="flex flex-col justify-center p-8 md:p-12">
         <span class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider">
-          <span class="rounded-full bg-ember-50 px-3 py-1.5 text-ember-600">Featured</span>
+          <span class="rounded-full bg-ember-50 px-3 py-1.5 text-ember-600" <?= $blogEdit ?>><?= htmlspecialchars($blogCopy['input_featured_tag']) ?></span>
           <span class="text-teal-700"><?= htmlspecialchars($featured['category']) ?></span>
         </span>
 
@@ -32,19 +36,20 @@ $rest     = array_slice($blog_posts, 1);
           <?= htmlspecialchars($featured['title']) ?>
         </h2>
 
-        <p class="mt-4 leading-relaxed text-ink-soft" <?= admc_edit('panel_blog', $featured['id'] ?? null) ?>><?= htmlspecialchars($featured['excerpt']) ?></p>
+        <p class="mt-4 leading-relaxed text-ink-soft" <?= admc_edit('panel_blog', $featured['id'] ?? null) ?>><?= admc_plain($featured['excerpt']) ?></p>
 
-        <span class="mt-8 flex items-center gap-4 text-sm text-ink-muted">
+        <span class="mt-8 flex items-center gap-4 text-sm text-ink-muted" <?= admc_edit('panel_blog', $featured['id'] ?? null) ?>>
           <span><?= htmlspecialchars($featured['date']) ?></span>
           <span class="h-1 w-1 rounded-full bg-ink-line"></span>
           <span><?= htmlspecialchars($featured['read']) ?></span>
         </span>
 
-        <span class="link-arrow mt-6">Read the story <?= icon('arrow', 'h-4 w-4') ?></span>
+        <span class="link-arrow mt-6" <?= $blogEdit ?>><?= htmlspecialchars($blogCopy['input_read_link']) ?> <?= icon('arrow', 'h-4 w-4') ?></span>
       </span>
     </a>
   </div>
 </section>
+<?php endif; ?>
 
 <!-- ===== Posts ======================================================== -->
 <section class="section" data-collection data-page-size="6" data-step="6">
@@ -52,8 +57,8 @@ $rest     = array_slice($blog_posts, 1);
 
     <div class="flex flex-wrap justify-center gap-3 reveal" data-collection-filters>
       <button type="button" data-filter="all" aria-pressed="true"
-              class="chip border-teal-600 bg-teal-600 text-white">
-        All posts
+              class="chip border-teal-600 bg-teal-600 text-white" <?= $blogEdit ?>>
+        <?= htmlspecialchars($blogCopy['input_all_filter']) ?>
       </button>
       <?php foreach ($blog_categories as $cat): ?>
         <button type="button" data-filter="<?= htmlspecialchars($cat) ?>" aria-pressed="false"
@@ -80,9 +85,9 @@ $rest     = array_slice($blog_posts, 1);
               <h3 class="font-display text-lg font-semibold leading-snug text-ink transition-colors duration-300 group-hover:text-teal-700" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>>
                 <?= htmlspecialchars($post['title']) ?>
               </h3>
-              <p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>><?= htmlspecialchars($post['excerpt']) ?></p>
+              <p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>><?= admc_plain($post['excerpt']) ?></p>
 
-              <span class="mt-6 flex items-center gap-3 text-xs text-ink-muted">
+              <span class="mt-6 flex items-center gap-3 text-xs text-ink-muted" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>>
                 <span><?= htmlspecialchars($post['date']) ?></span>
                 <span class="h-1 w-1 rounded-full bg-ink-line"></span>
                 <span><?= htmlspecialchars($post['read']) ?></span>
@@ -93,8 +98,8 @@ $rest     = array_slice($blog_posts, 1);
       <?php endforeach; ?>
     </div>
 
-    <p data-collection-empty class="hidden py-12 text-center text-ink-muted">
-      No posts in this category yet.
+    <p data-collection-empty class="hidden py-12 text-center text-ink-muted" <?= $blogEdit ?>>
+      <?= htmlspecialchars($blogCopy['input_empty']) ?>
     </p>
 
     <!-- Load more -->
@@ -103,8 +108,8 @@ $rest     = array_slice($blog_posts, 1);
 
       <!-- Hidden by default: only useful once JS is running, and JS decides
            whether anything is left to load. -->
-      <button type="button" data-collection-more class="btn-outline btn-lg hidden">
-        Load more posts
+      <button type="button" data-collection-more class="btn-outline btn-lg hidden" <?= $blogEdit ?>>
+        <?= htmlspecialchars($blogCopy['input_load_more']) ?>
         <span data-collection-remaining class="text-ink-muted"></span>
         <?= icon('chevron', 'h-4 w-4') ?>
       </button>
@@ -112,25 +117,25 @@ $rest     = array_slice($blog_posts, 1);
 
     <!-- Newsletter -->
     <div class="reveal mt-10 overflow-hidden rounded-[2rem] bg-teal-950">
-      <div class="relative grid items-center gap-10 p-10 md:grid-cols-2 md:p-14">
+      <div class="relative grid items-center gap-10 p-10 md:grid-cols-2 md:p-14" <?= admc_edit('settings_blog_newsletter', $newsletter['id']) ?>>
         <div class="absolute inset-0 fan-glow-deep"></div>
 
         <div class="relative">
-          <span class="eyebrow eyebrow-light">Stay in touch</span>
-          <h2 class="mt-5 text-display-sm text-white">Get our stories in your inbox</h2>
+          <span class="eyebrow eyebrow-light"><?= htmlspecialchars($newsletter['input_eyebrow']) ?></span>
+          <h2 class="mt-5 text-display-sm text-white"><?= admc_lines($newsletter['input_heading']) ?></h2>
           <p class="mt-4 leading-relaxed text-white/70">
-            Occasional updates on programmes, impact and the communities we serve. No noise.
+            <?= admc_plain($newsletter['text_intro']) ?>
           </p>
         </div>
 
         <form class="relative" data-form novalidate>
           <div class="flex flex-col gap-3 sm:flex-row">
             <label for="newsletter-email" class="sr-only">Email address</label>
-            <input type="email" name="email" id="newsletter-email" required autocomplete="email" placeholder="you@example.com"
+            <input type="email" name="email" id="newsletter-email" required autocomplete="email" placeholder="<?= htmlspecialchars($newsletter['input_placeholder']) ?>"
                    class="w-full rounded-btn border border-white/20 bg-white/10 px-6 py-4 text-[0.9375rem] text-white backdrop-blur-sm transition-all duration-300 placeholder:text-white/45 focus:border-ember-400 focus:bg-white/15 focus:outline-none focus:ring-4 focus:ring-ember-500/20">
-            <button type="submit" class="btn-ember shrink-0">Subscribe</button>
+            <button type="submit" class="btn-ember shrink-0"><?= htmlspecialchars($newsletter['input_button']) ?></button>
           </div>
-          <p data-form-note class="mt-4 text-sm text-white/50">We will never share your address.</p>
+          <p data-form-note class="mt-4 text-sm text-white/50"><?= htmlspecialchars($newsletter['input_note']) ?></p>
         </form>
       </div>
     </div>

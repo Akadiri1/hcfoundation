@@ -3,10 +3,16 @@ $page_title = 'About Us';
 $page_meta  = "HC Foundation is a humanitarian-focused organization committed to improving lives through service, compassion, and action.";
 include APP_PATH . "/views/includes/header.php";
 
-$hero_eyebrow = 'About Us';
-$hero_title   = 'Who <span class="text-gradient">We Are</span>';
-$hero_text    = 'A humanitarian-focused organization committed to improving lives through service, compassion, and action.';
+$hero_section = 'settings_about_hero';
+$hero_crumb   = $navLabels['input_about_us'];
 include APP_PATH . "/views/includes/partials/page-hero.php";
+
+$story    = admc_section('settings_about_story');
+$values   = admc_section('settings_about_values');
+$approach = admc_section('settings_about_approach');
+
+$storyEdit = admc_edit('settings_about_story', $story['id']);
+$siteEdit  = admc_edit('settings_website_info', $site_id);
 ?>
 
 <!-- ===== Story ======================================================== -->
@@ -16,34 +22,29 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 
       <div class="lg:col-span-5">
         <div class="lg:sticky lg:top-32">
-          <div class="reveal reveal-left media aspect-[4/5] rounded-[2.5rem] shadow-lift media-zoom">
-            <img src="<?= $img('photo-1517486808906-6ca8b3f04846', 900, 1120) ?>" alt="Working with the community"
+          <div class="reveal reveal-left media aspect-[4/5] rounded-[2.5rem] shadow-lift media-zoom" <?= admc_image('settings_about_story', $story['id']) ?>>
+            <img src="<?= htmlspecialchars(admc_src($story)) ?>" alt="Working with the community"
                  loading="lazy" decoding="async">
           </div>
-          <div class="reveal mt-6 rounded-3xl border border-ink-line bg-ink-wash p-7" style="--reveal-delay:180ms">
+          <div class="reveal mt-6 rounded-3xl border border-ink-line bg-ink-wash p-7" style="--reveal-delay:180ms" <?= $storyEdit ?>>
             <span class="text-ember-500"><?= icon('quote', 'h-7 w-7') ?></span>
             <p class="mt-4 font-display text-lg font-medium leading-relaxed text-ink">
-              We work with communities to identify needs and deliver support that is
-              both meaningful and sustainable.
+              <?= admc_plain($story['text_quote']) ?>
             </p>
           </div>
         </div>
       </div>
 
       <div class="lg:col-span-6 lg:col-start-7">
-        <span class="eyebrow reveal">Our Story</span>
-        <h2 class="mt-6 text-display-md reveal" style="--reveal-delay:80ms">
-          Responsibility to those we serve
+        <span class="eyebrow reveal" <?= $storyEdit ?>><?= htmlspecialchars($story['input_eyebrow']) ?></span>
+        <h2 class="mt-6 text-display-md reveal" style="--reveal-delay:80ms" <?= $storyEdit ?>>
+          <?= admc_lines($story['input_heading']) ?>
         </h2>
 
         <div class="prose-brand mt-7 reveal" style="--reveal-delay:160ms">
-          <p <?= admc_edit('settings_website_info', $site_id) ?>><?= htmlspecialchars($about_who) ?></p>
-          <p <?= admc_edit('settings_website_info', $site_id) ?>><?= htmlspecialchars($about_approach) ?></p>
-          <p>
-            That responsibility shapes how we plan, how we spend, and how we report.
-            Every programme begins with listening, and every outcome is traceable back
-            to the people it was meant to serve.
-          </p>
+          <p <?= $siteEdit ?>><?= admc_plain($about_who) ?></p>
+          <p <?= $siteEdit ?>><?= admc_plain($about_approach) ?></p>
+          <p <?= $storyEdit ?>><?= admc_plain($story['text_extra']) ?></p>
         </div>
 
         <!-- Vision / Mission -->
@@ -53,8 +54,8 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
             <span class="relative grid h-12 w-12 place-items-center rounded-2xl bg-white/15">
               <?= icon('star', 'h-6 w-6') ?>
             </span>
-            <h3 class="relative mt-5 font-display text-xl font-bold">Our Vision</h3>
-            <p class="relative mt-3 leading-relaxed text-white/80" <?= admc_edit('settings_website_info', $site_id) ?>><?= htmlspecialchars($vision) ?></p>
+            <h3 class="relative mt-5 font-display text-xl font-bold" <?= $storyEdit ?>><?= htmlspecialchars($story['input_vision_title']) ?></h3>
+            <p class="relative mt-3 leading-relaxed text-white/80" <?= $siteEdit ?>><?= admc_plain($vision) ?></p>
           </div>
 
           <div class="reveal relative overflow-hidden rounded-3xl bg-ember-grad p-8 text-white shadow-ember" style="--reveal-delay:320ms">
@@ -62,8 +63,8 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
             <span class="relative grid h-12 w-12 place-items-center rounded-2xl bg-white/15">
               <?= icon('growth', 'h-6 w-6') ?>
             </span>
-            <h3 class="relative mt-5 font-display text-xl font-bold">Our Mission</h3>
-            <p class="relative mt-3 leading-relaxed text-white/85" <?= admc_edit('settings_website_info', $site_id) ?>><?= htmlspecialchars($mission) ?></p>
+            <h3 class="relative mt-5 font-display text-xl font-bold" <?= $storyEdit ?>><?= htmlspecialchars($story['input_mission_title']) ?></h3>
+            <p class="relative mt-3 leading-relaxed text-white/85" <?= $siteEdit ?>><?= admc_plain($mission) ?></p>
           </div>
         </div>
       </div>
@@ -76,10 +77,10 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <section class="section bg-ink-wash">
   <div class="container">
 
-    <div class="mx-auto max-w-2xl text-center">
-      <span class="eyebrow reveal">Our Core Values</span>
+    <div class="mx-auto max-w-2xl text-center" <?= admc_edit('settings_about_values', $values['id']) ?>>
+      <span class="eyebrow reveal"><?= htmlspecialchars($values['input_eyebrow']) ?></span>
       <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms">
-        What we hold ourselves to
+        <?= admc_lines($values['input_heading']) ?>
       </h2>
     </div>
 
@@ -90,7 +91,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
             <?= icon($v['icon'], 'h-7 w-7') ?>
           </span>
           <h3 class="mt-5 font-display text-lg font-semibold text-ink"><?= htmlspecialchars($v['title']) ?></h3>
-          <p class="mt-2.5 text-sm leading-relaxed text-ink-soft"><?= htmlspecialchars($v['body']) ?></p>
+          <p class="mt-2.5 text-sm leading-relaxed text-ink-soft"><?= admc_plain($v['body']) ?></p>
         </div>
       <?php endforeach; ?>
     </div>
@@ -106,7 +107,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       <?php foreach ($impact_stats as $i => $stat): ?>
         <div class="reveal text-center" style="--reveal-delay:<?= $i * 90 ?>ms" <?= admc_edit('panel_impact_stats', $stat['id'] ?? null) ?>>
           <p class="font-display text-[3rem] font-bold leading-none text-white">
-            <span data-count="<?= $stat['value'] ?>">0</span><span class="text-ember-400"><?= $stat['suffix'] ?></span>
+            <span data-count="<?= $stat['value'] ?>">0</span><span class="text-ember-400"><?= htmlspecialchars($stat['suffix']) ?></span>
           </p>
           <p class="mt-3 font-semibold text-white"><?= htmlspecialchars($stat['label']) ?></p>
           <p class="mt-1 text-sm text-white/55"><?= htmlspecialchars($stat['note']) ?></p>
@@ -121,29 +122,24 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
   <div class="container">
     <div class="grid gap-10 lg:grid-cols-12">
 
-      <div class="lg:col-span-5">
-        <span class="eyebrow reveal">How We Work</span>
+      <div class="lg:col-span-5" <?= admc_edit('settings_about_approach', $approach['id']) ?>>
+        <span class="eyebrow reveal"><?= htmlspecialchars($approach['input_eyebrow']) ?></span>
         <h2 class="mt-6 text-display-md reveal" style="--reveal-delay:80ms">
-          Listen first. Deliver second. Report always.
+          <?= admc_lines($approach['input_heading']) ?>
         </h2>
         <p class="mt-6 leading-relaxed text-ink-soft reveal" style="--reveal-delay:160ms">
-          The same three steps run through every initiative we take on, whether it
-          reaches four families or four hundred.
+          <?= admc_plain($approach['text_intro']) ?>
         </p>
       </div>
 
       <div class="lg:col-span-6 lg:col-start-7">
-        <ol class="space-y-4">
-          <?php foreach ([
-            ['Identify the need',   'We start in the community, not in a strategy document. Needs are surfaced by the people living them.'],
-            ['Deliver the support', 'Programmes are designed around what was actually heard, and sized to what can be sustained.'],
-            ['Account for it',      'Outcomes are recorded and reported. Every contribution can be traced to a result.'],
-          ] as $i => [$title, $body]): ?>
-            <li class="card-hover reveal flex items-start gap-6" style="--reveal-delay:<?= $i * 110 ?>ms">
-              <span class="font-display text-4xl font-bold leading-none text-ink-line">0<?= $i + 1 ?></span>
+        <ol class="space-y-4" <?= admc_list('panel_about_steps') ?>>
+          <?php foreach ($panels['panel_about_steps'] as $i => $step): ?>
+            <li class="card-hover reveal flex items-start gap-6" style="--reveal-delay:<?= $i * 110 ?>ms" <?= admc_edit('panel_about_steps', $step['id']) ?>>
+              <span class="font-display text-4xl font-bold leading-none text-ink-line"><?= sprintf('%02d', $i + 1) ?></span>
               <span>
-                <h3 class="font-display text-xl font-semibold text-ink"><?= $title ?></h3>
-                <p class="mt-2 leading-relaxed text-ink-soft"><?= $body ?></p>
+                <h3 class="font-display text-xl font-semibold text-ink"><?= htmlspecialchars($step['input_title']) ?></h3>
+                <p class="mt-2 leading-relaxed text-ink-soft"><?= admc_plain($step['text_body']) ?></p>
               </span>
             </li>
           <?php endforeach; ?>

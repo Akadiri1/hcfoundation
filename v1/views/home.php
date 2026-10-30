@@ -1,6 +1,22 @@
 <?php
 $page_meta = "HC Foundation is a humanitarian organisation restoring hope and transforming lives through outreach, education, health and community development.";
 include APP_PATH . "/views/includes/header.php";
+
+$hero     = admc_section('settings_home_hero');
+$whatWeDo = admc_section('settings_home_what_we_do');
+$whoWeAre = admc_section('settings_home_who_we_are');
+$impact   = admc_section('settings_home_impact');
+$work     = admc_section('settings_home_initiatives');
+$fromBlog = admc_section('settings_home_blog');
+$alongside = admc_section('settings_home_partners');
+
+$heroEdit     = admc_edit('settings_home_hero', $hero['id']);
+$whatWeDoEdit = admc_edit('settings_home_what_we_do', $whatWeDo['id']);
+$whoWeAreEdit = admc_edit('settings_home_who_we_are', $whoWeAre['id']);
+$impactEdit   = admc_edit('settings_home_impact', $impact['id']);
+$workEdit     = admc_edit('settings_home_initiatives', $work['id']);
+$fromBlogEdit = admc_edit('settings_home_blog', $fromBlog['id']);
+$heroSpans    = ['col-span-3 row-span-6 shadow-lift', 'col-span-2 row-span-3 shadow-card', 'col-span-2 row-span-3 shadow-card'];
 ?>
 
 <!-- ===== Hero ========================================================= -->
@@ -14,38 +30,38 @@ include APP_PATH . "/views/includes/header.php";
              column just as the display size hit its 84px ceiling, so "Transforming"
              overflowed and the section's overflow-hidden sheared the g. -->
         <div class="lg:col-span-6">
-        <span class="eyebrow reveal">Humanitarian Foundation</span>
+        <span class="eyebrow reveal" <?= $heroEdit ?>><?= htmlspecialchars($hero['input_eyebrow']) ?></span>
 
-        <h1 class="mt-6 text-display-xl">
-          <span class="reveal-words block text-ink">Restoring Hope.</span>
-          <span class="reveal-words block text-gradient">Transforming Lives.</span>
+        <h1 class="mt-6 text-display-xl" <?= $heroEdit ?>>
+          <span class="reveal-words block text-ink"><?= htmlspecialchars($hero['input_heading']) ?></span>
+          <span class="reveal-words block text-gradient"><?= htmlspecialchars($hero['input_heading_highlight']) ?></span>
         </h1>
 
         <p class="mt-7 max-w-lg text-lg leading-relaxed text-ink-soft reveal" style="--reveal-delay:240ms" <?= admc_edit('settings_website_info', $site_id) ?>>
-          <?= htmlspecialchars($site_promise) ?>
+          <?= admc_plain($site_promise) ?>
         </p>
 
-        <div class="mt-10 flex flex-wrap gap-4 reveal" style="--reveal-delay:320ms">
+        <div class="mt-10 flex flex-wrap gap-4 reveal" style="--reveal-delay:320ms" <?= $heroEdit ?>>
           <a href="/initiatives" class="btn-primary btn-lg">
-            Explore our work <?= icon('arrow', 'h-4 w-4') ?>
+            <?= htmlspecialchars($hero['input_primary_button']) ?> <?= icon('arrow', 'h-4 w-4') ?>
           </a>
-          <a href="/volunteer" class="btn-outline btn-lg">Volunteer with us</a>
+          <a href="/volunteer" class="btn-outline btn-lg"><?= htmlspecialchars($hero['input_secondary_button']) ?></a>
         </div>
 
-        <!-- Trust strip -->
+        <!-- Trust strip: the avatars reuse the three hero photos -->
         <div class="mt-10 flex items-center gap-5 reveal" style="--reveal-delay:400ms">
           <div class="flex -space-x-3">
-            <?php foreach (array_slice($hero_avatars, 0, 3) as $i => $src): ?>
-              <span class="media h-11 w-11 rounded-full ring-2 ring-white">
-                <img src="<?= $src ?>" alt="" width="44" height="44" loading="lazy" decoding="async">
+            <?php foreach (array_slice($hero_images, 0, 3) as $i => $photo): ?>
+              <span class="media h-11 w-11 rounded-full ring-2 ring-white" <?= admc_image('panel_home_hero_images', $photo['id']) ?>>
+                <img src="<?= htmlspecialchars($photo['src']) ?>" alt="" width="44" height="44" loading="lazy" decoding="async">
               </span>
             <?php endforeach; ?>
-            <span class="grid h-11 w-11 place-items-center rounded-full bg-ember-500 text-xs font-bold text-white ring-2 ring-white">
-              300+
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-ember-500 text-xs font-bold text-white ring-2 ring-white" <?= $heroEdit ?>>
+              <?= htmlspecialchars($hero['input_trust_badge']) ?>
             </span>
           </div>
-          <p class="text-sm leading-snug text-ink-muted">
-            Volunteers giving time,<br>skill and presence.
+          <p class="text-sm leading-snug text-ink-muted" <?= $heroEdit ?>>
+            <?= admc_lines($hero['input_trust_text']) ?>
           </p>
         </div>
       </div>
@@ -58,29 +74,27 @@ include APP_PATH . "/views/includes/header.php";
           <div class="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-teal-300/25 blur-2xl animate-float-slow"></div>
           <div class="pointer-events-none absolute -bottom-8 -right-6 h-48 w-48 rounded-full bg-ember-400/25 blur-2xl"></div>
 
-          <div class="relative grid grid-cols-5 grid-rows-6 gap-4" data-parallax="9">
-            <div class="reveal reveal-scale col-span-3 row-span-6 media rounded-[2rem] shadow-lift media-zoom">
-              <img src="<?= $hero_images[0] ?>" alt="Community outreach in progress" class="h-full w-full"
-                     fetchpriority="high" decoding="async">
-            </div>
-            <div class="reveal reveal-scale col-span-2 row-span-3 media rounded-[2rem] shadow-card media-zoom" style="--reveal-delay:140ms">
-              <img src="<?= $hero_images[1] ?>" alt="Volunteers at work" decoding="async">
-            </div>
-            <div class="reveal reveal-scale col-span-2 row-span-3 media rounded-[2rem] shadow-card media-zoom" style="--reveal-delay:260ms">
-              <img src="<?= $hero_images[2] ?>" alt="Community gathering" decoding="async">
-            </div>
+          <div class="relative grid grid-cols-5 grid-rows-6 gap-4" data-parallax="9" <?= admc_list('panel_home_hero_images') ?>>
+            <?php foreach (array_slice($hero_images, 0, 3) as $i => $photo): ?>
+              <div class="reveal reveal-scale <?= $heroSpans[$i] ?> media rounded-[2rem] media-zoom"
+                   <?= $i ? 'style="--reveal-delay:' . ($i === 1 ? 140 : 260) . 'ms"' : '' ?>
+                   <?= admc_image('panel_home_hero_images', $photo['id']) ?>>
+                <img src="<?= htmlspecialchars($photo['src']) ?>" alt="<?= htmlspecialchars($photo['alt']) ?>"
+                     <?= $i === 0 ? 'class="h-full w-full" fetchpriority="high"' : '' ?> decoding="async">
+              </div>
+            <?php endforeach; ?>
           </div>
 
           <!-- Floating impact chip -->
           <div class="reveal absolute -bottom-7 -left-4 z-10 rounded-3xl border border-ink-line bg-white/95 p-5 shadow-lift backdrop-blur sm:-left-8"
-               style="--reveal-delay:420ms" data-parallax="-14">
+               style="--reveal-delay:420ms" data-parallax="-14" <?= $heroEdit ?>>
             <div class="flex items-center gap-4">
               <span class="icon-tile bg-teal-50 text-teal-600"><?= icon('users', 'h-6 w-6') ?></span>
               <div>
                 <p class="font-display text-2xl font-bold leading-none text-ink">
-                  <span data-count="12000">0</span><span class="text-ember-500">+</span>
+                  <span data-count="<?= (int) $hero['input_chip_value'] ?>">0</span><span class="text-ember-500"><?= htmlspecialchars($hero['input_chip_suffix']) ?></span>
                 </p>
-                <p class="mt-1.5 text-xs font-medium uppercase tracking-wider text-ink-muted">Lives touched</p>
+                <p class="mt-1.5 text-xs font-medium uppercase tracking-wider text-ink-muted"><?= htmlspecialchars($hero['input_chip_label']) ?></p>
               </div>
             </div>
           </div>
@@ -96,13 +110,13 @@ include APP_PATH . "/views/includes/header.php";
 <section class="section bg-ink-wash">
   <div class="container">
 
-    <div class="mx-auto max-w-2xl text-center">
-      <span class="eyebrow reveal">What We Do</span>
+    <div class="mx-auto max-w-2xl text-center" <?= $whatWeDoEdit ?>>
+      <span class="eyebrow reveal"><?= htmlspecialchars($whatWeDo['input_eyebrow']) ?></span>
       <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms">
-        Four ways we show up<br class="hidden sm:block"> for communities
+        <?= admc_lines($whatWeDo['input_heading'], 'hidden sm:block') ?>
       </h2>
       <p class="mt-6 text-lg leading-relaxed text-ink-soft reveal" style="--reveal-delay:160ms">
-        Each programme answers a need we have heard directly from the people we serve.
+        <?= admc_plain($whatWeDo['text_intro']) ?>
       </p>
     </div>
 
@@ -118,11 +132,11 @@ include APP_PATH . "/views/includes/header.php";
             <?= htmlspecialchars($item['title']) ?>
           </h3>
           <p class="mt-3 flex-1 text-[0.9375rem] leading-relaxed text-ink-soft" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>>
-            <?= htmlspecialchars($item['summary']) ?>
+            <?= admc_plain($item['summary']) ?>
           </p>
 
-          <a href="/view-initiative/<?= $item['slug'] ?>" class="link-arrow mt-6">
-            Learn more <?= icon('arrow', 'h-4 w-4') ?>
+          <a href="/view-initiative/<?= $item['slug'] ?>" class="link-arrow mt-6" <?= $whatWeDoEdit ?>>
+            <?= htmlspecialchars($whatWeDo['input_link_label']) ?> <?= icon('arrow', 'h-4 w-4') ?>
           </a>
         </article>
       <?php endforeach; ?>
@@ -137,18 +151,18 @@ include APP_PATH . "/views/includes/header.php";
     <div class="grid items-center gap-12 lg:grid-cols-2">
 
       <div class="relative">
-        <div class="reveal reveal-left media aspect-[4/5] rounded-[2.5rem] shadow-lift media-zoom">
-          <img src="<?= $img('photo-1509099836639-18ba1795216d', 900, 1120) ?>" alt="Working alongside the community"
+        <div class="reveal reveal-left media aspect-[4/5] rounded-[2.5rem] shadow-lift media-zoom" <?= admc_image('settings_home_who_we_are', $whoWeAre['id']) ?>>
+          <img src="<?= htmlspecialchars(admc_src($whoWeAre)) ?>" alt="Working alongside the community"
                    loading="lazy" decoding="async">
         </div>
 
         <div class="reveal absolute -bottom-8 -right-4 w-56 rounded-3xl bg-ember-grad p-6 text-white shadow-ember sm:-right-8"
-             style="--reveal-delay:260ms">
+             style="--reveal-delay:260ms" <?= $whoWeAreEdit ?>>
           <p class="font-display text-4xl font-bold leading-none">
-            <span data-count="45">0</span>
+            <span data-count="<?= (int) $whoWeAre['input_badge_value'] ?>">0</span>
           </p>
           <p class="mt-2 text-sm font-medium leading-snug text-white/85">
-            Communities served, urban and rural
+            <?= htmlspecialchars($whoWeAre['input_badge_label']) ?>
           </p>
         </div>
 
@@ -156,14 +170,14 @@ include APP_PATH . "/views/includes/header.php";
       </div>
 
       <div class="lg:pl-6">
-        <span class="eyebrow reveal">Who We Are</span>
-        <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms">
-          People-centered.<br>Transparent. Accountable.
+        <span class="eyebrow reveal" <?= $whoWeAreEdit ?>><?= htmlspecialchars($whoWeAre['input_eyebrow']) ?></span>
+        <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms" <?= $whoWeAreEdit ?>>
+          <?= admc_lines($whoWeAre['input_heading']) ?>
         </h2>
 
         <div class="prose-brand mt-7 reveal" style="--reveal-delay:160ms" <?= admc_edit('settings_website_info', $site_id) ?>>
-          <p><?= htmlspecialchars($about_who) ?></p>
-          <p><?= htmlspecialchars($about_approach) ?></p>
+          <p><?= admc_plain($about_who) ?></p>
+          <p><?= admc_plain($about_approach) ?></p>
         </div>
 
         <div class="mt-9 grid gap-4 sm:grid-cols-2 reveal" style="--reveal-delay:240ms" <?= admc_list('panel_core_values') ?>>
@@ -174,14 +188,14 @@ include APP_PATH . "/views/includes/header.php";
               </span>
               <div>
                 <p class="font-semibold text-ink"><?= htmlspecialchars($v['title']) ?></p>
-                <p class="mt-0.5 text-sm text-ink-muted"><?= htmlspecialchars($v['body']) ?></p>
+                <p class="mt-0.5 text-sm text-ink-muted"><?= admc_plain($v['body']) ?></p>
               </div>
             </div>
           <?php endforeach; ?>
         </div>
 
-        <a href="/about-us" class="btn-outline mt-10 reveal" style="--reveal-delay:320ms">
-          More about us <?= icon('arrow', 'h-4 w-4') ?>
+        <a href="/about-us" class="btn-outline mt-10 reveal" style="--reveal-delay:320ms" <?= $whoWeAreEdit ?>>
+          <?= htmlspecialchars($whoWeAre['input_button']) ?> <?= icon('arrow', 'h-4 w-4') ?>
         </a>
       </div>
 
@@ -195,18 +209,16 @@ include APP_PATH . "/views/includes/header.php";
   <div class="container relative">
     <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
 
-      <div class="lg:col-span-5">
-        <span class="eyebrow eyebrow-light reveal">Our Impact So Far</span>
+      <div class="lg:col-span-5" <?= $impactEdit ?>>
+        <span class="eyebrow eyebrow-light reveal"><?= htmlspecialchars($impact['input_eyebrow']) ?></span>
         <h2 class="mt-6 text-display-lg text-white reveal" style="--reveal-delay:80ms">
-          Measured in lives touched, not activity reported.
+          <?= admc_lines($impact['input_heading']) ?>
         </h2>
         <p class="mt-6 text-lg leading-relaxed text-white/70 reveal" style="--reveal-delay:160ms">
-          We believe impact is measured by lives touched and stories changed. Across
-          communities, HC Foundation continues to create meaningful change through
-          consistent service and collaboration.
+          <?= admc_plain($impact['text_intro']) ?>
         </p>
         <a href="/initiatives" class="btn-ghost-light mt-9 reveal" style="--reveal-delay:240ms">
-          See the programmes <?= icon('arrow', 'h-4 w-4') ?>
+          <?= htmlspecialchars($impact['input_button']) ?> <?= icon('arrow', 'h-4 w-4') ?>
         </a>
       </div>
 
@@ -216,7 +228,7 @@ include APP_PATH . "/views/includes/header.php";
             <div class="reveal rounded-3xl border border-white/10 bg-white/[0.06] p-7 backdrop-blur-sm transition-colors duration-500 hover:border-ember-500/50 hover:bg-white/[0.09]"
                  style="--reveal-delay:<?= $i * 90 ?>ms" <?= admc_edit('panel_impact_stats', $stat['id'] ?? null) ?>>
               <p class="font-display text-[2.75rem] font-bold leading-none text-white">
-                <span data-count="<?= $stat['value'] ?>">0</span><span class="text-ember-400"><?= $stat['suffix'] ?></span>
+                <span data-count="<?= $stat['value'] ?>">0</span><span class="text-ember-400"><?= htmlspecialchars($stat['suffix']) ?></span>
               </p>
               <p class="mt-3 font-semibold text-white"><?= htmlspecialchars($stat['label']) ?></p>
               <p class="mt-1 text-sm leading-snug text-white/55"><?= htmlspecialchars($stat['note']) ?></p>
@@ -233,19 +245,19 @@ include APP_PATH . "/views/includes/header.php";
 <section class="section bg-white">
   <div class="container">
 
-    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" <?= $workEdit ?>>
       <div class="max-w-xl">
-        <span class="eyebrow reveal">Our Work</span>
+        <span class="eyebrow reveal"><?= htmlspecialchars($work['input_eyebrow']) ?></span>
         <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms">
-          Initiatives built to last
+          <?= admc_lines($work['input_heading']) ?>
         </h2>
       </div>
       <a href="/initiatives" class="link-arrow reveal shrink-0" style="--reveal-delay:160ms">
-        View all initiatives <?= icon('arrow', 'h-4 w-4') ?>
+        <?= htmlspecialchars($work['input_link']) ?> <?= icon('arrow', 'h-4 w-4') ?>
       </a>
     </div>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-2">
+    <div class="mt-10 grid gap-6 md:grid-cols-2" <?= admc_list('panel_initiatives') ?>>
       <?php foreach (array_slice($initiatives, 0, 2) as $i => $item): ?>
         <a href="/view-initiative/<?= $item['slug'] ?>"
            class="group reveal media media-zoom relative flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-[2rem] p-8 shadow-card transition-shadow duration-500 hover:shadow-lift"
@@ -255,13 +267,13 @@ include APP_PATH . "/views/includes/header.php";
           <span class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent"></span>
 
           <span class="relative">
-            <span class="inline-flex rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
-              Initiative
+            <span class="inline-flex rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm" <?= $workEdit ?>>
+              <?= htmlspecialchars($work['input_card_tag']) ?>
             </span>
             <h3 class="mt-4 font-display text-2xl font-bold text-white" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['title']) ?></h3>
-            <p class="mt-2.5 max-w-md text-[0.9375rem] leading-relaxed text-white/75"><?= htmlspecialchars($item['summary']) ?></p>
+            <p class="mt-2.5 max-w-md text-[0.9375rem] leading-relaxed text-white/75" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= admc_plain($item['summary']) ?></p>
             <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ember-300 transition-transform duration-300 group-hover:translate-x-1">
-              Learn more <?= icon('arrow', 'h-4 w-4') ?>
+              <?= htmlspecialchars($work['input_card_link']) ?> <?= icon('arrow', 'h-4 w-4') ?>
             </span>
           </span>
         </a>
@@ -280,8 +292,8 @@ include APP_PATH . "/views/includes/header.php";
           </span>
           <span>
             <h3 class="font-display text-xl font-semibold text-ink" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['title']) ?></h3>
-            <p class="mt-2 text-[0.9375rem] leading-relaxed text-ink-soft"><?= htmlspecialchars($item['summary']) ?></p>
-            <span class="link-arrow mt-4">Learn more <?= icon('arrow', 'h-4 w-4') ?></span>
+            <p class="mt-2 text-[0.9375rem] leading-relaxed text-ink-soft" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= admc_plain($item['summary']) ?></p>
+            <span class="link-arrow mt-4" <?= $workEdit ?>><?= htmlspecialchars($work['input_card_link']) ?> <?= icon('arrow', 'h-4 w-4') ?></span>
           </span>
         </a>
       <?php endforeach; ?>
@@ -294,13 +306,13 @@ include APP_PATH . "/views/includes/header.php";
 <section class="section bg-ink-wash">
   <div class="container">
 
-    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" <?= $fromBlogEdit ?>>
       <div class="max-w-xl">
-        <span class="eyebrow reveal">Stories &amp; Updates</span>
-        <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms">From the field</h2>
+        <span class="eyebrow reveal"><?= htmlspecialchars($fromBlog['input_eyebrow']) ?></span>
+        <h2 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms"><?= admc_lines($fromBlog['input_heading']) ?></h2>
       </div>
       <a href="/blog" class="link-arrow reveal shrink-0" style="--reveal-delay:160ms">
-        Read the blog <?= icon('arrow', 'h-4 w-4') ?>
+        <?= htmlspecialchars($fromBlog['input_link']) ?> <?= icon('arrow', 'h-4 w-4') ?>
       </a>
     </div>
 
@@ -312,16 +324,16 @@ include APP_PATH . "/views/includes/header.php";
             <span class="media media-zoom block aspect-[16/10]" <?= admc_image('panel_blog', $post['id'] ?? null) ?>>
               <img src="<?= $post['image'] ?>" alt="<?= htmlspecialchars($post['title']) ?>" loading="lazy">
             </span>
-            <span class="block p-7">
+            <span class="block p-7" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>>
               <span class="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider">
                 <span class="text-teal-700"><?= htmlspecialchars($post['category']) ?></span>
                 <span class="h-1 w-1 rounded-full bg-ink-line"></span>
                 <span class="text-ink-muted"><?= htmlspecialchars($post['read']) ?></span>
               </span>
-              <h3 class="mt-4 font-display text-lg font-semibold leading-snug text-ink transition-colors duration-300 group-hover:text-teal-700" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>>
+              <h3 class="mt-4 font-display text-lg font-semibold leading-snug text-ink transition-colors duration-300 group-hover:text-teal-700">
                 <?= htmlspecialchars($post['title']) ?>
               </h3>
-              <p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft"><?= htmlspecialchars($post['excerpt']) ?></p>
+              <p class="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft"><?= admc_plain($post['excerpt']) ?></p>
               <span class="mt-5 block text-xs font-medium text-ink-muted"><?= htmlspecialchars($post['date']) ?></span>
             </span>
           </a>
@@ -335,8 +347,8 @@ include APP_PATH . "/views/includes/header.php";
 <!-- ===== Partners ===================================================== -->
 <section class="border-y border-ink-line bg-white py-12">
   <div class="container">
-    <p class="text-center text-sm font-medium uppercase tracking-[0.16em] text-ink-muted reveal">
-      Working alongside
+    <p class="text-center text-sm font-medium uppercase tracking-[0.16em] text-ink-muted reveal" <?= admc_edit('settings_home_partners', $alongside['id']) ?>>
+      <?= htmlspecialchars($alongside['input_heading']) ?>
     </p>
 
     <div class="marquee-wrap mask-fade-r mt-9 overflow-hidden" <?= admc_list('panel_partners') ?>>

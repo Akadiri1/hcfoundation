@@ -3,10 +3,12 @@ $page_title = 'Gallery';
 $page_meta  = "A visual reflection of our work, our people, and the communities we serve.";
 include APP_PATH . "/views/includes/header.php";
 
-$hero_eyebrow = 'Gallery';
-$hero_title   = 'Moments That <span class="text-gradient">Matter</span>';
-$hero_text    = 'A visual reflection of our work, our people, and the communities we serve.';
+$hero_section = 'settings_gallery_hero';
+$hero_crumb   = $navLabels['input_gallery'];
 include APP_PATH . "/views/includes/partials/page-hero.php";
+
+$galleryCopy = admc_section('settings_gallery_page');
+$galleryEdit = admc_edit('settings_gallery_page', $galleryCopy['id']);
 
 // Repeating span pattern so the grid does not read as a uniform block.
 $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2', ''];
@@ -18,8 +20,8 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
     <!-- Filters -->
     <div class="flex flex-wrap justify-center gap-3 reveal" data-collection-filters>
       <button type="button" data-filter="all" aria-pressed="true"
-              class="chip border-teal-600 bg-teal-600 text-white">
-        All
+              class="chip border-teal-600 bg-teal-600 text-white" <?= $galleryEdit ?>>
+        <?= htmlspecialchars($galleryCopy['input_all_filter']) ?>
       </button>
       <?php foreach ($gallery_categories as $cat): ?>
         <button type="button" data-filter="<?= htmlspecialchars($cat) ?>" aria-pressed="false"
@@ -57,8 +59,8 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
       <?php endforeach; ?>
     </div>
 
-    <p data-collection-empty class="hidden py-12 text-center text-ink-muted">
-      Nothing in this category yet.
+    <p data-collection-empty class="hidden py-12 text-center text-ink-muted" <?= $galleryEdit ?>>
+      <?= htmlspecialchars($galleryCopy['input_empty']) ?>
     </p>
 
     <!-- Load more -->
@@ -67,16 +69,18 @@ $span_cycle = ['lg:row-span-2', '', '', 'lg:row-span-2', '', '', 'lg:row-span-2'
 
       <!-- Hidden by default: only useful once JS is running, and JS decides
            whether anything is left to load. -->
-      <button type="button" data-collection-more class="btn-outline btn-lg hidden">
-        Load more photos
+      <button type="button" data-collection-more class="btn-outline btn-lg hidden" <?= $galleryEdit ?>>
+        <?= htmlspecialchars($galleryCopy['input_load_more']) ?>
         <span data-collection-remaining class="text-ink-muted"></span>
         <?= icon('chevron', 'h-4 w-4') ?>
       </button>
     </div>
 
-    <p class="mt-10 text-center text-sm text-ink-muted">
-      Photography shown is placeholder imagery pending the Foundation's own archive.
-    </p>
+    <?php if (trim(strip_tags((string) $galleryCopy['text_note'])) !== ''): ?>
+      <p class="mt-10 text-center text-sm text-ink-muted" <?= $galleryEdit ?>>
+        <?= admc_plain($galleryCopy['text_note']) ?>
+      </p>
+    <?php endif; ?>
 
   </div>
 </section>

@@ -1,4 +1,9 @@
 </main>
+<?php
+$footerCta  = admc_section('settings_footer_cta');
+$footerInfo = admc_section('settings_footer');
+$footerInfoEdit = admc_edit('settings_footer', $footerInfo['id']);
+?>
 
 <!-- ===== Pre-footer CTA =============================================== -->
 <section class="relative overflow-hidden bg-teal-950">
@@ -7,20 +12,19 @@
   <div class="pointer-events-none absolute -bottom-32 -left-20 h-96 w-96 rounded-full bg-teal-400/20 blur-3xl"></div>
 
   <div class="container relative section-tight">
-    <div class="mx-auto max-w-3xl text-center">
-      <span class="eyebrow eyebrow-light reveal">Get Involved</span>
+    <div class="mx-auto max-w-3xl text-center" <?= admc_edit('settings_footer_cta', $footerCta['id']) ?>>
+      <span class="eyebrow eyebrow-light reveal"><?= htmlspecialchars($footerCta['input_eyebrow']) ?></span>
       <h2 class="mt-6 text-display-lg text-white reveal" style="--reveal-delay:80ms">
-        There&#39;s a place for you<br class="hidden sm:block"> in the work we do.
+        <?= admc_lines($footerCta['input_heading'], 'hidden sm:block') ?>
       </h2>
       <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/70 reveal" style="--reveal-delay:160ms">
-        Whether through volunteering, partnerships, or advocacy, there&#39;s a place
-        for you in the work we do.
+        <?= admc_plain($footerCta['text_intro']) ?>
       </p>
       <div class="mt-10 flex flex-wrap justify-center gap-4 reveal" style="--reveal-delay:240ms">
         <a href="/volunteer" class="btn-ember btn-lg">
-          Become a volunteer <?= icon('arrow', 'h-4 w-4') ?>
+          <?= htmlspecialchars($footerCta['input_primary_button']) ?> <?= icon('arrow', 'h-4 w-4') ?>
         </a>
-        <a href="/contact-us" class="btn-ghost-light btn-lg">Partner with us</a>
+        <a href="/contact-us" class="btn-ghost-light btn-lg"><?= htmlspecialchars($footerCta['input_secondary_button']) ?></a>
       </div>
     </div>
   </div>
@@ -33,14 +37,15 @@
     <div class="grid gap-10 py-10 lg:grid-cols-12 lg:gap-10 lg:py-14">
 
       <div class="lg:col-span-4">
-        <?= logo_lockup('light', 'h-[68px] w-auto md:h-[88px]') ?>
-        <p class="mt-6 max-w-sm leading-relaxed">
-          Restoring hope, transforming lives. A humanitarian organisation working
-          with communities to deliver support that is meaningful and sustainable.
+        <div class="inline-block" <?= admc_image('settings_footer', $footerInfo['id']) ?>>
+          <?= logo_lockup('light', 'h-[68px] w-auto md:h-[88px]', admc_src($footerInfo)) ?>
+        </div>
+        <p class="mt-6 max-w-sm leading-relaxed" <?= $footerInfoEdit ?>>
+          <?= admc_plain($footerInfo['text_about']) ?>
         </p>
 
-        <p class="mt-8 text-xs font-semibold uppercase tracking-[0.14em] text-white/45">
-          Follow us on
+        <p class="mt-8 text-xs font-semibold uppercase tracking-[0.14em] text-white/45" <?= $footerInfoEdit ?>>
+          <?= htmlspecialchars($footerInfo['input_follow_label']) ?>
         </p>
 
         <div class="mt-3 flex gap-2.5" <?= admc_list('panel_social_media_platform') ?>>
@@ -59,29 +64,29 @@
       <div class="grid gap-10 sm:grid-cols-3 lg:col-span-7 lg:col-start-6">
 
         <div>
-          <h3 class="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white">Explore</h3>
-          <ul class="mt-6 space-y-3.5 text-[0.9375rem]">
+          <h3 class="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white" <?= $footerInfoEdit ?>><?= htmlspecialchars($footerInfo['input_explore_title']) ?></h3>
+          <ul class="mt-6 space-y-3.5 text-[0.9375rem]" <?= $navEdit ?>>
             <?php foreach ([
-              'Home' => '/home', 'About' => '/about-us', 'Initiatives' => '/initiatives', 'Volunteer' => '/volunteer',
-            ] as $label => $href): ?>
-              <li><a href="<?= $href ?>" class="transition-colors duration-300 hover:text-white"><?= $label ?></a></li>
+              [$navLabels['input_home'], '/home'], [$navLabels['input_about'], '/about-us'], [$navLabels['input_initiatives'], '/initiatives'], [$navLabels['input_volunteer'], '/volunteer'],
+            ] as [$label, $href]): ?>
+              <li><a href="<?= $href ?>" class="transition-colors duration-300 hover:text-white"><?= htmlspecialchars($label) ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
 
         <div>
-          <h3 class="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white">More</h3>
-          <ul class="mt-6 space-y-3.5 text-[0.9375rem]">
+          <h3 class="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white" <?= $footerInfoEdit ?>><?= htmlspecialchars($footerInfo['input_more_title']) ?></h3>
+          <ul class="mt-6 space-y-3.5 text-[0.9375rem]" <?= $navEdit ?>>
             <?php foreach ([
-              'Our Team' => '/team', 'Gallery' => '/gallery', 'Blog' => '/blog', 'Contact' => '/contact-us',
-            ] as $label => $href): ?>
-              <li><a href="<?= $href ?>" class="transition-colors duration-300 hover:text-white"><?= $label ?></a></li>
+              [$navLabels['input_team'], '/team'], [$navLabels['input_gallery'], '/gallery'], [$navLabels['input_blog'], '/blog'], [$navLabels['input_contact'], '/contact-us'],
+            ] as [$label, $href]): ?>
+              <li><a href="<?= $href ?>" class="transition-colors duration-300 hover:text-white"><?= htmlspecialchars($label) ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
 
         <div>
-          <h3 class="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white">Get in touch</h3>
+          <h3 class="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white" <?= $footerInfoEdit ?>><?= htmlspecialchars($footerInfo['input_contact_title']) ?></h3>
           <ul class="mt-6 space-y-4 text-[0.9375rem]" <?= admc_edit('settings_website_info', $site_id ?? null) ?>>
             <li>
               <a href="mailto:<?= htmlspecialchars($site_email) ?>" class="flex items-start gap-3 transition-colors duration-300 hover:text-white">
@@ -107,10 +112,10 @@
     </div>
 
     <div class="flex flex-col-reverse items-center justify-between gap-4 border-t border-white/10 py-7 text-sm sm:flex-row">
-      <p>&copy; <?= date('Y') ?> <?= htmlspecialchars($site_name) ?>. All rights reserved.</p>
-      <div class="flex items-center gap-6">
-        <a href="/privacy-policy" class="transition-colors duration-300 hover:text-white">Privacy Policy</a>
-        <a href="/terms-of-use" class="transition-colors duration-300 hover:text-white">Terms of Use</a>
+      <p <?= $footerInfoEdit ?>>&copy; <?= date('Y') ?> <?= htmlspecialchars($site_name) ?>. <?= htmlspecialchars($footerInfo['input_copyright']) ?></p>
+      <div class="flex items-center gap-6" <?= $footerInfoEdit ?>>
+        <a href="/privacy-policy" class="transition-colors duration-300 hover:text-white"><?= htmlspecialchars($footerInfo['input_privacy_link']) ?></a>
+        <a href="/terms-of-use" class="transition-colors duration-300 hover:text-white"><?= htmlspecialchars($footerInfo['input_terms_link']) ?></a>
       </div>
     </div>
 

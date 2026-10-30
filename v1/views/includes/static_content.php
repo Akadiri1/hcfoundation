@@ -313,3 +313,36 @@ $partners = [];
 foreach (['Community Trust', 'Health Alliance', 'Learning Futures', 'Civic Council', 'Care Network', 'Youth Coalition'] as $partnerName) {
     $partners[] = ['id' => null, 'name' => $partnerName];
 }
+
+# --- Page content -----------------------------------------------------------
+// Same shape db_content.php builds from the settings_* / panel_* tables, but
+// straight from the defaults and with no row ids (nothing to live-edit).
+require_once APP_PATH . "/views/includes/partials/admc.php";
+$pageContent = require APP_PATH . "/views/includes/page_content.php";
+
+$sections = [];
+foreach ($pageContent['settings'] as $table => $defaults) {
+    $sections[$table] = ['id' => null] + $defaults;
+}
+
+$panels = [];
+foreach ($pageContent['panels'] as $table => $rows) {
+    $panels[$table] = array_map(function ($row) { return ['id' => null] + $row; }, $rows);
+}
+
+$hero_images = [];
+foreach ($panels['panel_home_hero_images'] as $row) {
+    $hero_images[] = ['id' => null, 'src' => admc_src($row), 'alt' => $row['input_alt']];
+}
+
+foreach ($initiatives as $i => $item) {
+    $initiatives[$i] += [
+        'content'  => $pageContent['row_defaults']['panel_initiatives']['text_content'],
+        'approach' => $pageContent['row_defaults']['panel_initiatives']['input_approach'],
+        'status'   => $pageContent['row_defaults']['panel_initiatives']['input_status'],
+        'reach'    => $pageContent['row_defaults']['panel_initiatives']['input_reach'],
+    ];
+}
+foreach ($blog_posts as $i => $post) {
+    $blog_posts[$i] += ['content' => $pageContent['row_defaults']['panel_blog']['text_content']];
+}

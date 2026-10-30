@@ -22,13 +22,19 @@
  */
 
 if (!function_exists('logo_lockup')) {
-    function logo_lockup(string $tone = 'dark', string $class = 'h-[52px] w-auto md:h-[76px]'): string
+    /**
+     * $src overrides the default file, e.g. a logo swapped in through ADMC
+     * (settings_header / settings_footer image_1).
+     */
+    function logo_lockup(string $tone = 'dark', string $class = 'h-[52px] w-auto md:h-[76px]', string $src = ''): string
     {
-        $src = $tone === 'light'
-            ? '/assets/images/logo-nav-light.png'
-            : '/assets/images/logo-nav.png';
+        if ($src === '') {
+            $src = $tone === 'light'
+                ? '/assets/images/logo-nav-light.png'
+                : '/assets/images/logo-nav.png';
+        }
 
-        return '<img src="' . $src . '" alt="Hathany Cosmos Foundation"'
+        return '<img src="' . htmlspecialchars($src, ENT_QUOTES) . '" alt="Hathany Cosmos Foundation"'
              . ' width="300" height="257"'
              . ' class="' . htmlspecialchars($class, ENT_QUOTES) . '"'
              . ' decoding="async"' . ($tone === 'light' ? ' loading="lazy"' : '') . '>';

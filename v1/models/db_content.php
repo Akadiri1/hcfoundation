@@ -9,23 +9,17 @@
  *
  * Every mapped item keeps its row 'id' so the views can emit the ADMC
  * live-edit attributes (data-admc-id). $site_id is the settings row id.
+ *
+ * Page copy (headings, intros, buttons, section images) comes from the
+ * settings_* and panel_* tables listed in views/includes/page_content.php,
+ * loaded into $sections and $panels at the end of this file.
  * ---------------------------------------------------------------------------
  */
 
-/**
- * Image source for a row. image_1 is what ADMC writes when an admin swaps an
- * image; it may be a full URL or a site path. input_image is the seeded
- * placeholder URL, used until an image has been uploaded.
- */
+require_once APP_PATH . "/views/includes/partials/admc.php";
+
 $rowImage = function (array $row): string {
-    $image = trim((string)($row['image_1'] ?? ''));
-    if ($image === '') {
-        return (string)($row['input_image'] ?? '');
-    }
-    if (preg_match('#^(https?:)?//#i', $image)) {
-        return $image;
-    }
-    return '/' . ltrim($image, '/');
+    return admc_src($row);
 };
 
 # --- 1. Settings & Identity -------------------------------------------------
@@ -85,21 +79,11 @@ foreach ($rawSocial as $row) {
 }
 
 # --- 5. Photography & Imagery Helpers ---------------------------------------
+// Placeholder photo URLs. Page images now come from the page content tables
+// (section 16); this helper stays for any view that still needs a stock shot.
 $img = function (string $id, int $w = 1200, int $h = 900): string {
     return "https://images.unsplash.com/{$id}?auto=format&fit=crop&w={$w}&h={$h}&q=80";
 };
-
-$hero_images = [
-    $img('photo-1488521787991-ed7bbaae773c', 900, 1200),
-    $img('photo-1509099836639-18ba1795216d', 800, 600),
-    $img('photo-1517486808906-6ca8b3f04846', 800, 600),
-];
-
-$hero_avatars = [
-    $img('photo-1488521787991-ed7bbaae773c', 120, 120),
-    $img('photo-1509099836639-18ba1795216d', 120, 120),
-    $img('photo-1517486808906-6ca8b3f04846', 120, 120),
-];
 
 # --- 6. Initiatives ---------------------------------------------------------
 $rawInitiatives = selectContent($conn, "panel_initiatives", ['visibility' => 'show']);
@@ -116,6 +100,10 @@ foreach ($rawInitiatives as $row) {
         'icon'        => $row['input_icon'] ?? 'hands',
         'image'       => $rowImage($row),
         'accent'      => $row['input_accent'] ?? 'teal',
+        'content'     => $row['text_content'] ?? null,
+        'approach'    => $row['input_approach'] ?? null,
+        'status'      => $row['input_status'] ?? null,
+        'reach'       => $row['input_reach'] ?? null,
     ];
 }
 
@@ -167,42 +155,23 @@ foreach ($rawRoles as $row) {
 }
 
 # --- 10. Team Groups --------------------------------------------------------
+// Group headings come from panel_team_groups (see the page content block at
+// the end of this file); members join a group by panel_team.input_group.
 $rawTeam = selectContent($conn, "panel_team", ['visibility' => 'show']);
-$team_grouped = [
-    'Board & Leadership' => [
-        'title'   => 'Board & Leadership',
-        'body'    => 'Providing vision, governance, and strategic direction.',
-        'members' => [],
-    ],
-    'Operations Team' => [
-        'title'   => 'Operations Team',
-        'body'    => 'Coordinating programs and daily activities.',
-        'members' => [],
-    ],
-    'Volunteers' => [
-        'title'   => 'Volunteers',
-        'body'    => 'The heart of our outreach and initiatives.',
-        'members' => [],
-    ],
-];
+$team_grouped = [];
 
 foreach ($rawTeam as $row) {
     $grp = $row['input_group'] ?? 'Operations Team';
-    if (!isset($team_grouped[$grp])) {
-        $team_grouped[$grp] = [
-            'title'   => $grp,
-            'body'    => '',
-            'members' => [],
-        ];
-    }
-    $team_grouped[$grp]['members'][] = [
-        'id'    => $row['id'],
-        'name'  => $row['input_name'],
-        'role'  => $row['input_role'],
-        'image' => $rowImage($row),
+    $team_grouped[$grp][] = [
+        'id'       => $row['id'],
+        'name'     => $row['input_name'],
+        'role'     => $row['input_role'],
+        'image'    => $rowImage($row),
+        'linkedin' => $row['input_linkedin'] ?? '',
+        'x'        => $row['input_x'] ?? '',
+        'email'    => $row['input_email'] ?? '',
     ];
 }
-$team_groups = array_values($team_grouped);
 
 # --- 11. Donate Configuration -----------------------------------------------
 $donate = [
@@ -258,6 +227,7 @@ foreach ($rawBlog as $row) {
         'read'     => $row['input_read_time'] ?: '5 min read',
         'image'    => $rowImage($row),
         'author'   => $row['input_author'] ?: 'HC Foundation',
+        'content'  => $row['text_content'] ?? null,
     ];
 }
 
@@ -280,4 +250,70 @@ foreach ($rawPartners as $row) {
         'id'   => $row['id'],
         'name' => $row['input_name'],
     ];
+}
+
+# --- 16. Page content (ADMC live edit) --------------------------------------
+// settings_* tables: one row each, merged over the defaults so a missing or
+// half-filled row still renders. panel_* tables: their rows, or the defaults
+// when the table has not been created yet (migration not run). The tables
+// are checked first because selectContent() dies on a missing table.
+$pageContent  = require APP_PATH . "/views/includes/page_content.php";
+$existingTables = $conn->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+
+$sections = [];
+foreach ($pageContent['settings'] as $table => $defaults) {
+    $row = in_array($table, $existingTables, true)
+        ? (selectContent($conn, $table, [])[0] ?? [])
+        : [];
+    $section = ['id' => $row['id'] ?? null];
+    foreach ($defaults as $column => $default) {
+        $section[$column] = (isset($row[$column]) && $row[$column] !== null) ? $row[$column] : $default;
+    }
+    $sections[$table] = $section;
+}
+
+$panels = [];
+foreach ($pageContent['panels'] as $table => $defaults) {
+    if (in_array($table, $existingTables, true)) {
+        $panels[$table] = selectContent($conn, $table, ['visibility' => 'show']);
+    } else {
+        $panels[$table] = array_map(function ($row) { return ['id' => null] + $row; }, $defaults);
+    }
+}
+
+// Team groups, in panel order, with the members whose input_group matches.
+$team_groups = [];
+foreach ($panels['panel_team_groups'] as $groupRow) {
+    $title = $groupRow['input_title'];
+    $team_groups[] = [
+        'id'      => $groupRow['id'],
+        'title'   => $title,
+        'body'    => $groupRow['text_body'] ?? '',
+        'members' => $team_grouped[$title] ?? [],
+    ];
+    unset($team_grouped[$title]);
+}
+// Members whose group has no panel_team_groups row still appear.
+foreach ($team_grouped as $title => $members) {
+    $team_groups[] = ['id' => null, 'title' => $title, 'body' => '', 'members' => $members];
+}
+
+// Initiative and blog bodies fall back to the default copy until filled in.
+foreach ($initiatives as $i => $item) {
+    foreach (['content' => 'text_content', 'approach' => 'input_approach', 'status' => 'input_status', 'reach' => 'input_reach'] as $key => $column) {
+        if ($item[$key] === null || $item[$key] === '') {
+            $initiatives[$i][$key] = $pageContent['row_defaults']['panel_initiatives'][$column];
+        }
+    }
+}
+foreach ($blog_posts as $i => $post) {
+    if ($post['content'] === null || $post['content'] === '') {
+        $blog_posts[$i]['content'] = $pageContent['row_defaults']['panel_blog']['text_content'];
+    }
+}
+
+// The home hero collage and its avatar strip both read panel_home_hero_images.
+$hero_images = [];
+foreach ($panels['panel_home_hero_images'] as $row) {
+    $hero_images[] = ['id' => $row['id'], 'src' => admc_src($row), 'alt' => $row['input_alt'] ?? ''];
 }

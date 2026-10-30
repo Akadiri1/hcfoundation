@@ -3,10 +3,12 @@ $page_title = 'Initiatives';
 $page_meta  = "Each HC Foundation initiative is designed to respond to real needs and create lasting outcomes.";
 include APP_PATH . "/views/includes/header.php";
 
-$hero_eyebrow = 'Our Work';
-$hero_title   = 'Initiatives that answer <span class="text-gradient">real needs</span>';
-$hero_text    = 'Each initiative is designed to respond to real needs and create lasting outcomes.';
+$hero_section = 'settings_initiatives_hero';
+$hero_crumb   = $navLabels['input_initiatives'];
 include APP_PATH . "/views/includes/partials/page-hero.php";
+
+$pageCopy = admc_section('settings_initiatives_page');
+$pageEdit = admc_edit('settings_initiatives_page', $pageCopy['id']);
 ?>
 
 <!-- ===== Initiative list ============================================== -->
@@ -17,6 +19,7 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
       <?php foreach ($initiatives as $i => $item):
         $flip   = $i % 2 === 1;
         $isTeal = $item['accent'] === 'teal';
+        $edit   = admc_edit('panel_initiatives', $item['id'] ?? null);
       ?>
         <article class="reveal grid items-center gap-10 lg:grid-cols-2 lg:gap-12" style="--reveal-delay:<?= $i * 60 ?>ms">
 
@@ -31,18 +34,18 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
               <span class="icon-tile <?= $isTeal ? 'bg-teal-50 text-teal-600' : 'bg-ember-50 text-ember-500' ?>">
                 <?= icon($item['icon'], 'h-7 w-7') ?>
               </span>
-              <span class="font-display text-5xl font-bold leading-none text-ink-line">0<?= $i + 1 ?></span>
+              <span class="font-display text-5xl font-bold leading-none text-ink-line"><?= sprintf('%02d', $i + 1) ?></span>
             </div>
 
-            <h2 class="mt-6 text-display-sm" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['programme']) ?></h2>
-            <p class="mt-4 text-lg leading-relaxed text-ink" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['description']) ?></p>
-            <p class="mt-4 leading-relaxed text-ink-soft" <?= admc_edit('panel_initiatives', $item['id'] ?? null) ?>><?= htmlspecialchars($item['body']) ?></p>
+            <h2 class="mt-6 text-display-sm" <?= $edit ?>><?= htmlspecialchars($item['programme']) ?></h2>
+            <p class="mt-4 text-lg leading-relaxed text-ink" <?= $edit ?>><?= admc_plain($item['description']) ?></p>
+            <p class="mt-4 leading-relaxed text-ink-soft" <?= $edit ?>><?= admc_plain($item['body']) ?></p>
 
-            <div class="mt-8 flex flex-wrap gap-4">
+            <div class="mt-8 flex flex-wrap gap-4" <?= $pageEdit ?>>
               <a href="/view-initiative/<?= $item['slug'] ?>" class="btn-primary">
-                Learn more <?= icon('arrow', 'h-4 w-4') ?>
+                <?= htmlspecialchars($pageCopy['input_learn_more']) ?> <?= icon('arrow', 'h-4 w-4') ?>
               </a>
-              <a href="/volunteer" class="btn-outline">Support this work</a>
+              <a href="/volunteer" class="btn-outline"><?= htmlspecialchars($pageCopy['input_support_button']) ?></a>
             </div>
           </div>
 
@@ -60,18 +63,14 @@ include APP_PATH . "/views/includes/partials/page-hero.php";
 <!-- ===== Approach strip =============================================== -->
 <section class="section-tight bg-ink-wash">
   <div class="container">
-    <div class="grid gap-6 md:grid-cols-3">
-      <?php foreach ([
-        ['users',  'Community-led',   'Programmes are shaped by the people they serve, not designed at a distance.'],
-        ['shield', 'Accountable',     'Every initiative reports against outcomes, not activity counts.'],
-        ['growth', 'Built to last',   'We hand over capacity, so progress continues after we step back.'],
-      ] as $i => [$ic, $title, $body]): ?>
-        <div class="card-hover card-rule reveal" style="--reveal-delay:<?= $i * 90 ?>ms">
+    <div class="grid gap-6 md:grid-cols-3" <?= admc_list('panel_initiative_principles') ?>>
+      <?php foreach ($panels['panel_initiative_principles'] as $i => $principle): ?>
+        <div class="card-hover card-rule reveal" style="--reveal-delay:<?= $i * 90 ?>ms" <?= admc_edit('panel_initiative_principles', $principle['id']) ?>>
           <span class="icon-tile <?= $i === 1 ? 'bg-ember-50 text-ember-500' : 'bg-teal-50 text-teal-600' ?>">
-            <?= icon($ic, 'h-7 w-7') ?>
+            <?= icon($principle['input_icon'] ?: 'star', 'h-7 w-7') ?>
           </span>
-          <h3 class="mt-5 font-display text-lg font-semibold text-ink"><?= $title ?></h3>
-          <p class="mt-2.5 leading-relaxed text-ink-soft"><?= $body ?></p>
+          <h3 class="mt-5 font-display text-lg font-semibold text-ink"><?= htmlspecialchars($principle['input_title']) ?></h3>
+          <p class="mt-2.5 leading-relaxed text-ink-soft"><?= admc_plain($principle['text_body']) ?></p>
         </div>
       <?php endforeach; ?>
     </div>

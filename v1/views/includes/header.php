@@ -32,24 +32,28 @@ $path = rtrim($path, '/');
  * Grouping two pairs under dropdowns brings it to six, so the bar fits from
  * 1024px up. Add a 'children' key to any item to turn it into a dropdown.
  */
+$navLabels = admc_section('settings_navigation');
+$navEdit   = admc_edit('settings_navigation', $navLabels['id']);
+$headerBar = admc_section('settings_header');
+
 $nav = [
-    ['label' => 'Home', 'href' => '/home', 'match' => ['', '/home']],
+    ['label' => $navLabels['input_home'], 'href' => '/home', 'match' => ['', '/home']],
 
-    ['label' => 'About', 'href' => '/about-us', 'match' => ['/about-us', '/team'], 'children' => [
-        ['label' => 'About Us', 'href' => '/about-us', 'icon' => 'quote', 'desc' => 'Who we are and what drives us'],
-        ['label' => 'Our Team', 'href' => '/team',     'icon' => 'users', 'desc' => 'The people behind the work'],
+    ['label' => $navLabels['input_about'], 'href' => '/about-us', 'match' => ['/about-us', '/team'], 'children' => [
+        ['label' => $navLabels['input_about_us'], 'href' => '/about-us', 'icon' => 'quote', 'desc' => $navLabels['input_about_us_desc']],
+        ['label' => $navLabels['input_team'],     'href' => '/team',     'icon' => 'users', 'desc' => $navLabels['input_team_desc']],
     ]],
 
-    ['label' => 'Initiatives', 'href' => '/initiatives', 'match' => ['/initiatives', '/view-initiative']],
+    ['label' => $navLabels['input_initiatives'], 'href' => '/initiatives', 'match' => ['/initiatives', '/view-initiative']],
 
-    ['label' => 'Volunteer', 'href' => '/volunteer', 'match' => ['/volunteer']],
+    ['label' => $navLabels['input_volunteer'], 'href' => '/volunteer', 'match' => ['/volunteer']],
 
-    ['label' => 'Media', 'href' => '/gallery', 'match' => ['/gallery', '/blog', '/read-blog'], 'children' => [
-        ['label' => 'Gallery', 'href' => '/gallery', 'icon' => 'camera', 'desc' => 'Moments from the field'],
-        ['label' => 'Blog',    'href' => '/blog',    'icon' => 'book',   'desc' => 'Stories and updates'],
+    ['label' => $navLabels['input_media'], 'href' => '/gallery', 'match' => ['/gallery', '/blog', '/read-blog'], 'children' => [
+        ['label' => $navLabels['input_gallery'], 'href' => '/gallery', 'icon' => 'camera', 'desc' => $navLabels['input_gallery_desc']],
+        ['label' => $navLabels['input_blog'],    'href' => '/blog',    'icon' => 'book',   'desc' => $navLabels['input_blog_desc']],
     ]],
 
-    ['label' => 'Contact', 'href' => '/contact-us', 'match' => ['/contact-us']],
+    ['label' => $navLabels['input_contact'], 'href' => '/contact-us', 'match' => ['/contact-us']],
 ];
 
 $is_active = function (array $item) use ($path): bool {
@@ -110,12 +114,12 @@ $child_active = function (array $child) use ($path): bool {
       <div class="flex h-[var(--header-h)] items-center justify-between gap-4 xl:gap-6">
 
         <a href="/home" class="shrink-0 transition-transform duration-500 ease-out-expo hover:scale-[1.02]"
-           aria-label="<?= htmlspecialchars($site_name) ?> — home">
-          <?= logo_lockup('dark') ?>
+           aria-label="<?= htmlspecialchars($site_name) ?> — home" <?= admc_image('settings_header', $headerBar['id']) ?>>
+          <?= logo_lockup('dark', 'h-[52px] w-auto md:h-[76px]', admc_src($headerBar)) ?>
         </a>
 
         <!-- Desktop nav: 1024px and up -->
-        <nav class="hidden items-center gap-5 lg:flex xl:gap-8" aria-label="Primary">
+        <nav class="hidden items-center gap-5 lg:flex xl:gap-8" aria-label="Primary" <?= $navEdit ?>>
           <?php foreach ($nav as $item):
             $active   = $is_active($item);
             $children = $item['children'] ?? null;
@@ -124,14 +128,14 @@ $child_active = function (array $child) use ($path): bool {
             <?php if (!$children): ?>
               <a href="<?= $item['href'] ?>"
                  class="nav-link<?= $active ? ' is-active' : '' ?>"
-                 <?= $active ? 'aria-current="page"' : '' ?>><?= $item['label'] ?></a>
+                 <?= $active ? 'aria-current="page"' : '' ?>><?= htmlspecialchars($item['label']) ?></a>
 
             <?php else: ?>
               <div class="group relative" data-dropdown>
                 <button type="button"
                         class="nav-link flex items-center gap-1.5<?= $active ? ' is-active' : '' ?>"
                         aria-expanded="false" aria-haspopup="true" data-dropdown-trigger>
-                  <?= $item['label'] ?>
+                  <?= htmlspecialchars($item['label']) ?>
                   <?= icon('chevron', 'h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-180 group-focus-within:rotate-180') ?>
                 </button>
 
@@ -146,9 +150,9 @@ $child_active = function (array $child) use ($path): bool {
                         </span>
                         <span class="min-w-0">
                           <span class="block text-[0.9375rem] font-semibold <?= $ca ? 'text-teal-700' : 'text-ink' ?>">
-                            <?= $child['label'] ?>
+                            <?= htmlspecialchars($child['label']) ?>
                           </span>
-                          <span class="mt-0.5 block text-xs leading-snug text-ink-muted"><?= $child['desc'] ?></span>
+                          <span class="mt-0.5 block text-xs leading-snug text-ink-muted"><?= htmlspecialchars($child['desc']) ?></span>
                         </span>
                       </a>
                     <?php endforeach; ?>
@@ -162,8 +166,8 @@ $child_active = function (array $child) use ($path): bool {
 
         <div class="flex items-center gap-3">
           <!-- Reserved slot: a Donate button drops in here without touching layout. -->
-          <a href="/volunteer" class="btn-primary hidden px-5 sm:inline-flex xl:px-7">
-            Get Involved <?= icon('arrow', 'h-4 w-4') ?>
+          <a href="/volunteer" class="btn-primary hidden px-5 sm:inline-flex xl:px-7" <?= admc_edit('settings_header', $headerBar['id']) ?>>
+            <?= htmlspecialchars($headerBar['input_button']) ?> <?= icon('arrow', 'h-4 w-4') ?>
           </a>
 
           <!-- Drawer trigger: below 1024px only -->
@@ -188,7 +192,7 @@ $child_active = function (array $child) use ($path): bool {
        data-menu-sheet role="dialog" aria-modal="true" aria-label="Menu">
 
     <div class="flex h-[var(--header-h)] shrink-0 items-center justify-between border-b border-ink-line px-6">
-      <?= logo_lockup('dark', 'h-11 w-auto') ?>
+      <span <?= admc_image('settings_header', $headerBar['id']) ?>><?= logo_lockup('dark', 'h-11 w-auto', admc_src($headerBar)) ?></span>
       <button type="button"
               class="grid h-10 w-10 place-items-center rounded-full border border-ink-line text-ink transition-colors hover:border-teal-600 hover:text-teal-700"
               data-menu-close aria-label="Close menu">
@@ -197,7 +201,7 @@ $child_active = function (array $child) use ($path): bool {
     </div>
 
     <nav class="flex-1 overflow-y-auto px-6 py-8" aria-label="Mobile">
-      <ul class="space-y-1">
+      <ul class="space-y-1" <?= $navEdit ?>>
         <?php foreach ($nav as $item):
           $active   = $is_active($item);
           $children = $item['children'] ?? null;
@@ -206,7 +210,7 @@ $child_active = function (array $child) use ($path): bool {
             <?php if (!$children): ?>
               <a href="<?= $item['href'] ?>"
                  class="group flex items-center justify-between rounded-2xl px-4 py-3.5 font-display text-lg font-semibold transition-colors duration-300 <?= $active ? 'bg-teal-50 text-teal-700' : 'text-ink hover:bg-ink-wash' ?>">
-                <?= $item['label'] ?>
+                <?= htmlspecialchars($item['label']) ?>
                 <span class="text-ink-muted transition-transform duration-300 group-hover:translate-x-1">
                   <?= icon('arrow', 'h-4 w-4') ?>
                 </span>
@@ -216,7 +220,7 @@ $child_active = function (array $child) use ($path): bool {
               <div data-sub<?= $active ? ' class="is-open"' : '' ?>>
                 <button type="button" data-sub-trigger aria-expanded="<?= $active ? 'true' : 'false' ?>"
                         class="group flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-left font-display text-lg font-semibold transition-colors duration-300 <?= $active ? 'bg-teal-50 text-teal-700' : 'text-ink hover:bg-ink-wash' ?>">
-                  <?= $item['label'] ?>
+                  <?= htmlspecialchars($item['label']) ?>
                   <span class="text-ink-muted transition-transform duration-400 group-aria-expanded:rotate-180">
                     <?= icon('chevron', 'h-4 w-4') ?>
                   </span>
@@ -233,7 +237,7 @@ $child_active = function (array $child) use ($path): bool {
                           <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg <?= $ca ? 'bg-teal-600 text-white' : 'bg-ink-wash text-teal-600' ?>">
                             <?= icon($child['icon'], 'h-4 w-4') ?>
                           </span>
-                          <?= $child['label'] ?>
+                          <?= htmlspecialchars($child['label']) ?>
                         </a>
                       </li>
                     <?php endforeach; ?>
@@ -245,11 +249,11 @@ $child_active = function (array $child) use ($path): bool {
         <?php endforeach; ?>
       </ul>
 
-      <a href="/volunteer" class="btn-primary mt-8 w-full">
-        Get Involved <?= icon('arrow', 'h-4 w-4') ?>
+      <a href="/volunteer" class="btn-primary mt-8 w-full" <?= admc_edit('settings_header', $headerBar['id']) ?>>
+        <?= htmlspecialchars($headerBar['input_button']) ?> <?= icon('arrow', 'h-4 w-4') ?>
       </a>
 
-      <div class="mt-10 space-y-4 border-t border-ink-line pt-8 text-sm text-ink-soft">
+      <div class="mt-10 space-y-4 border-t border-ink-line pt-8 text-sm text-ink-soft" <?= admc_edit('settings_website_info', $site_id ?? null) ?>>
         <a href="mailto:<?= htmlspecialchars($site_email) ?>" class="flex items-center gap-3 hover:text-teal-700">
           <?= icon('mail', 'h-4 w-4 text-teal-600') ?><?= htmlspecialchars($site_email) ?>
         </a>
@@ -258,9 +262,9 @@ $child_active = function (array $child) use ($path): bool {
         </a>
       </div>
 
-      <div class="mt-8 flex gap-2.5">
+      <div class="mt-8 flex gap-2.5" <?= admc_list('panel_social_media_platform') ?>>
         <?php foreach ($socialLinks as $s): ?>
-          <a href="<?= $s['url'] ?>" aria-label="<?= $s['name'] ?>"
+          <a href="<?= $s['url'] ?>" aria-label="<?= $s['name'] ?>" <?= admc_edit('panel_social_media_platform', $s['id'] ?? null) ?>
              class="grid h-10 w-10 place-items-center rounded-full border border-ink-line text-ink-soft transition-all duration-300 hover:border-teal-600 hover:bg-teal-600 hover:text-white">
             <?= social_icon($s['icon']) ?>
           </a>

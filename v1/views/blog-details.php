@@ -16,32 +16,36 @@ if (!$post) {
 $related = array_slice(array_values(array_filter($blog_posts, function ($p) use ($post) { return $p['slug'] !== $post['slug']; })), 0, 3);
 
 $page_title = $post['title'];
-$page_meta  = $post['excerpt'];
+$page_meta  = strip_tags($post['excerpt']);
 include APP_PATH . "/views/includes/header.php";
+
+$postEdit   = admc_edit('panel_blog', $post['id'] ?? null);
+$labels     = admc_section('settings_blog_post');
+$labelsEdit = admc_edit('settings_blog_post', $labels['id']);
 ?>
 
 <!-- ===== Post header ================================================== -->
 <section class="relative overflow-hidden bg-ink-wash pt-[var(--header-h)]">
   <div class="absolute inset-0 fan-glow"></div>
   <div class="container relative py-10 md:py-12">
-    <nav class="flex items-center gap-2 text-sm text-ink-muted reveal" aria-label="Breadcrumb">
-      <a href="/home" class="transition-colors hover:text-teal-700">Home</a>
+    <nav class="flex items-center gap-2 text-sm text-ink-muted reveal" aria-label="Breadcrumb" <?= $navEdit ?>>
+      <a href="/home" class="transition-colors hover:text-teal-700"><?= htmlspecialchars($navLabels['input_home']) ?></a>
       <span class="text-ink-line">/</span>
-      <a href="/blog" class="transition-colors hover:text-teal-700">Blog</a>
+      <a href="/blog" class="transition-colors hover:text-teal-700"><?= htmlspecialchars($navLabels['input_blog']) ?></a>
       <span class="text-ink-line">/</span>
-      <span class="font-medium text-ink"><?= htmlspecialchars($post['category']) ?></span>
+      <span class="font-medium text-ink" <?= $postEdit ?>><?= htmlspecialchars($post['category']) ?></span>
     </nav>
 
     <div class="mt-8 max-w-3xl">
-      <span class="inline-flex rounded-full bg-teal-600 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white reveal">
+      <span class="inline-flex rounded-full bg-teal-600 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white reveal" <?= $postEdit ?>>
         <?= htmlspecialchars($post['category']) ?>
       </span>
 
-      <h1 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>>
+      <h1 class="mt-6 text-display-lg reveal" style="--reveal-delay:80ms" <?= $postEdit ?>>
         <?= htmlspecialchars($post['title']) ?>
       </h1>
 
-      <div class="mt-8 flex flex-wrap items-center gap-5 text-sm text-ink-soft reveal" style="--reveal-delay:160ms">
+      <div class="mt-8 flex flex-wrap items-center gap-5 text-sm text-ink-soft reveal" style="--reveal-delay:160ms" <?= $postEdit ?>>
         <span class="flex items-center gap-3">
           <span class="grid h-10 w-10 place-items-center rounded-full bg-teal-grad text-white">
             <?= icon('users', 'h-4 w-4') ?>
@@ -67,43 +71,14 @@ include APP_PATH . "/views/includes/header.php";
           <img src="<?= $post['image'] ?>" alt="<?= htmlspecialchars($post['title']) ?>">
         </div>
 
-        <div class="prose-brand mt-10 reveal" style="--reveal-delay:100ms">
-          <p class="text-xl leading-relaxed text-ink" <?= admc_edit('panel_blog', $post['id'] ?? null) ?>><?= htmlspecialchars($post['excerpt']) ?></p>
-
-          <p>
-            This is placeholder body copy. Once the CMS is connected, the full article
-            will render here exactly as written in the admin panel, with headings,
-            lists, quotes and images all styled to match.
-          </p>
-
-          <h2>Why this matters</h2>
-          <p>
-            Consistency is the part of this work that rarely gets photographed. It is
-            also the part that changes outcomes. Showing up once is a gesture; showing
-            up repeatedly is a relationship, and relationships are what carry a
-            community through the months when nobody is watching.
-          </p>
-
-          <blockquote>
-            We believe impact is measured by lives touched and stories changed.
-          </blockquote>
-
-          <h2>What we learned</h2>
-          <ul>
-            <li>Needs identified by the community are more accurate than needs assumed</li>
-            <li>Smaller programmes sustained over time outperform larger one-off pushes</li>
-            <li>Reporting honestly on what failed builds more trust than reporting only wins</li>
-          </ul>
-
-          <p>
-            If this is work you would like to be part of, the volunteer page lists where
-            we currently need help.
-          </p>
+        <div class="prose-brand mt-10 reveal" style="--reveal-delay:100ms" <?= $postEdit ?>>
+          <p class="text-xl leading-relaxed text-ink"><?= admc_plain($post['excerpt']) ?></p>
+          <?= admc_rich($post['content']) ?>
         </div>
 
         <!-- Share -->
         <div class="mt-10 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-ink-line bg-ink-wash p-7 reveal">
-          <p class="font-display text-lg font-semibold text-ink">Share this story</p>
+          <p class="font-display text-lg font-semibold text-ink" <?= $labelsEdit ?>><?= htmlspecialchars($labels['input_share_title']) ?></p>
           <div class="flex gap-2.5">
             <?php foreach ($socialLinks as $s): ?>
               <a href="#" aria-label="Share on <?= $s['name'] ?>"
@@ -120,7 +95,7 @@ include APP_PATH . "/views/includes/header.php";
         <div class="lg:sticky lg:top-32 space-y-6">
 
           <div class="reveal reveal-right card">
-            <h2 class="font-display text-lg font-semibold text-ink">Categories</h2>
+            <h2 class="font-display text-lg font-semibold text-ink" <?= $labelsEdit ?>><?= htmlspecialchars($labels['input_categories_title']) ?></h2>
             <ul class="mt-5 space-y-1">
               <?php foreach ($blog_categories as $cat): ?>
                 <li>
@@ -135,13 +110,13 @@ include APP_PATH . "/views/includes/header.php";
             </ul>
           </div>
 
-          <div class="reveal reveal-right rounded-3xl bg-ember-grad p-8 text-white shadow-ember" style="--reveal-delay:120ms">
-            <h2 class="font-display text-xl font-bold">Be part of the next story</h2>
+          <div class="reveal reveal-right rounded-3xl bg-ember-grad p-8 text-white shadow-ember" style="--reveal-delay:120ms" <?= $labelsEdit ?>>
+            <h2 class="font-display text-xl font-bold"><?= admc_lines($labels['input_cta_heading']) ?></h2>
             <p class="mt-3 leading-relaxed text-white/85">
-              Volunteers extend how far this work reaches.
+              <?= admc_plain($labels['text_cta_intro']) ?>
             </p>
             <a href="/volunteer" class="btn mt-6 w-full bg-white text-ember-600 hover:bg-white/90">
-              Volunteer with us <?= icon('arrow', 'h-4 w-4') ?>
+              <?= htmlspecialchars($labels['input_cta_button']) ?> <?= icon('arrow', 'h-4 w-4') ?>
             </a>
           </div>
 
@@ -155,17 +130,17 @@ include APP_PATH . "/views/includes/header.php";
 <!-- ===== Related ====================================================== -->
 <section class="section-tight bg-ink-wash">
   <div class="container">
-    <h2 class="text-display-sm reveal">Continue reading</h2>
+    <h2 class="text-display-sm reveal" <?= $labelsEdit ?>><?= htmlspecialchars($labels['input_related_title']) ?></h2>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-3">
+    <div class="mt-10 grid gap-6 md:grid-cols-3" <?= admc_list('panel_blog') ?>>
       <?php foreach ($related as $i => $r): ?>
         <article class="reveal group overflow-hidden rounded-[1.75rem] border border-ink-line bg-white shadow-card transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:shadow-lift"
                  style="--reveal-delay:<?= $i * 90 ?>ms">
           <a href="/read-blog/<?= $r['slug'] ?>" class="block">
-            <span class="media media-zoom block aspect-[16/10]">
+            <span class="media media-zoom block aspect-[16/10]" <?= admc_image('panel_blog', $r['id'] ?? null) ?>>
               <img src="<?= $r['image'] ?>" alt="<?= htmlspecialchars($r['title']) ?>" loading="lazy">
             </span>
-            <span class="block p-6">
+            <span class="block p-6" <?= admc_edit('panel_blog', $r['id'] ?? null) ?>>
               <span class="text-xs font-semibold uppercase tracking-wider text-teal-700"><?= htmlspecialchars($r['category']) ?></span>
               <h3 class="mt-3 font-display text-base font-semibold leading-snug text-ink transition-colors duration-300 group-hover:text-teal-700">
                 <?= htmlspecialchars($r['title']) ?>

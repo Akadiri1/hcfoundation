@@ -121,6 +121,33 @@ in the admin nav with Add and Manage screens at `/add/<name>` and `/manage/<name
 Admin sessions are opened by the ADMC service via `/mck_ext`, which sets
 `$_SESSION['admin_id']`.
 
+### Live edit
+
+For a signed-in admin, `footer.php` loads `admc.min.js`, and every heading,
+paragraph, button label, number and image on the public pages carries
+`data-admc-*` attributes (helpers in `v1/views/includes/partials/admc.php`).
+
+- Page copy lives in one `settings_*` table per section (`settings_home_hero`,
+  `settings_about_story`, …) plus `panel_home_hero_images`,
+  `panel_about_steps`, `panel_initiative_principles` and `panel_team_groups`.
+- `v1/views/includes/page_content.php` lists every field with its default.
+  The migration builds the tables from it, the seeder fills them, and
+  `DESIGN_MODE` renders from it directly.
+- In headings, `|` marks a line break. `text_content` columns (initiative and
+  blog bodies, legal pages) render as rich HTML; other `text_*` columns render
+  as plain text.
+
+After pulling, on any existing install:
+
+```
+php mck migrate
+php mck seed HCFoundationPageContentSeeder
+```
+
+Run that seeder by name. It only fills what is missing, so re-running it never
+overwrites edits. Plain `php mck seed` also re-runs `HCFoundationSeeder`, which
+inserts duplicate rows on a database that is already seeded.
+
 ## Front end
 
 Custom Tailwind. The palette is sampled from the Foundation's logo — `teal`
