@@ -17,8 +17,36 @@ class HCFoundationSeeder extends Seeder {
             $exists = (int) $stmt->fetchColumn() > 0;
         }
         if (!$exists) {
-            $this->insert($table, $row);
+            $this->insert($table, $this->withRequiredColumns($table, $row));
         }
+    }
+
+    /**
+     * Tables created outside these migrations (for example by ADMC) can have
+     * date_created / time_created / created_by as NOT NULL with no default,
+     * which makes a plain insert fail. Fill those from the column type.
+     */
+    private function withRequiredColumns(string $table, array $row): array {
+        foreach ($this->pdo->query("SHOW COLUMNS FROM `$table`")->fetchAll(PDO::FETCH_ASSOC) as $col) {
+            $name = $col['Field'];
+            if (array_key_exists($name, $row) || $col['Null'] !== 'NO' || $col['Default'] !== null
+                || stripos($col['Extra'], 'auto_increment') !== false) {
+                continue;
+            }
+            $type = strtolower($col['Type']);
+            if ($name === 'created_by') {
+                $row[$name] = 'seeder';
+            } elseif (strpos($type, 'datetime') === 0 || strpos($type, 'timestamp') === 0) {
+                $row[$name] = date('Y-m-d H:i:s');
+            } elseif ($type === 'date') {
+                $row[$name] = date('Y-m-d');
+            } elseif ($type === 'time') {
+                $row[$name] = date('H:i:s');
+            } elseif (in_array($name, ['date_created', 'time_created'], true)) {
+                $row[$name] = $name === 'date_created' ? date('Y-m-d') : date('H:i:s');
+            }
+        }
+        return $row;
     }
 
     /**
@@ -70,6 +98,9 @@ class HCFoundationSeeder extends Seeder {
         $this->seedOnce('read_mail_config', $mailConfig, 'id');
 
         // 3. Admin Account
+        // Only for a brand-new install with no admins at all. On a live site
+        // the admins are managed through ADMC, and adding this account (with a
+        // password published in the repo) would be a back door.
         $adminPassword = password_hash('Admin@HCFoundation2026', PASSWORD_BCRYPT);
         $admin = [
             'hash_id'        => 'admin_hcfoundation_root',
@@ -84,7 +115,7 @@ class HCFoundationSeeder extends Seeder {
             'user_status'    => 1,
             'level'          => 'MASTER',
         ];
-        $this->seedOnce('admin', $admin, 'hash_id');
+        $this->seedOnce('admin', $admin, 'id');
 
         // 4. Social Media
         $socials = [
