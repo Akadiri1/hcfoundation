@@ -3,6 +3,25 @@ use App\Migrator\Seeder;
 
 class HCFoundationSeeder extends Seeder {
     /**
+     * Insert a seed row only if it is not there yet, so this seeder can run
+     * any number of times without duplicating rows or overwriting edits made
+     * in ADMC. Rows are matched on $key (hash_id); for single-row tables seeded
+     * with $key = 'id', the row is inserted only when the table is empty.
+     */
+    private function seedOnce(string $table, array $row, string $key = 'hash_id'): void {
+        if ($key === 'id' || !isset($row[$key])) {
+            $exists = (int) $this->pdo->query("SELECT COUNT(*) FROM `$table`")->fetchColumn() > 0;
+        } else {
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM `$table` WHERE `$key` = ?");
+            $stmt->execute([$row[$key]]);
+            $exists = (int) $stmt->fetchColumn() > 0;
+        }
+        if (!$exists) {
+            $this->insert($table, $row);
+        }
+    }
+
+    /**
      * Run all seeds for Hathany Cosmos Foundation.
      */
     public function run() {
@@ -37,7 +56,7 @@ class HCFoundationSeeder extends Seeder {
             'input_donate_flutterwave' => '',
             'maintenance_status'       => 0,
         ];
-        $this->upsert('settings_website_info', $settings, 'id');
+        $this->seedOnce('settings_website_info', $settings, 'id');
 
         // 2. Mail Configuration
         $mailConfig = [
@@ -48,7 +67,7 @@ class HCFoundationSeeder extends Seeder {
             'input_smtp_port'        => '587',
             'input_smtp_secure_type' => 'tls',
         ];
-        $this->upsert('read_mail_config', $mailConfig, 'id');
+        $this->seedOnce('read_mail_config', $mailConfig, 'id');
 
         // 3. Admin Account
         $adminPassword = password_hash('Admin@HCFoundation2026', PASSWORD_BCRYPT);
@@ -65,7 +84,7 @@ class HCFoundationSeeder extends Seeder {
             'user_status'    => 1,
             'level'          => 'MASTER',
         ];
-        $this->upsert('admin', $admin, 'hash_id');
+        $this->seedOnce('admin', $admin, 'hash_id');
 
         // 4. Social Media
         $socials = [
@@ -78,7 +97,7 @@ class HCFoundationSeeder extends Seeder {
             ],
         ];
         foreach ($socials as $row) {
-            $this->upsert('panel_social_media_platform', $row, 'hash_id');
+            $this->seedOnce('panel_social_media_platform', $row, 'hash_id');
         }
 
         // 5. Initiatives
@@ -137,7 +156,7 @@ class HCFoundationSeeder extends Seeder {
             ],
         ];
         foreach ($initiatives as $row) {
-            $this->upsert('panel_initiatives', $row, 'hash_id');
+            $this->seedOnce('panel_initiatives', $row, 'hash_id');
         }
 
         // 6. Impact Stats
@@ -148,7 +167,7 @@ class HCFoundationSeeder extends Seeder {
             ['hash_id' => 'stat_4', 'visibility' => 'show', 'input_value' => 8,     'input_suffix' => '',  'input_label' => 'Years of service',   'input_note' => 'consistent, accountable delivery'],
         ];
         foreach ($impactStats as $row) {
-            $this->upsert('panel_impact_stats', $row, 'hash_id');
+            $this->seedOnce('panel_impact_stats', $row, 'hash_id');
         }
 
         // 7. Core Values
@@ -160,7 +179,7 @@ class HCFoundationSeeder extends Seeder {
             ['hash_id' => 'val_5', 'visibility' => 'show', 'input_title' => 'Community Impact', 'text_body' => 'We measure success in lives changed, not activity.',      'input_icon' => 'growth'],
         ];
         foreach ($coreValues as $row) {
-            $this->upsert('panel_core_values', $row, 'hash_id');
+            $this->seedOnce('panel_core_values', $row, 'hash_id');
         }
 
         // 8. Volunteer Benefits
@@ -171,7 +190,7 @@ class HCFoundationSeeder extends Seeder {
             ['hash_id' => 'vben_4', 'visibility' => 'show', 'input_title' => 'Be part of meaningful community change', 'text_body' => 'Contribute to outcomes that outlast the day.'],
         ];
         foreach ($volunteerBenefits as $row) {
-            $this->upsert('panel_volunteer_benefits', $row, 'hash_id');
+            $this->seedOnce('panel_volunteer_benefits', $row, 'hash_id');
         }
 
         // 9. Volunteer Roles
@@ -182,7 +201,7 @@ class HCFoundationSeeder extends Seeder {
             ['hash_id' => 'vrole_4', 'visibility' => 'show', 'input_title' => 'Administrative Assistance', 'text_body' => 'Keep the engine running through coordination, records and logistics.',   'input_icon' => 'clipboard'],
         ];
         foreach ($volunteerRoles as $row) {
-            $this->upsert('panel_volunteer_roles', $row, 'hash_id');
+            $this->seedOnce('panel_volunteer_roles', $row, 'hash_id');
         }
 
         // 10. Team Members
@@ -195,7 +214,7 @@ class HCFoundationSeeder extends Seeder {
             ['hash_id' => 'team_6', 'visibility' => 'show', 'input_name' => 'Name Pending', 'input_role' => 'Communications',          'input_group' => 'Operations Team',    'input_image' => $img('photo-1552664730-d307ca884978', 600, 700)],
         ];
         foreach ($team as $row) {
-            $this->upsert('panel_team', $row, 'hash_id');
+            $this->seedOnce('panel_team', $row, 'hash_id');
         }
 
         // 11. Gallery Items
@@ -220,7 +239,7 @@ class HCFoundationSeeder extends Seeder {
             ['hash_id' => 'gal_18', 'visibility' => 'show', 'input_category' => 'Volunteers in Action', 'input_caption' => 'Team debrief',               'input_image' => $img('photo-1573497019940-1c28c88b4f3e', 900, 1100)],
         ];
         foreach ($gallery as $row) {
-            $this->upsert('panel_gallery', $row, 'hash_id');
+            $this->seedOnce('panel_gallery', $row, 'hash_id');
         }
 
         // 12. Blog Articles
@@ -383,7 +402,7 @@ class HCFoundationSeeder extends Seeder {
             ],
         ];
         foreach ($blogPosts as $row) {
-            $this->upsert('panel_blog', $row, 'hash_id');
+            $this->seedOnce('panel_blog', $row, 'hash_id');
         }
 
         // 13. FAQs
@@ -414,7 +433,7 @@ class HCFoundationSeeder extends Seeder {
             ],
         ];
         foreach ($faqs as $row) {
-            $this->upsert('panel_faqs', $row, 'hash_id');
+            $this->seedOnce('panel_faqs', $row, 'hash_id');
         }
 
         // 14. Partners
@@ -427,7 +446,7 @@ class HCFoundationSeeder extends Seeder {
             ['hash_id' => 'part_6', 'visibility' => 'show', 'input_name' => 'Youth Coalition'],
         ];
         foreach ($partners as $row) {
-            $this->upsert('panel_partners', $row, 'hash_id');
+            $this->seedOnce('panel_partners', $row, 'hash_id');
         }
 
         echo "All Hathany Cosmos Foundation data seeded successfully!\n";
